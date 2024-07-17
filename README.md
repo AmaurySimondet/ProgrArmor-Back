@@ -1,6 +1,6 @@
 # Amaury Simondet - ProgrArmor 💪
 
-![Design preview for ProgrArmor](.images/designs/inscription.webp)
+![Design preview for ProgrArmor](./images/designs/inscription.webp)
 
 ## Salut ! 👋
 
@@ -9,15 +9,15 @@ J'ai réalisé ce site d'outils d'aide à la musculation en projet personnel !
 De par ce projet, j'ai pu approfondir mes connaissances en React, CSS et surtout Node Javascript.
 Le front-end React communique avec l'API back-end Node pour gérer la base de donnée MongoDB.
 
-![Security preview for ProgrArmor](.images/designs/security.webp)
+![Security preview for ProgrArmor](./images/designs/security.webp)
 
 ## Designs 📸
 
-![Design preview for ProgrArmor](.images/designs/welcome.webp)
-![Design preview for ProgrArmor](.images/designs/session.webp)
-![Design preview for ProgrArmor](.images/designs/historique.webp)
-![Design preview for ProgrArmor](.images/designs/stats.webp)
-![Design preview for ProgrArmor](.images/designs/compte.webp)
+![Design preview for ProgrArmor](./images/designs/welcome.webp)
+![Design preview for ProgrArmor](./images/designs/session.webp)
+![Design preview for ProgrArmor](./images/designs/historique.webp)
+![Design preview for ProgrArmor](./images/designs/stats.webp)
+![Design preview for ProgrArmor](./images/designs/compte.webp)
 
 ## Un commentaire ? / Got feedback for me?
 
