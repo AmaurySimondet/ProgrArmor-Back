@@ -7,12 +7,7 @@
     "npm": "8.15.0"
   },
   "scripts": {
-    "start": "node server.js",
-    "config": "set scripts-prepend-node-path true set legacy-peer-deps true",
-    "build-prev": "npm config set legacy-peer-deps true && cd client && npm run build",
-    "build": "npm config set legacy-peer-deps true && npm run install-client && npm run build-prev",
-    "install-client": "cd client && npm install --legacy-peer-deps",
-    "heroku-postbuild": "npm config set legacy-peer-deps true && npm run install-client && npm run build"
+    "start": "node server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

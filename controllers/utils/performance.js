@@ -118,4 +118,57 @@ function _equivalentPercent(repsTimeInput, repsTimeSerie, percentInput, percentS
 
 }
 
-module.exports = { checkPerformance }
+function seancesToPerformances(seances, multiple) {
+    seances.map((seance, indexSeance) => {
+        return (seance.exercices.map((exercice, indexExercice) => {
+            return (Object.keys(exercice.Series).map(index => {
+                //                        console.log(seance)
+                //                        console.log(exercice.Series)
+                //                        console.log(Object.keys(exercice.Series))
+                if (multiple) {
+                    seances[indexSeance].exercices[indexExercice].Series[index].repsTime = seances[indexSeance].exercices[indexExercice].Series[index].repsTime * multiple
+                }
+                let obj = {}
+                if (seances[indexSeance].exercices[indexExercice].Categories) {
+                    obj = {
+                        date: seance.date,
+                        poids: seance.poids,
+                        exercices: [{
+                            exercice: {
+                                name: exercice.exercice.name,
+                                ownExercice: exercice.exercice.ownExercice
+                            },
+                            Series: { 0: seances[indexSeance].exercices[indexExercice].Series[index] },
+                            Categories: seances[indexSeance].exercices[indexExercice].Categories
+                        }]
+                    }
+                }
+                else {
+                    obj = {
+                        date: seance.date,
+                        poids: seance.poids,
+                        exercices: [{
+                            exercice: {
+                                name: exercice.exercice.name,
+                                ownExercice: exercice.exercice.ownExercice
+                            },
+                            Series: { 0: seances[indexSeance].exercices[indexExercice].Series[index] }
+                        }]
+                    }
+                }
+                seances.push(obj);
+                delete seances[indexSeance].exercices[indexExercice].Series[index];
+            }))
+        }))
+    })
+    seances.map((seance, indexSeance) => {
+        return (seance.exercices.map((exercice, indexExercice) => {
+            if (indexExercice > 0) {
+                delete seances[indexSeance].exercices[indexExercice]
+            }
+        }))
+    })
+    return seances;
+}
+
+module.exports = { checkPerformance, seancesToPerformances }

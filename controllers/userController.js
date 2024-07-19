@@ -1,17 +1,22 @@
+const login = require('./account/login.js');
 const account = require('./account/lib.js');
 const programme = require('./account/libProgramme.js');
+const user = require('./utils/user.js');
 
 module.exports = function (app) {
     //LOGIN SIGNUP
-    app.post('/login', account.login);
-    app.post('/signup', account.signup);
-    app.get('/logout', account.logout);
+    app.post('/login', login.login);
+    app.post('/signup', login.signup);
+    app.get('/logout', login.logout);
 
-    app.get('/auth/facebook', account.facebook);
-    app.get('/auth/facebook/authenticate', account.facebookAuthenticate);
+    app.get('/auth/facebook', login.facebook);
+    app.get('/auth/facebook/authenticate', login.facebookAuthenticate);
 
-    app.get('/auth/google', account.google);
-    app.get('/auth/google/authenticate', account.googleAuthenticate);
+    app.get('/auth/google', login.google);
+    app.get('/auth/google/authenticate', login.googleAuthenticate);
+
+    //TOKEN
+    app.post('/verifyToken', login.verifyToken)
 
     //SESSION
     app.post('/debutantform', account.debutantform);
@@ -23,12 +28,9 @@ module.exports = function (app) {
     app.post('/reguScore', account.reguScore);
 
     //COMPTE
-    app.post('/getUser', account.getUser);
-    app.post('/modifyUser', account.modifyUser);
-    app.post('/resetPassword', account.resetPassword);
-
-    //TOKEN
-    app.post('/verifyToken', account.verifyToken)
+    app.post('/getUser', user.getUser);
+    app.post('/modifyUser', user.modifyUser);
+    app.post('/resetPassword', login.resetPassword);
 
     //SUPPR SEANCE
     app.post('/supprSeance', account.supprSeance)

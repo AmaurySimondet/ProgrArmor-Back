@@ -2,9 +2,6 @@ const Comment = require("../../schema/schemaComment.js");
 const Like = require("../../schema/schemaLike.js");
 
 function getConditions(req) {
-    console.log("body", req.body)
-    console.log("type", typeof req.body)
-    console.log("keys", Object.keys(req.body))
 
     let conditions = {};
     if (req.body.ownedByMe) {

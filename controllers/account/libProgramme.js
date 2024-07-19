@@ -13,7 +13,6 @@ const app = express();
 async function create(req, res) {
     // Validate request
     if (!req.body || !req.body.programme || !req.body.materiel) {
-        console.log(req.body)
         return res.json({ success: false, message: "Un ou plusieurs éléments non donnés" })
     }
     else {
@@ -59,8 +58,6 @@ exports.getProgrammes = (req, res) => {
     if (req.body) {
         conditions = getConditions(req)
     }
-
-    console.log("conditions", conditions)
 
     Programme.find(conditions).populate('likes').populate('comments').exec(function (err, data) {
         if (err) {
