@@ -8,10 +8,10 @@ const session = require('cookie-session');
 const passport = require("passport");
 const jwt = require('jsonwebtoken');
 
-const DEV = true;
+const DEV = false;
 
-const url = DEV ? "http://localhost:8800" : "https://www.prograrmor.com"
-const url_client = DEV ? "http://localhost:3000" : "https://www.prograrmor.com"
+const url = DEV ? "http://localhost:8800" : "https://progarmor.vercel.app"
+const url_client = DEV ? "http://localhost:3000" : "https://prograrmor-back.vercel.app"
 
 app.use(session({
     secret: process.env.secret,
