@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 
 const DEV = false;
 
-const url = DEV ? "http://localhost:8800" : "https://progarmor-back.vercel.app"
+const url = DEV ? "http://localhost:8800" : "https://prograrmor-back.vercel.app"
 const url_client = DEV ? "http://localhost:3000" : "https://prograrmor.vercel.app"
 
 app.use(session({
