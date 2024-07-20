@@ -14,9 +14,22 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-//Connexion à la base de donnée
+// Ensure environment variable is set
+const mongoURL = process.env.mongoURL;
+
+if (!mongoURL) {
+  console.error("Error: mongoURL environment variable is not set.");
+  process.exit(1);
+}
+
+// Connection to the database
 mongoose
-  .connect(process.env.mongoURL, { useNewUrlParser: true, useUnifiedTopology: true  })
+  .connect(mongoURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   .then(() => {
     console.log("Connected to mongoDB");
   })
@@ -29,9 +42,9 @@ mongoose
 const app = express();
 
 app.use(session({
-    secret: "Our little secret.",
-    resave: false,
-    saveUninitialized: false
+  secret: "Our little secret.",
+  resave: false,
+  saveUninitialized: false
 }));
 
 //Body Parser
@@ -59,7 +72,7 @@ const router = express.Router();
 app.use("/user", router);
 require(__dirname + "/controllers/userController")(router);
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client', 'build')));
 
   app.get('*', (req, res) => {
@@ -74,5 +87,5 @@ if(process.env.NODE_ENV === 'production') {
 //Définition et mise en place du port d'écoute
 const port = process.env.PORT || 8800
 app.listen(port, '0.0.0.0', () => {
-  console.log("Server is running on "+port);
+  console.log("Server is running on " + port);
 });
