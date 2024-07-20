@@ -24,7 +24,7 @@ if (!mongoURL) {
 
 // Connection to the database
 mongoose
-  .connect(mongoURL, {
+  .connect(mongoURL + "/prograrmortestDB", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
