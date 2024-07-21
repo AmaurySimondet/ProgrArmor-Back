@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Categorie = require('../../schema/categorie');
+const Categorie = require('../../schema/categorieOld');
 const NodeCache = require("node-cache");
 require('dotenv').config();
 

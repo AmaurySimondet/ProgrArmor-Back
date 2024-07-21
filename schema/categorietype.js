@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-// Define the Categorie schema
-const categorieSchema = new Schema(
+// Define the CategorieType schema
+const categorieTypeSchema = new Schema(
     {
-        type: { type: Schema.Types.ObjectId, ref: 'CategorieType', required: true },
         name: {
             fr: { type: String, required: true },
             en: { type: String, required: true }
+        },
+        examples: {
+            fr: [{ type: String }],
+            en: [{ type: String }]
         }
     },
     {
@@ -16,4 +19,4 @@ const categorieSchema = new Schema(
 );
 
 // Create and export the model
-module.exports = mongoose.model("Categorie", categorieSchema);
+module.exports = mongoose.model("CategorieType", categorieTypeSchema);

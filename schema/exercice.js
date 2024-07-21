@@ -2,9 +2,12 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 // Define the Categorie schema
-const categorieSchema = new Schema(
+const exerciceSchema = new Schema(
     {
-        type: { type: Schema.Types.ObjectId, ref: 'CategorieType', required: true },
+        type: {
+            fr: { type: String, required: true },
+            en: { type: String, required: true }
+        },
         name: {
             fr: { type: String, required: true },
             en: { type: String, required: true }
@@ -16,4 +19,4 @@ const categorieSchema = new Schema(
 );
 
 // Create and export the model
-module.exports = mongoose.model("Categorie", categorieSchema);
+module.exports = mongoose.model("Exercice", exerciceSchema);
