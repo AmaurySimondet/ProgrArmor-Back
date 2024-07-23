@@ -1,6 +1,6 @@
 // Import required modules
 const { MongoClient } = require('mongodb');
-const AllDetails = require('./Details/AllDetails');
+const AllDetails = require('./data/Details/AllDetails');
 const translate = require('@vitalets/google-translate-api').translate;
 require('dotenv').config();
 

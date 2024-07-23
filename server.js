@@ -1,4 +1,5 @@
 //Définition des modules
+const os = require('os');
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -84,8 +85,24 @@ if (process.env.NODE_ENV === 'production') {
 
 }
 
-//Définition et mise en place du port d'écoute
-const port = process.env.PORT || 8800
+// Define and set up the port
+const port = process.env.PORT || 8800;
+
+// Function to get the first non-internal IP address
+const getIPAddress = () => {
+  const networkInterfaces = os.networkInterfaces();
+  for (const iface in networkInterfaces) {
+    for (const alias of networkInterfaces[iface]) {
+      if (alias.family === 'IPv4' && !alias.internal) {
+        return alias.address;
+      }
+    }
+  }
+  return 'localhost'; // fallback if no external IP is found
+};
+
+const ipAddress = getIPAddress();
+
 app.listen(port, '0.0.0.0', () => {
-  console.log("Server is running on " + port);
+  console.log(`Server is running on http://${ipAddress}:${port}`);
 });
