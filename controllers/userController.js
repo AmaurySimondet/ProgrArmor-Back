@@ -21,27 +21,6 @@ module.exports = function (app) {
     app.get('/loadSeance', account.loadSeance);
     app.post('/priseDeNote', account.priseDeNote);
 
-    //SEANCE
-    app.get('/seance/last', async (req, res) => {
-        try {
-            const userId = req.query.userId;
-            const seanceName = req.query.seanceName; // Optional query parameter
-            const lastSeance = await seance.getLastSeance(userId, seanceName);
-            res.json({ success: true, lastSeance });
-        } catch (err) {
-            res.status(500).json({ success: false, message: err.message });
-        }
-    });
-    app.get('/seance/names', async (req, res) => {
-        try {
-            const userId = req.query.userId;
-            const seanceNames = await seance.getSeanceNames(userId);
-            res.json({ success: true, seanceNames });
-        } catch (err) {
-            res.status(500).json({ success: false, message: err.message });
-        }
-    });
-
     //DASHBOARD
     app.get('/workouts', account.workouts);
     app.post('/reguScore', account.reguScore);
