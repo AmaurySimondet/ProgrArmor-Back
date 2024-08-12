@@ -75,6 +75,7 @@ require(__dirname + "/controllers/userController")(router);
 require(__dirname + "/controllers/seanceController")(router);
 require(__dirname + "/controllers/exerciceTypeController")(router);
 require(__dirname + "/controllers/exerciceController")(router);
+require(__dirname + "/controllers/categorieTypeController")(router);
 
 // Define and set up the port
 const port = process.env.PORT || 8800;
