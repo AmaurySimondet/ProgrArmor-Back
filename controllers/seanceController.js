@@ -7,7 +7,8 @@ module.exports = function (app) {
             console.log("get last seance", req.query);
             const userId = req.query.userId;
             const seanceName = req.query.seanceName; // Optional query parameter
-            const lastSeance = await seance.getLastSeance(userId, seanceName);
+            const field = req.query.field; // Optional query parameter
+            const lastSeance = await seance.getLastSeance(userId, field, seanceName);
             res.json({ success: true, lastSeance });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });

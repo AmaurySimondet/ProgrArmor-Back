@@ -73,6 +73,8 @@ const router = express.Router();
 app.use("/user", router);
 require(__dirname + "/controllers/userController")(router);
 require(__dirname + "/controllers/seanceController")(router);
+require(__dirname + "/controllers/exerciceTypeController")(router);
+require(__dirname + "/controllers/exerciceController")(router);
 
 // Define and set up the port
 const port = process.env.PORT || 8800;
