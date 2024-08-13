@@ -4,7 +4,6 @@ module.exports = function (app) {
     //SEANCE
     app.get('/seance/last', async (req, res) => {
         try {
-            console.log("get last seance", req.query);
             const userId = req.query.userId;
             const seanceName = req.query.seanceName; // Optional query parameter
             const field = req.query.field; // Optional query parameter
@@ -16,7 +15,6 @@ module.exports = function (app) {
     });
     app.get('/seance/names', async (req, res) => {
         try {
-            console.log("get seance names", req.query);
             const userId = req.query.userId;
             const seanceNames = await seance.getSeanceNames(userId);
             res.json({ success: true, seanceNames });
