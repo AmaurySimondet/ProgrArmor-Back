@@ -14,12 +14,13 @@ module.exports = function (app) {
     });
 
     // Get an exercise by ID
-    app.get('/exercice/:id', async (req, res) => {
+    app.get('/exercice', async (req, res) => {
         try {
             console.log("Fetching exercise by ID:", req.params.id);
-            const exerciceId = req.params.id;
-            const exercice = await exercice.getExerciceById(exerciceId);
-            res.json({ success: true, exercice });
+            const exerciceId = req.query.id;
+            const exerciceName = req.query.name;
+            const exerciceReturned = await exercice.getExerciceById(exerciceId, exerciceName);
+            res.json({ success: true, exerciceReturned });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }

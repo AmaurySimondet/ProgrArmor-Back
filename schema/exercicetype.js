@@ -11,7 +11,8 @@ const exerciceTypeSchema = new Schema(
         examples: {
             fr: [{ type: String }],
             en: [{ type: String }]
-        }
+        },
+        popularityScore: { type: Number, required: true, default: 0 }
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" }

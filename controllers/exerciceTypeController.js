@@ -14,10 +14,10 @@ module.exports = function (app) {
     });
 
     // Get an exercise type by ID
-    app.get('/exerciceType/:id', async (req, res) => {
+    app.get('/exerciceType', async (req, res) => {
         try {
             console.log("Fetching exercise type by ID:", req.params.id);
-            const exerciceTypeId = req.params.id;
+            const exerciceTypeId = req.query.id;
             const exerciceTypeReturned = await exerciceType.getExerciceTypeById(exerciceTypeId);
             res.json({ success: true, exerciceTypeReturned });
         } catch (err) {
