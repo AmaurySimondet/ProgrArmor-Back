@@ -22,4 +22,13 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+    app.get("/seance", async (req, res) => {
+        try {
+            const id = req.query.id;
+            const seanceData = await seance.getSeance(id);
+            res.json({ success: true, seanceData });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

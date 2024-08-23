@@ -13,12 +13,13 @@ module.exports = function (app) {
     });
 
     // Get a category type by ID
-    app.get('/categorietype/:id', async (req, res) => {
+    app.get('/categorietype', async (req, res) => {
         try {
-            console.log("Fetching category type by ID:", req.params.id);
-            const categorieTypeId = req.params.id;
-            const categorieType = await categorieType.getCategorieTypeById(categorieTypeId);
-            res.json({ success: true, categorieType });
+            console.log("Fetching category type by ID:", req.query.id);
+            const categorieTypeId = req.query.id;
+            const categorieTypeReturned = await categorieType.getCategorieTypeById(categorieTypeId);
+            console.log("Fetched category type:", categorieTypeReturned);
+            res.json({ success: true, categorieTypeReturned });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }
