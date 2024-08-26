@@ -17,7 +17,8 @@ module.exports = function (app) {
         try {
             console.log("Fetching category type by ID:", req.query.id);
             const categorieTypeId = req.query.id;
-            const categorieTypeReturned = await categorieType.getCategorieTypeById(categorieTypeId);
+            const categorieTypeName = req.query.name;
+            const categorieTypeReturned = await categorieType.getCategorieTypeById(categorieTypeId, categorieTypeName);
             console.log("Fetched category type:", categorieTypeReturned);
             res.json({ success: true, categorieTypeReturned });
         } catch (err) {
