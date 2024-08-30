@@ -19,7 +19,8 @@ module.exports = function (app) {
             console.log("Fetching exercise by ID:", req.params.id);
             const exerciceId = req.query.id;
             const exerciceName = req.query.name;
-            const exerciceReturned = await exercice.getExerciceById(exerciceId, exerciceName);
+            const fields = req.query.fields; // Optional query parameter
+            const exerciceReturned = await exercice.getExerciceById(exerciceId, exerciceName, fields);
             res.json({ success: true, exerciceReturned });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });

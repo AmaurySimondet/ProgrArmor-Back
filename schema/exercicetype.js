@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 // Define the ExerciceType schema
 const exerciceTypeSchema = new Schema(
     {
+        _id: Schema.Types.ObjectId,
         name: {
             fr: { type: String, required: true },
             en: { type: String, required: true }

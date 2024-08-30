@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 // Define the Categorie schema
 const exerciceSchema = new Schema(
     {
+        _id: Schema.Types.ObjectId,
         type: {
             fr: { type: String, required: true },
             en: { type: String, required: true }

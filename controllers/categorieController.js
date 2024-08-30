@@ -19,7 +19,8 @@ module.exports = function (app) {
             console.log("Fetching categorie by ID:", req.params.id);
             const categorieId = req.query.id;
             const categorieName = req.query.name;
-            const categoryReturned = await categorie.getCategoryById(categorieId, categorieName);
+            const fields = req.query.fields; // Optional query parameter
+            const categoryReturned = await categorie.getCategoryById(categorieId, categorieName, fields);
             res.json({ success: true, categoryReturned });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });

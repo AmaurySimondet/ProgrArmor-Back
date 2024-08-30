@@ -6,7 +6,6 @@ module.exports = function (app) {
         try {
             console.log("Fetching all exercise types");
             const exerciceTypes = await exerciceType.getAllExerciceTypes();
-            console.log("Fetched exercise types:", exerciceTypes);
             res.json({ success: true, exerciceTypes });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
@@ -19,7 +18,8 @@ module.exports = function (app) {
             console.log("Fetching exercise type by ID:", req.params.id);
             const exerciceTypeId = req.query.id;
             const exerciceTypeName = req.query.name;
-            const exerciceTypeReturned = await exerciceType.getExerciceType(exerciceTypeId, exerciceTypeName);
+            const fields = req.query.fields; // Optional query parameter
+            const exerciceTypeReturned = await exerciceType.getExerciceType(exerciceTypeId, exerciceTypeName, fields);
             res.json({ success: true, exerciceTypeReturned });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
