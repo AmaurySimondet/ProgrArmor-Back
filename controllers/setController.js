@@ -1,10 +1,8 @@
 const set = require('../lib/set.js');
 
 module.exports = function (app) {
-    //SEANCE
     app.get('/sets', async (req, res) => {
         try {
-            console.log("Fetching all sets");
             const seanceId = req.query.seanceId;
             const userId = req.query.userId;
             const exercice = req.query.exercice;
@@ -15,6 +13,17 @@ module.exports = function (app) {
             const elastic = req.query.elastic;
             const sets = await set.getSets(userId, seanceId, exercice, categories, unit, value, weightLoad, elastic);
             res.json({ success: true, sets });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    app.get('/topExercices', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const topExercices = await set.getTopExercices(userId);
+            console.log("Top exercices:", topExercices);
+            res.json({ success: true, topExercices });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }
