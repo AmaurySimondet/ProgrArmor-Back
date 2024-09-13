@@ -104,6 +104,12 @@ async function modifyUser(req, res) {
 }
 
 //GET USER INFO
+/**
+ * Fetches the user's information.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves to void.
+ */
 async function getUser(req, res) {
     let id = req.body.id
     let conditions = { "_id": id }
@@ -116,36 +122,34 @@ async function getUser(req, res) {
         User.find(
             conditions, function (err, data) {
                 if (err) {
-                    res.json({ success: false, message: err })
+                    return res.json({ success: false, message: err })
                 }
                 else {
                     if (data.length === 0) {
-                        res.json({ success: false, message: "Utilisateur introuvable !" })
+                        return res.json({ success: false, message: "Utilisateur introuvable !" })
                     }
-                    else {
-                        const obj = {
-                            id: data[0]._id,
-                            email: data[0].email,
-                            fName: data[0].fName,
-                            lName: data[0].lName,
-                            profilePic: data[0].profilePic,
-                            seances: data[0].seances,
-                        }
 
-                        if (data[0].googleId) {
-                            obj.googleId = data[0].googleId
-                        }
-                        if (data[0].facebookId) {
-                            obj.facebookId = data[0].facebookId
-                        }
-                        if (data[0].modeSombre) {
-                            obj.modeSombre = data[0].modeSombre
-                        }
-
-                        // console.log(obj)
-
-                        res.json({ success: true, message: "Utilisateur trouvé !", profile: obj, seances: data[0].seances })
+                    const obj = {
+                        id: data[0]._id,
+                        email: data[0].email,
+                        fName: data[0].fName,
+                        lName: data[0].lName,
+                        profilePic: data[0].profilePic,
                     }
+
+                    if (data[0].googleId) {
+                        obj.googleId = data[0].googleId
+                    }
+                    if (data[0].facebookId) {
+                        obj.facebookId = data[0].facebookId
+                    }
+                    if (data[0].modeSombre) {
+                        obj.modeSombre = data[0].modeSombre
+                    }
+
+                    // console.log(obj)
+
+                    return res.json({ success: true, message: "Utilisateur trouvé !", profile: obj })
                 }
             });
 
