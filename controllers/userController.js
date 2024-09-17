@@ -1,6 +1,5 @@
 const login = require('./account/login.js');
 const account = require('./account/lib.js');
-const programme = require('./account/libProgramme.js');
 const user = require('./utils/user.js');
 
 module.exports = function (app) {
@@ -30,28 +29,12 @@ module.exports = function (app) {
     app.post('/modifyUser', user.modifyUser);
     app.post('/resetPassword', login.resetPassword);
 
+    //USERS
+    app.get('/getUsers', user.getUsers);
+
     //SUPPR SEANCE
     app.post('/supprSeance', account.supprSeance)
 
-    // //EDIT DB
-    // app.get('/editDB', account.editDB)
-    // app.get('/editDB2', account.editDB2)
-
     //NIVEAU
     app.post('/getNiveau', account.getNiveau)
-
-    //PROGRAMME
-    app.post('/createProgramme', programme.create);
-    app.post('/getProgrammes', programme.getProgrammes);
-    app.post('/getProgramme', programme.getProgramme);
-    app.post('/deleteProgramme', programme.deleteProgramme);
-    app.post('/getProgrammesByUser', programme.getProgrammesByUser);
-    app.post('/likeProgramme', programme.likeProgramme);
-    app.post('/isProgrammeLiked', programme.isProgrammeLiked);
-    app.post('/isProgrammeCommented', programme.isProgrammeCommented);
-    app.post('/getProgrammeLikes', programme.getProgrammeLikes);
-    app.post('/whoLiked', programme.whoLiked);
-    app.post('/getProgrammeCreator', programme.getProgrammeCreator);
-    app.post('/sendComment', programme.sendComment);
-    app.post('/getComments', programme.getComments);
 }

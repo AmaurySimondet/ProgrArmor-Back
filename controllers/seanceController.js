@@ -31,4 +31,12 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+    app.get("/seances", async (req, res) => {
+        try {
+            const seances = await seance.getSeances();
+            res.json({ success: true, seances });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

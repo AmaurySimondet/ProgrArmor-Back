@@ -159,4 +159,55 @@ async function getUser(req, res) {
     }
 }
 
-module.exports = { getUserSeancesItems, isAdmin, modifyUser, getUser }
+//GET USERS 
+/**
+ * Fetches all users.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves to void.
+ */
+async function getUsers(req, res) {
+    try {
+        User.find({}, function (err, data) {
+            if (err) {
+                return res.json({ success: false, message: err })
+            }
+            else {
+                if (data.length === 0) {
+                    return res.json({ success: false, message: "Aucun utilisateur trouvé !" })
+                }
+
+                const users = []
+                data.forEach(user => {
+                    const obj = {
+                        id: user._id,
+                        email: user.email,
+                        fName: user.fName,
+                        lName: user.lName,
+                        profilePic: user.profilePic,
+                    }
+
+                    if (user.googleId) {
+                        obj.googleId = user.googleId
+                    }
+                    if (user.facebookId) {
+                        obj.facebookId = user.facebookId
+                    }
+                    if (user.modeSombre) {
+                        obj.modeSombre = user.modeSombre
+                    }
+
+                    users.push(obj)
+                })
+
+                return res.json({ success: true, message: "Utilisateurs trouvés !", users })
+            }
+        });
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+module.exports = { getUserSeancesItems, isAdmin, modifyUser, getUser, getUsers };
