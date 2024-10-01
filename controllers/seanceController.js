@@ -33,7 +33,8 @@ module.exports = function (app) {
     });
     app.get("/seances", async (req, res) => {
         try {
-            const seances = await seance.getSeances();
+            const user = req.query.user;
+            const seances = await seance.getSeances(user);
             res.json({ success: true, seances });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
