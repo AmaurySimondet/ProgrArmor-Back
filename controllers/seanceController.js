@@ -39,4 +39,14 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+    app.post("/createSeance", async (req, res) => {
+        try {
+            const seanceData = req.body.seance;
+            console.log(seanceData);
+            const newSeance = await seance.createSeance(seanceData);
+            res.json({ success: true, newSeance });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

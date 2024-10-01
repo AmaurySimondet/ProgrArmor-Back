@@ -28,4 +28,14 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+    app.post('/createSet', async (req, res) => {
+        try {
+            const setData = req.body.set;
+            console.log(setData);
+            const newSet = await set.createSet(setData);
+            res.json({ success: true, newSet });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

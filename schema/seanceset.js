@@ -4,23 +4,29 @@ const { Schema } = mongoose;
 // Define the Seance schema
 const seancesetSchema = new Schema(
     {
-        _id: Schema.Types.ObjectId,
+        _id: { type: Schema.Types.ObjectId, required: true, auto: true },
         user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
         exercice: { type: Schema.Types.ObjectId, ref: 'Exercise', required: true },
         exerciceType: { type: Schema.Types.ObjectId, ref: 'ExerciseType', required: true },
-        categories: Array,
+        categories: [
+            {
+                category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
+                categoryType: { type: Schema.Types.ObjectId, ref: 'CategoryType', required: true },
+            }
+        ],
         seance: { type: Schema.Types.ObjectId, ref: 'Seance', required: true },
-        exerciceOrder: Number,
-        exerciceTotal: Number,
-        setOrder: Number,
-        setTotal: Number,
-        unit: String,
-        weightLoad: Number,
-        value: Number,
+        exerciceOrder: { type: Number, required: true },
+        exerciceTotal: { type: Number, required: true },
+        setOrder: { type: Number, required: true },
+        setTotal: { type: Number, required: true },
+        unit: { type: String, required: true },
+        weightLoad: { type: Number, required: true },
+        value: { type: Number, required: true },
         elastic: {
             use: String,
             tension: Number
         },
+        PR: { type: String, required: false },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }
