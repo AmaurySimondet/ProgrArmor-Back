@@ -18,6 +18,18 @@ module.exports = function (app) {
         }
     });
 
+    app.get('/pr', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const exercice = req.query.exercice;
+            const categories = req.query.categories;
+            const prs = await set.getPRs(userId, exercice, categories);
+            res.json({ success: true, prs });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
     app.get('/topExercices', async (req, res) => {
         try {
             const userId = req.query.userId;
