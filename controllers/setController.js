@@ -40,6 +40,17 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+    app.get('/topFormat', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const topFormat = await set.getTopFormat(userId);
+            res.json({ success: true, topFormat });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    // POST
     app.post('/createSet', async (req, res) => {
         try {
             const setData = req.body.set;
