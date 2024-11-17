@@ -19,6 +19,7 @@
     "eruda": "^2.6.2",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.5.1",
+    "liquidjs": "^10.16.2",
     "mongodb": "^6.8.0",
     "mongoose": "^5.0.7",
     "mongoose-findorcreate": "^3.0.0",

@@ -11,7 +11,8 @@ const categorieTypeSchema = new Schema(
         examples: {
             fr: [{ type: String }],
             en: [{ type: String }]
-        }
+        },
+        popularityScore: { type: Number, default: 0 }
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" }

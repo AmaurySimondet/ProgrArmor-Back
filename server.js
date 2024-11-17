@@ -25,7 +25,7 @@ if (!mongoURL) {
 
 // Connection to the database
 mongoose
-  .connect(mongoURL + "/prograrmortestDB", {
+  .connect(mongoURL + "/prograrmor", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -72,18 +72,12 @@ app.use(cors());
 const router = express.Router();
 app.use("/user", router);
 require(__dirname + "/controllers/userController")(router);
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client', 'build')));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-  });
-
-  app.use("/user", router);
-  require(__dirname + "/controllers/userController")(router);
-
-}
+require(__dirname + "/controllers/seanceController")(router);
+require(__dirname + "/controllers/exerciceTypeController")(router);
+require(__dirname + "/controllers/exerciceController")(router);
+require(__dirname + "/controllers/categorieTypeController")(router);
+require(__dirname + "/controllers/setController")(router);
+require(__dirname + "/controllers/categorieController")(router);
 
 // Define and set up the port
 const port = process.env.PORT || 8800;

@@ -1,0 +1,14 @@
+schema-version: v1
+rulesets:
+  - javascript-best-practices
+  - javascript-browser-security
+  - javascript-code-style:
+    rules:
+      func-names:
+        ignore:
+          - "**"
+  - javascript-common-security
+  - javascript-express
+  - javascript-inclusive
+  - javascript-node-security
+  - jsx-react
