@@ -8,10 +8,8 @@ const session = require('cookie-session');
 const passport = require("passport");
 const jwt = require('jsonwebtoken');
 
-const DEV = true;
-
-const url = DEV ? "http:/localhost:8800" : "https://prograrmor-back.vercel.app"
-const url_client = DEV ? "http:/localhost:3000" : "https://prograrmor.vercel.app"
+const url = process.env.URL_BACKEND
+const urlClient = process.env.URL_CLIENT
 
 //hello guyz
 
@@ -73,7 +71,7 @@ async function facebookAuthenticate(req, res) {
         passport.authenticate("facebook")(req, res, function (err) {
             if (req.user) {
                 const token = jwt.sign({ id: req.user._id }, process.env.secret, { expiresIn: "24h" });
-                res.redirect(url_client + '/token?token=' + token);
+                res.redirect(urlClient + '/token?token=' + token);
             }
             else {
                 console.log(err)
@@ -143,7 +141,7 @@ async function googleAuthenticate(req, res) {
         passport.authenticate("google")(req, res, function (err) {
             if (req.user) {
                 const token = jwt.sign({ id: req.user._id }, process.env.secret, { expiresIn: "24h" });
-                res.redirect(url_client + '/token?token=' + token);
+                res.redirect(urlClient + '/token?token=' + token);
             }
             else {
                 console.log(err)
