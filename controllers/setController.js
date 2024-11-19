@@ -34,7 +34,6 @@ module.exports = function (app) {
         try {
             const userId = req.query.userId;
             const topExercices = await set.getTopExercices(userId);
-            console.log("Top exercices:", topExercices);
             res.json({ success: true, topExercices });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
@@ -54,7 +53,6 @@ module.exports = function (app) {
     app.post('/createSet', async (req, res) => {
         try {
             const setData = req.body.set;
-            console.log(setData);
             const newSet = await set.createSet(setData);
             res.json({ success: true, newSet });
         } catch (err) {

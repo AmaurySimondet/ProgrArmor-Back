@@ -4,7 +4,6 @@ module.exports = function (app) {
     // Get all exercise types
     app.get('/exerciceTypes', async (req, res) => {
         try {
-            console.log("Fetching all exercise types");
             const exerciceTypes = await exerciceType.getAllExerciceTypes();
             res.json({ success: true, exerciceTypes });
         } catch (err) {
@@ -15,7 +14,6 @@ module.exports = function (app) {
     // Get an exercise type by ID
     app.get('/exerciceType', async (req, res) => {
         try {
-            console.log("Fetching exercise type by ID:", req.params.id);
             const exerciceTypeId = req.query.id;
             const exerciceTypeName = req.query.name;
             const fields = req.query.fields; // Optional query parameter

@@ -43,7 +43,6 @@ module.exports = function (app) {
     app.post("/createSeance", async (req, res) => {
         try {
             const seanceData = req.body.seance;
-            console.log(seanceData);
             const newSeance = await seance.createSeance(seanceData);
             res.json({ success: true, newSeance });
         } catch (err) {

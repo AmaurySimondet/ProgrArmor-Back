@@ -4,7 +4,6 @@ module.exports = function (app) {
     // Get all categories
     app.get('/categories', async (req, res) => {
         try {
-            console.log("Fetching all categories");
             const categorieType = req.query.categorieType; // Optional query parameter
             const categories = await categorie.getAllCategories(categorieType);
             res.json({ success: true, categories });
@@ -16,7 +15,6 @@ module.exports = function (app) {
     // Get an categorie by ID
     app.get('/category', async (req, res) => {
         try {
-            console.log("Fetching categorie by ID:", req.params.id);
             const categorieId = req.query.id;
             const categorieName = req.query.name;
             const fields = req.query.fields; // Optional query parameter

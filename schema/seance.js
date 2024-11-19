@@ -8,6 +8,7 @@ const seanceSchema = new Schema(
         name: { type: String, required: true },
         user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
         title: { type: String, required: true },
+        description: { type: String, required: false },
         date: { type: Date, required: true },
         stats: {
             nSets: { type: Number, required: true },
