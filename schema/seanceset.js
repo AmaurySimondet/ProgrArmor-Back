@@ -26,7 +26,8 @@ const seancesetSchema = new Schema(
             use: String,
             tension: Number
         },
-        PR: { type: String, required: false },
+        PR: { type: String, required: true },
+        date: { type: Date, required: true },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }

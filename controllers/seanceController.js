@@ -49,4 +49,14 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+    app.delete("/deleteSeance", async (req, res) => {
+        try {
+            const id = req.query.id;
+            const user = req.query.user;
+            await seance.deleteSeance(id, user);
+            res.json({ success: true });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

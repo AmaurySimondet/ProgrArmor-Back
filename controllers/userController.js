@@ -1,5 +1,5 @@
 const login = require('../lib/login.js');
-const user = require('./utils/user.js');
+const User = require('../lib/user.js');
 
 module.exports = function (app) {
     //LOGIN SIGNUP
@@ -13,10 +13,11 @@ module.exports = function (app) {
     app.post('/verifyToken', login.verifyToken)
 
     //COMPTE
-    app.post('/getUser', user.getUser);
-    app.post('/modifyUser', user.modifyUser);
+    app.post('/getUser', User.getUser);
+    app.post('/modifyUser', User.modifyUser);
     app.post('/resetPassword', login.resetPassword);
 
     //USERS
-    app.get('/getUsers', user.getUsers);
+    app.get('/getUsers', User.getUsers);
+    app.get('/userStats', User.userStats);
 }
