@@ -24,4 +24,14 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    app.get('/combinations', async (req, res) => {
+        try {
+            const combinations = await exercice.getCombinations();
+            res.json({ success: true, combinations });
+        }
+        catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }
