@@ -33,6 +33,36 @@ const invalidateCacheStartingWith = (keyStart) => {
     });
 };
 
+/**
+ * Invalidate seance caches
+ * @param {string} userId - The ID of the user.
+ * @param {string} seanceId - The ID of the seance.
+ */
+const invalidateSeanceCaches = async (userId, seanceId) => {
+    await invalidateCacheStartingWith(`seances_all`);
+    await invalidateCacheStartingWith(`seances_${userId}`);
+    await invalidateCacheStartingWith(`seance_${seanceId}`);
+    await invalidateCacheStartingWith(`lastSeance_${userId}`);
+    await invalidateCacheStartingWith(`user_stats_${userId}`);
+    await invalidateCacheStartingWith(`seanceNames_${userId}`);
+    console.log(`Invalidated seance caches for user: ${userId} and seance: ${seanceId}`);
+};
+
+
+/**
+ * Invalidate set caches
+ * @param {string} userId - The ID of the user.
+ */
+const invalidateSetCaches = async (userId) => {
+    await invalidateCacheStartingWith(`sets_${userId || ''}`);
+    await invalidateCacheStartingWith(`topExercices:${userId || ''}`);
+    await invalidateCacheStartingWith(`topFormat_${userId || ''}`);
+    await invalidateCacheStartingWith(`prs_${userId || ''}`);
+    console.log(`Invalidated set caches for user: ${userId}`);
+};
+
+
+
 
 const clearCache = () => {
     cache.flushAll();
@@ -43,5 +73,7 @@ module.exports = {
     getOrSetCache,
     invalidateCache,
     clearCache,
-    invalidateCacheStartingWith
+    invalidateCacheStartingWith,
+    invalidateSeanceCaches,
+    invalidateSetCaches
 }; 

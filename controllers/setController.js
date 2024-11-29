@@ -59,4 +59,15 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    // DELETE
+    app.delete('/deleteSets', async (req, res) => {
+        try {
+            const seanceId = req.query.seanceId;
+            await set.deleteSets(seanceId);
+            res.json({ success: true });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

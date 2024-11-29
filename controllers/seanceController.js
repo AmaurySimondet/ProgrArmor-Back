@@ -59,4 +59,14 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+    app.put("/updateSeance", async (req, res) => {
+        try {
+            const id = req.query.id;
+            const seanceData = req.body.seance;
+            const updatedSeance = await seance.updateSeance(id, seanceData);
+            res.json({ success: true, updatedSeance });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }
