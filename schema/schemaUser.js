@@ -35,6 +35,8 @@ const userSchema = mongoose.Schema(
     seances: Array,
     checkItems: Object,
     programmes: [{ type: Schema.Types.ObjectId, ref: 'Programme' }],
+    followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    following: [{ type: Schema.Types.ObjectId, ref: 'User' }]
   },
   { timestamps: { createdAt: "created_at" } }
 );

@@ -20,4 +20,8 @@ module.exports = function (app) {
     //USERS
     app.get('/getUsers', User.getUsers);
     app.get('/userStats', User.userStats);
+
+    //FOLLOWERS
+    app.post('/followUser', User.followUser);
+    app.post('/unfollowUser', User.unfollowUser);
 }

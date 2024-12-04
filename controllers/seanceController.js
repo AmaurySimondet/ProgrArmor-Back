@@ -33,10 +33,14 @@ module.exports = function (app) {
     });
     app.get("/seances", async (req, res) => {
         try {
-            const user = req.query.user;
+            let users = req.query.users;
+            if (users && typeof users === 'string') {
+                users = users.split(',').map(id => id.trim());
+            }
+            console.log(users)
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 3;
-            const seances = await seance.getSeances(user, page, limit);
+            const seances = await seance.getSeances(users, page, limit);
             res.json({ success: true, seances });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
