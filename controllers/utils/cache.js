@@ -39,7 +39,7 @@ const invalidateCacheStartingWith = (keyStart) => {
  * @param {string} seanceId - The ID of the seance.
  */
 const invalidateSeanceCaches = async (userId, seanceId) => {
-    await invalidateCacheStartingWith(`seances_${userId}`);
+    await invalidateCacheStartingWith(`seances`);
     await invalidateCacheStartingWith(`seance_${seanceId}`);
     await invalidateCacheStartingWith(`lastSeance_${userId}`);
     await invalidateCacheStartingWith(`user_stats_${userId}`);

@@ -26,7 +26,7 @@ const seancesetSchema = new Schema(
             use: String,
             tension: Number
         },
-        PR: { type: String, required: true },
+        PR: { type: String, default: null },
         date: { type: Date, required: true },
     },
     {
