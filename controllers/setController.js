@@ -10,11 +10,11 @@ module.exports = function (app) {
             const unit = req.query.unit;
             const value = req.query.value;
             const weightLoad = req.query.weightLoad;
-            const elastic = req.query.elastic;
+            const elasticTension = req.query['elastic.tension'];
             const dateMin = req.query.dateMin;
             const dateMax = req.query.dateMax;
             const fields = req.query.fields;
-            const sets = await set.getSets(userId, seanceId, exercice, categories, unit, value, weightLoad, elastic, dateMin, dateMax, fields);
+            const sets = await set.getSets(userId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields);
             res.json({ success: true, sets });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
