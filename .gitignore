@@ -7,3 +7,4 @@ client/.env
 client/node_modules
 client/src/images/old
 .vercel
+*.png
