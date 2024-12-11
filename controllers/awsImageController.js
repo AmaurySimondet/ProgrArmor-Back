@@ -1,6 +1,14 @@
 const awsImage = require('../lib/awsImage');
 const multer = require('multer');
-const upload = multer();
+
+// Configure multer storage
+const storage = multer.memoryStorage();
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024 // 5MB limit
+    }
+});
 
 module.exports = function (app) {
     // Upload image
@@ -10,10 +18,19 @@ module.exports = function (app) {
                 return res.status(400).json({ success: false, message: 'No file uploaded' });
             }
 
+            // Add debug logging
+            console.log('File received:', {
+                originalname: req.file.originalname,
+                mimetype: req.file.mimetype,
+                size: req.file.size,
+                buffer: req.file.buffer ? 'Buffer exists' : 'No buffer'
+            });
+
             const userId = req.body.userId;
             const result = await awsImage.uploadProfilePic(userId, req.file);
             res.json({ success: true, image: result });
         } catch (err) {
+            console.error('Upload error:', err);
             res.status(500).json({ success: false, message: err.message });
         }
     });
