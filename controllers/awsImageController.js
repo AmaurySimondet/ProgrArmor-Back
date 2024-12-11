@@ -4,14 +4,14 @@ const upload = multer();
 
 module.exports = function (app) {
     // Upload image
-    app.post('/aws/upload', upload.single('image'), async (req, res) => {
+    app.post('/aws/upload-pp', upload.single('image'), async (req, res) => {
         try {
             if (!req.file) {
                 return res.status(400).json({ success: false, message: 'No file uploaded' });
             }
 
             const userId = req.body.userId;
-            const result = await awsImage.uploadImage(userId, req.file);
+            const result = await awsImage.uploadProfilePic(userId, req.file);
             res.json({ success: true, image: result });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });

@@ -37,7 +37,6 @@ module.exports = function (app) {
             if (users && typeof users === 'string') {
                 users = users.split(',').map(id => id.trim());
             }
-            console.log(users)
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 3;
             const seances = await seance.getSeances(users, page, limit);
