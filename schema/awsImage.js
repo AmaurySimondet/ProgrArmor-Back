@@ -36,6 +36,19 @@ const awsImageSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
+    },
+    seanceDate: {
+        type: Date,
+        required: false
+    },
+    seanceName: {
+        type: String,
+        required: false
+    },
+    seanceId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Seance',
+        required: false
     }
 }, {
     timestamps: true // Automatically adds createdAt and updatedAt fields

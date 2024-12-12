@@ -48,7 +48,8 @@ module.exports = function (app) {
     app.post("/createSeance", async (req, res) => {
         try {
             const seanceData = req.body.seance;
-            const newSeance = await seance.createSeance(seanceData);
+            const photoIds = req.body.photoIds;
+            const newSeance = await seance.createSeance(seanceData, photoIds);
             res.json({ success: true, newSeance });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
@@ -68,7 +69,8 @@ module.exports = function (app) {
         try {
             const id = req.query.id;
             const seanceData = req.body.seance;
-            const updatedSeance = await seance.updateSeance(id, seanceData);
+            const photoIds = req.body.photoIds;
+            const updatedSeance = await seance.updateSeance(id, seanceData, photoIds);
             res.json({ success: true, updatedSeance });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });

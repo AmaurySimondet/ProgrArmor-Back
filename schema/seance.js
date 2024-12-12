@@ -19,7 +19,8 @@ const seanceSchema = new Schema(
         },
         recordSummary: [
             { PR: { type: String, required: true }, number: { type: Number, required: true } }
-        ]
+        ],
+        seancePhotos: [{ type: String, required: false }]
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }
