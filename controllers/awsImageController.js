@@ -159,7 +159,7 @@ module.exports = function (app) {
     app.get('/aws/images/:userId', async (req, res) => {
         try {
             const userId = req.params.userId;
-            const images = await AwsImage.find({ user: userId }).sort({ createdAt: -1 });
+            const images = await awsImage.getUserImages(userId);
             res.json({ success: true, images });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
