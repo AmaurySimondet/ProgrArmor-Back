@@ -26,7 +26,8 @@ module.exports = function (app) {
             const userId = req.query.userId;
             const exercice = req.query.exercice;
             const categories = req.query.categories;
-            const prs = await set.getPRs(userId, exercice, categories);
+            const dateMin = req.query.dateMin;
+            const prs = await set.getPRs(userId, exercice, categories, dateMin);
             res.json({ success: true, prs });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });

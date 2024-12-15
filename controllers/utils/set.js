@@ -15,7 +15,8 @@ function compareAndAssignPR(currentPR, newSet) {
     // Replace the PR only if the weightLoad or elastic is higher or if the value itself is higher
     if (
         newSet.weightLoad > currentPR.weightLoad ||
-        (newSet.elastic && newSet.elastic.tension > currentPR.elastic?.tension)
+        (newSet.elastic && newSet.elastic.use === "resistance" && newSet.elastic.tension > currentPR.elastic?.tension) ||
+        (newSet.elastic && newSet.elastic.use === "assistance" && newSet.elastic.tension < currentPR.elastic?.tension)
     ) {
         return {
             value: newSet.value,
