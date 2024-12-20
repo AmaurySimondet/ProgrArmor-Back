@@ -1,5 +1,6 @@
 const awsImage = require('../lib/awsImage');
 const multer = require('multer');
+const sharp = require('sharp');
 
 // Configure multer storage
 const storage = multer.memoryStorage();
@@ -10,6 +11,25 @@ const upload = multer({
     }
 });
 
+// Add this helper function at the top of the file
+async function compressImage(buffer, mimetype) {
+    // Only compress if it's an image
+    if (!mimetype.startsWith('image/')) {
+        return buffer;
+    }
+
+    const compressedImage = await sharp(buffer)
+        .rotate()
+        .resize(1920, 1080, { // Max dimensions while maintaining aspect ratio
+            fit: 'inside',
+            withoutEnlargement: true
+        })
+        .jpeg({ quality: 80 }) // Compress to JPEG with 80% quality
+        .toBuffer();
+
+    return compressedImage;
+}
+
 module.exports = function (app) {
     // Upload image
     app.post('/aws/upload-pp', upload.single('image'), async (req, res) => {
@@ -17,6 +37,10 @@ module.exports = function (app) {
             if (!req.file) {
                 return res.status(400).json({ success: false, message: 'No file uploaded' });
             }
+
+            // Compress the image before uploading
+            const compressedBuffer = await compressImage(req.file.buffer, req.file.mimetype);
+            req.file.buffer = compressedBuffer;
 
             // Add debug logging
             console.log('File received:', {
@@ -41,6 +65,10 @@ module.exports = function (app) {
             if (!req.file) {
                 return res.status(400).json({ success: false, message: 'No file uploaded' });
             }
+
+            // Compress the image before uploading
+            const compressedBuffer = await compressImage(req.file.buffer, req.file.mimetype);
+            req.file.buffer = compressedBuffer;
 
             // Add debug logging
             console.log('Seance photo received:', {
