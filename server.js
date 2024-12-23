@@ -66,7 +66,23 @@ const LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(User.authenticate()));
 
 //CORS
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://prograrmor.vercel.app',     // Production frontend
+    'http://localhost:3000',             // Local development frontend
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin'
+  ],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  credentials: true,
+  maxAge: 86400 // 24 hours
+}));
 
 //Définition du routeur
 const router = express.Router();
