@@ -1,4 +1,4 @@
-const { clearCache } = require("../controllers/utils/cache");
+const { clearCache } = require("../utils/cache");
 
 (() => {
     clearCache();

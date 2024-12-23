@@ -1,34 +1,14 @@
 const awsImage = require('../lib/awsImage');
 const multer = require('multer');
-const sharp = require('sharp');
 
 // Configure multer storage
 const storage = multer.memoryStorage();
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 15 * 1024 * 1024 // 5MB limit
+        fileSize: 200 * 1024 * 1024 // 200MB limit
     }
 });
-
-// Add this helper function at the top of the file
-async function compressImage(buffer, mimetype) {
-    // Only compress if it's an image
-    if (!mimetype.startsWith('image/')) {
-        return buffer;
-    }
-
-    const compressedImage = await sharp(buffer)
-        .rotate()
-        .resize(1920, 1080, { // Max dimensions while maintaining aspect ratio
-            fit: 'inside',
-            withoutEnlargement: true
-        })
-        .jpeg({ quality: 80 }) // Compress to JPEG with 80% quality
-        .toBuffer();
-
-    return compressedImage;
-}
 
 module.exports = function (app) {
     // Upload image
@@ -37,18 +17,6 @@ module.exports = function (app) {
             if (!req.file) {
                 return res.status(400).json({ success: false, message: 'No file uploaded' });
             }
-
-            // Compress the image before uploading
-            const compressedBuffer = await compressImage(req.file.buffer, req.file.mimetype);
-            req.file.buffer = compressedBuffer;
-
-            // Add debug logging
-            console.log('File received:', {
-                originalname: req.file.originalname,
-                mimetype: req.file.mimetype,
-                size: req.file.size,
-                buffer: req.file.buffer ? 'Buffer exists' : 'No buffer'
-            });
 
             const userId = req.body.userId;
             const result = await awsImage.uploadProfilePic(userId, req.file);
@@ -65,18 +33,6 @@ module.exports = function (app) {
             if (!req.file) {
                 return res.status(400).json({ success: false, message: 'No file uploaded' });
             }
-
-            // Compress the image before uploading
-            const compressedBuffer = await compressImage(req.file.buffer, req.file.mimetype);
-            req.file.buffer = compressedBuffer;
-
-            // Add debug logging
-            console.log('Seance photo received:', {
-                originalname: req.file.originalname,
-                mimetype: req.file.mimetype,
-                size: req.file.size,
-                buffer: req.file.buffer ? 'Buffer exists' : 'No buffer'
-            });
 
             const { userId, seanceDate, seanceName } = req.body;
 
