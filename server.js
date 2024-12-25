@@ -52,7 +52,7 @@ app.use(session({
 const urlencodedParser = bodyParser.urlencoded({
   extended: true,
   limit: "100mb",
-  parameterLimit: 50000
+  parameterLimit: 100000
 });
 app.use(urlencodedParser);
 
