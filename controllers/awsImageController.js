@@ -30,11 +30,23 @@ module.exports = function (app) {
     // Upload seance photo
     app.post('/aws/upload-seance-photo', upload.single('image'), async (req, res) => {
         try {
+            console.log('Request received');
+            console.log('Content-Type:', req.headers['content-type']);
+            console.log('File size:', req.headers['content-length']);
+
             if (!req.file) {
+                console.log('No file in request');
                 return res.status(400).json({ success: false, message: 'No file uploaded' });
             }
 
+            console.log('File details:', {
+                mimetype: req.file.mimetype,
+                size: req.file.size,
+                originalname: req.file.originalname
+            });
+
             const { userId, seanceDate, seanceName } = req.body;
+            console.log('Request body:', { userId, seanceDate, seanceName });
 
             if (!userId || !seanceDate || !seanceName) {
                 return res.status(400).json({
@@ -47,7 +59,12 @@ module.exports = function (app) {
             res.json({ success: true, image: result });
         } catch (err) {
             console.error('Seance photo upload error:', err);
-            res.status(500).json({ success: false, message: err.message });
+            // Send more detailed error information
+            res.status(500).json({
+                success: false,
+                message: err.message,
+                stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+            });
         }
     });
 
