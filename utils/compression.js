@@ -21,40 +21,59 @@ async function compressImage(buffer, mimetype) {
 }
 
 async function compressVideo(buffer) {
+    console.log('Starting video compression');
+    console.log('Original video size:', buffer.length / (1024 * 1024), 'MB');
+
     return new Promise((resolve, reject) => {
-        const tempInput = `temp-${Date.now()}-input.mp4`;
-        const tempOutput = `temp-${Date.now()}-output.mp4`;
+        const tempInput = `/tmp/temp-${Date.now()}-input.mp4`;
+        const tempOutput = `/tmp/temp-${Date.now()}-output.mp4`;
 
-        // Write buffer to temporary file
-        fs.writeFileSync(tempInput, buffer);
+        console.log('Writing to temp file:', tempInput);
 
-        ffmpeg(tempInput)
-            .outputOptions([
-                '-c:v libx264',     // video codec
-                '-crf 28',          // compression quality (23-28 is a good range)
-                '-preset faster',    // encoding speed preset
-                '-c:a aac',         // audio codec
-                '-b:a 128k'         // audio bitrate
-            ])
-            .output(tempOutput)
-            .on('end', () => {
-                // Read the compressed file back into a buffer
-                const compressedBuffer = fs.readFileSync(tempOutput);
+        try {
+            fs.writeFileSync(tempInput, buffer);
+            console.log('Successfully wrote input file');
 
-                // Clean up temp files
-                fs.unlinkSync(tempInput);
-                fs.unlinkSync(tempOutput);
+            ffmpeg(tempInput)
+                .outputOptions([
+                    '-c:v libx264',
+                    '-crf 28',
+                    '-preset faster',
+                    '-c:a aac',
+                    '-b:a 128k',
+                    '-movflags +faststart', // Enable fast start for web playback
+                    '-max_muxing_queue_size 9999' // Increase muxing queue size
+                ])
+                .output(tempOutput)
+                .on('start', () => {
+                    console.log('Started ffmpeg compression');
+                })
+                .on('progress', (progress) => {
+                    console.log('Processing: ', progress.percent, '% done');
+                })
+                .on('end', () => {
+                    console.log('Compression complete');
+                    const compressedBuffer = fs.readFileSync(tempOutput);
+                    console.log('Compressed video size:', compressedBuffer.length / (1024 * 1024), 'MB');
 
-                resolve(compressedBuffer);
-            })
-            .on('error', (err) => {
-                // Clean up temp files
-                if (fs.existsSync(tempInput)) fs.unlinkSync(tempInput);
-                if (fs.existsSync(tempOutput)) fs.unlinkSync(tempOutput);
+                    // Cleanup
+                    fs.unlinkSync(tempInput);
+                    fs.unlinkSync(tempOutput);
 
-                reject(err);
-            })
-            .run();
+                    resolve(compressedBuffer);
+                })
+                .on('error', (err) => {
+                    console.error('FFmpeg error:', err);
+                    // Cleanup
+                    if (fs.existsSync(tempInput)) fs.unlinkSync(tempInput);
+                    if (fs.existsSync(tempOutput)) fs.unlinkSync(tempOutput);
+                    reject(err);
+                })
+                .run();
+        } catch (error) {
+            console.error('Error in video compression:', error);
+            reject(error);
+        }
     });
 }
 
