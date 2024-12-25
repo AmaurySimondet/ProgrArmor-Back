@@ -67,6 +67,7 @@ async function compressMedia(buffer, mimetype) {
     return buffer; // Return original buffer for other file types
 }
 
+
 module.exports = {
     compressImage,
     compressVideo,
