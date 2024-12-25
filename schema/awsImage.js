@@ -17,10 +17,6 @@ const awsImageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    distribution: {
-        type: String,
-        required: true
-    },
     location: {
         type: String,
         required: true
