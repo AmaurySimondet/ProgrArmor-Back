@@ -3,10 +3,26 @@ const multer = require('multer');
 
 // Configure multer storage
 const storage = multer.memoryStorage();
+
+// Configure multer with specific limits
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 200 * 1024 * 1024 // 200MB limit
+        fileSize: 50 * 1024 * 1024, // 50MB limit - adjust based on Vercel's limits
+    },
+    fileFilter: (req, file, cb) => {
+        console.log('Incoming file:', {
+            fieldname: file.fieldname,
+            mimetype: file.mimetype,
+            size: file.size
+        });
+
+        // Check file type
+        if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only image and video files are allowed!'));
+        }
     }
 });
 
@@ -30,40 +46,37 @@ module.exports = function (app) {
     // Upload seance photo
     app.post('/aws/upload-seance-photo', upload.single('image'), async (req, res) => {
         try {
-            console.log('Request received');
-            console.log('Content-Type:', req.headers['content-type']);
-            console.log('File size:', req.headers['content-length']);
-
-            if (!req.file) {
-                console.log('No file in request');
-                return res.status(400).json({ success: false, message: 'No file uploaded' });
-            }
-
-            console.log('File details:', {
-                mimetype: req.file.mimetype,
-                size: req.file.size,
-                originalname: req.file.originalname
+            console.log('Request received:', {
+                headers: req.headers,
+                fileSize: req.headers['content-length'],
+                contentType: req.headers['content-type']
             });
 
-            const { userId, seanceDate, seanceName } = req.body;
-            console.log('Request body:', { userId, seanceDate, seanceName });
-
-            if (!userId || !seanceDate || !seanceName) {
+            if (!req.file) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Missing required fields: userId, seanceDate, and seanceName are required'
+                    message: 'No file uploaded',
+                    details: 'File is required in the request'
                 });
             }
 
+            // Log file details
+            console.log('File details:', {
+                originalname: req.file.originalname,
+                mimetype: req.file.mimetype,
+                size: req.file.size / (1024 * 1024) + 'MB'
+            });
+
+            const { userId, seanceDate, seanceName } = req.body;
             const result = await awsImage.uploadSeancePhoto(userId, req.file, seanceDate, seanceName);
+
             res.json({ success: true, image: result });
         } catch (err) {
-            console.error('Seance photo upload error:', err);
-            // Send more detailed error information
-            res.status(500).json({
+            console.error('Upload error:', err);
+            res.status(err.status || 500).json({
                 success: false,
                 message: err.message,
-                stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+                details: process.env.NODE_ENV === 'development' ? err.stack : undefined
             });
         }
     });
