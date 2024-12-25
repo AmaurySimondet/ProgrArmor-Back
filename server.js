@@ -50,12 +50,14 @@ app.use(session({
 
 //Body Parser
 const urlencodedParser = bodyParser.urlencoded({
-  extended: true
+  extended: true,
+  limit: "100mb",
+  parameterLimit: 50000
 });
 app.use(urlencodedParser);
 
-app.use(express.json({ limit: '200mb' }));
-app.use(express.urlencoded({ limit: '200mb', extended: true }));
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit: 50000 }));
 
 //PASSPORT
 app.use(passport.initialize());
