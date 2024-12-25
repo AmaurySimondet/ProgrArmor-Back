@@ -49,26 +49,8 @@ app.use(session({
 }));
 
 //Body Parser
-const bodyParserLimit = "50mb";
-console.log('Body Parser Limit:', bodyParserLimit);
-
-const urlencodedParser = bodyParser.urlencoded({
-  extended: true,
-  limit: bodyParserLimit,
-  parameterLimit: 50000
-});
-app.use(urlencodedParser);
-
-app.use(express.json({ limit: bodyParserLimit }));
-app.use(express.urlencoded({
-  limit: bodyParserLimit,
-  extended: true,
-  parameterLimit: 50000
-}));
-
-// Log middleware limits
-console.log('Express JSON limit:', app.get('json limit'));
-console.log('Express URLEncoded limit:', app.get('urlencoded limit'));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
 
 //PASSPORT
 app.use(passport.initialize());
