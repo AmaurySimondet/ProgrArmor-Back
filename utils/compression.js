@@ -79,8 +79,10 @@ async function compressVideo(buffer) {
 
 async function compressMedia(buffer, mimetype) {
     if (mimetype.startsWith('image/')) {
+        console.log("Compressing image");
         return await compressImage(buffer, mimetype);
     } else if (mimetype.startsWith('video/')) {
+        console.log("Compressing video");
         return await compressVideo(buffer);
     }
     return buffer; // Return original buffer for other file types
