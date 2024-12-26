@@ -29,12 +29,6 @@ const userSchema = mongoose.Schema(
     profilePic: {
       type: String
     },
-    modeSombre: {
-      type: Boolean
-    },
-    seances: Array,
-    checkItems: Object,
-    programmes: [{ type: Schema.Types.ObjectId, ref: 'Programme' }],
     followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     following: [{ type: Schema.Types.ObjectId, ref: 'User' }]
   },

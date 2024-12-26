@@ -2,7 +2,7 @@ const awsImage = require('../lib/awsImage');
 
 module.exports = function (app) {
     // Record profile picture upload
-    app.post('/aws/record-pp-upload', async (req, res) => {
+    app.post('/aws/record-pp', async (req, res) => {
         try {
             const { userId, uploadResult } = req.body;
 
