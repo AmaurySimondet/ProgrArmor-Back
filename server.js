@@ -9,6 +9,7 @@ const session = require('cookie-session');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+const { timingMiddleware, getRouteStats } = require('./utils/timing');
 
 //Depreciation warnings
 mongoose.set('useNewUrlParser', true);
@@ -69,8 +70,10 @@ app.use(cors());
 
 //Définition du routeur
 const router = express.Router();
+app.use(timingMiddleware);
 app.use("/user", router);
 require(__dirname + "/controllers/userController")(router);
+require(__dirname + "/controllers/adminController")(router);
 require(__dirname + "/controllers/seanceController")(router);
 require(__dirname + "/controllers/exerciceTypeController")(router);
 require(__dirname + "/controllers/exerciceController")(router);
