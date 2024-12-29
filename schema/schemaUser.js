@@ -30,7 +30,11 @@ const userSchema = mongoose.Schema(
       type: String
     },
     followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    following: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    lastLogin: {
+      type: Date,
+      default: Date.now
+    }
   },
   { timestamps: { createdAt: "created_at" } }
 );

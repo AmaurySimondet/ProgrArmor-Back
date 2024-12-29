@@ -1,0 +1,20 @@
+module.exports = {
+    "01d": { "url": "http://openweathermap.org/img/wn/01d@2x.png", "description": "clear sky", "description_fr": "Ciel dégagé" },
+    "01n": { "url": "http://openweathermap.org/img/wn/01n@2x.png", "description": "clear sky", "description_fr": "Ciel dégagé" },
+    "02d": { "url": "http://openweathermap.org/img/wn/02d@2x.png", "description": "few clouds", "description_fr": "Quelques nuages" },
+    "02n": { "url": "http://openweathermap.org/img/wn/02n@2x.png", "description": "few clouds", "description_fr": "Quelques nuages" },
+    "03d": { "url": "http://openweathermap.org/img/wn/03d@2x.png", "description": "scattered clouds", "description_fr": "Nuages épars" },
+    "03n": { "url": "http://openweathermap.org/img/wn/03n@2x.png", "description": "scattered clouds", "description_fr": "Nuages épars" },
+    "04d": { "url": "http://openweathermap.org/img/wn/04d@2x.png", "description": "broken clouds", "description_fr": "Nuages fragmentés" },
+    "04n": { "url": "http://openweathermap.org/img/wn/04n@2x.png", "description": "broken clouds", "description_fr": "Nuages fragmentés" },
+    "09d": { "url": "http://openweathermap.org/img/wn/09d@2x.png", "description": "shower rain", "description_fr": "Averses" },
+    "09n": { "url": "http://openweathermap.org/img/wn/09n@2x.png", "description": "shower rain", "description_fr": "Averses" },
+    "10d": { "url": "http://openweathermap.org/img/wn/10d@2x.png", "description": "rain", "description_fr": "Pluie" },
+    "10n": { "url": "http://openweathermap.org/img/wn/10n@2x.png", "description": "rain", "description_fr": "Pluie" },
+    "11d": { "url": "http://openweathermap.org/img/wn/11d@2x.png", "description": "thunderstorm", "description_fr": "Orage" },
+    "11n": { "url": "http://openweathermap.org/img/wn/11n@2x.png", "description": "thunderstorm", "description_fr": "Orage" },
+    "13d": { "url": "http://openweathermap.org/img/wn/13d@2x.png", "description": "snow", "description_fr": "Neige" },
+    "13n": { "url": "http://openweathermap.org/img/wn/13n@2x.png", "description": "snow", "description_fr": "Neige" },
+    "50d": { "url": "http://openweathermap.org/img/wn/50d@2x.png", "description": "mist", "description_fr": "Brume" },
+    "50n": { "url": "http://openweathermap.org/img/wn/50n@2x.png", "description": "mist", "description_fr": "Brume" }
+}

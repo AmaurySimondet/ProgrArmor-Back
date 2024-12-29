@@ -82,6 +82,7 @@ require(__dirname + "/controllers/setController")(router);
 require(__dirname + "/controllers/categorieController")(router);
 require(__dirname + "/controllers/awsImageController")(router);
 require(__dirname + "/controllers/notificationController")(router);
+require(__dirname + "/controllers/weatherController")(router);
 
 // Define and set up the port
 const port = process.env.PORT || 8800;
