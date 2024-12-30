@@ -1,8 +1,8 @@
 const NodeCache = require('node-cache');
 
-// Create cache instance with default TTL of 24 hours
+// Create cache instance with default TTL of 12 hours
 const cache = new NodeCache({
-    stdTTL: 86400,
+    stdTTL: 12 * 60 * 60,
     checkperiod: 120,
     useClones: false
 });
