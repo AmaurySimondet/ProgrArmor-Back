@@ -13,7 +13,7 @@ module.exports = function (app) {
     app.post('/verifyToken', login.verifyToken)
 
     //COMPTE
-    app.post('/getUser', User.getUser);
+    app.get('/getUser', User.getUser);
     app.post('/modifyUser', User.modifyUser);
     app.post('/resetPassword', login.resetPassword);
 
