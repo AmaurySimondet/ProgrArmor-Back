@@ -6,7 +6,7 @@ const notificationSchema = new Schema(
         type: {
             type: String,
             required: true,
-            enum: ['follow', 'like', 'comment'] // Add more types as needed
+            enum: ['follow', 'reaction', 'comment'] // Add more types as needed
         },
         fromUser: {
             type: Schema.Types.ObjectId,

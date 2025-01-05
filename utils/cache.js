@@ -71,6 +71,21 @@ const invalidateUserCaches = async (userId) => {
     console.log(`Invalidated user caches for user: ${userId}`);
 };
 
+/**
+ * Invalidate comments and reactions caches
+ * @param {string} seanceId - The ID of the seance.
+ * @param {string} commentId - Optional comment ID.
+ */
+const invalidateCommentsAndReactions = async (seanceId, commentId = null) => {
+    await invalidateCacheStartingWith(`seance_reactions_${seanceId}`);
+    await invalidateCacheStartingWith(`seance_comments_${seanceId}`);
+    if (commentId) {
+        await invalidateCacheStartingWith(`comment_reactions_${commentId}`);
+    }
+    console.log(`Invalidated comments and reactions caches for seance: ${seanceId}${commentId ? ` and comment: ${commentId}` : ''}`);
+};
+
+
 
 const clearCache = () => {
     cache.flushAll();
@@ -84,5 +99,6 @@ module.exports = {
     invalidateCacheStartingWith,
     invalidateSeanceCaches,
     invalidateSetCaches,
-    invalidateUserCaches
+    invalidateUserCaches,
+    invalidateCommentsAndReactions
 }; 
