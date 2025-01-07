@@ -36,10 +36,25 @@ const userSchema = mongoose.Schema(
       default: Date.now
     }
   },
-  { timestamps: { createdAt: "created_at" } }
+  { timestamps: true }
 );
 
-userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
+var options = {
+  errorMessages: {
+    MissingPasswordError: "T'as pas donné de mot de passe !",
+    AttemptTooSoonError: "Ton compte est actuellement verrouillé. Réessaye plus tard !",
+    TooManyAttemptsError: "Ton compte est verrouillé à cause de trop de tentatives de connexion ! Ralenti un peu !",
+    NoSaltValueStoredError: "Authentification impossible. Aucun salt stocké !",
+    IncorrectPasswordError: "Mot de passe ou email incorrect !",
+    IncorrectUsernameError: "Mot de passe ou email incorrect !",
+    MissingUsernameError: "Aucun email n'a été donné !",
+    UserExistsError: 'Un utilisateur avec cet email existe déjà !'
+  },
+  usernameField: "email",
+  passwordField: "password"
+};
+
+userSchema.plugin(passportLocalMongoose, options);
 userSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model("User", userSchema);
