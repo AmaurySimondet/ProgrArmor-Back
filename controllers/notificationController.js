@@ -87,6 +87,7 @@ module.exports = function (app) {
         }
     });
 
+
     // Bulk delete notifications
     app.delete('/notifications/bulk-delete', async (req, res) => {
         try {
