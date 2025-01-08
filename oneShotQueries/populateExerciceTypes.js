@@ -4,7 +4,7 @@ const ExerciceType = require("../schema/exercicetype"); // Path to your exercice
 require("dotenv").config();
 
 // Connect to MongoDB
-mongoose.connect(process.env.mongoURL + "/prograrmor", {
+mongoose.connect(process.env.mongoURL + process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

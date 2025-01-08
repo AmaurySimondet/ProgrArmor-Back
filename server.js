@@ -7,9 +7,8 @@ const passport = require("passport");
 const User = require("./schema/schemaUser.js");
 const session = require('cookie-session');
 const cors = require('cors');
-const path = require('path');
 require('dotenv').config();
-const { timingMiddleware, getRouteStats } = require('./utils/timing');
+const { timingMiddleware } = require('./utils/timing');
 
 //Depreciation warnings
 mongoose.set('useNewUrlParser', true);
@@ -26,7 +25,7 @@ if (!mongoURL) {
 
 // Connection to the database
 mongoose
-  .connect(mongoURL + "/prograrmor", {
+  .connect(mongoURL + process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

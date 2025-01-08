@@ -4,7 +4,7 @@ const DetailType = require("../schema/detailtype"); // Path to your detailtype m
 require("dotenv").config();
 
 // Connect to MongoDB
-mongoose.connect(process.env.mongoURL + "/prograrmor", {
+mongoose.connect(process.env.mongoURL + process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

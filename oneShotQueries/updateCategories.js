@@ -4,7 +4,7 @@ const CategorieType = require("../schema/categorietype"); // Path to your catego
 require("dotenv").config();
 
 // Connect to MongoDB
-mongoose.connect(process.env.mongoURL + "/prograrmor", {
+mongoose.connect(process.env.mongoURL + process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
