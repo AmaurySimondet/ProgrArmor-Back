@@ -8,11 +8,16 @@ async function copyDatabase() {
         const client = new MongoClient(process.env.mongoURL);
         await client.connect();
 
-        const sourceDbName = process.env.DATABASE.replace('/', '');
+        const dropTarget = true;
+        const sourceDbName = 'progarmor';
         const targetDbName = 'progarmor-test';
 
         const sourceDb = client.db(sourceDbName);
         const targetDb = client.db(targetDbName);
+
+        if (dropTarget) {
+            await targetDb.dropDatabase();
+        }
 
         console.log('Connected to MongoDB');
         console.log(`Copying from ${sourceDbName} to ${targetDbName}`);

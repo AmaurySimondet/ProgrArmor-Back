@@ -5,8 +5,21 @@ module.exports = function (app) {
     app.get('/categories', async (req, res) => {
         try {
             const categorieType = req.query.categorieType; // Optional query parameter
-            const categories = await categorie.getAllCategories(categorieType);
-            res.json({ success: true, categories });
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 7;
+            const search = req.query.search;
+
+            const { categories, total } = await categorie.getAllCategories(categorieType, page, limit, search);
+            res.json({
+                success: true,
+                categories,
+                pagination: {
+                    page,
+                    limit,
+                    total,
+                    hasMore: total > page * limit
+                }
+            });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }

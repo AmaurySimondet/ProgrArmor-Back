@@ -4,8 +4,20 @@ module.exports = function (app) {
     // Get all exercise types
     app.get('/exerciceTypes', async (req, res) => {
         try {
-            const exerciceTypes = await exerciceType.getAllExerciceTypes();
-            res.json({ success: true, exerciceTypes });
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 7;
+
+            const { exerciceTypes, total } = await exerciceType.getAllExerciceTypes(page, limit);
+            res.json({
+                success: true,
+                exerciceTypes,
+                pagination: {
+                    page,
+                    limit,
+                    total,
+                    hasMore: total > page * limit
+                }
+            });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }

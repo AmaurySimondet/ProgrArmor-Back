@@ -27,8 +27,21 @@ module.exports = function (app) {
 
     app.get('/combinations', async (req, res) => {
         try {
-            const combinations = await exercice.getCombinations();
-            res.json({ success: true, combinations });
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 7;
+            const search = req.query.search;
+
+            const { combinations, total } = await exercice.getCombinations(page, limit, search);
+            res.json({
+                success: true,
+                combinations,
+                pagination: {
+                    page,
+                    limit,
+                    total,
+                    hasMore: total > page * limit
+                }
+            });
         }
         catch (err) {
             res.status(500).json({ success: false, message: err.message });

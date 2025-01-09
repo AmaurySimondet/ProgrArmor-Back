@@ -37,17 +37,43 @@ module.exports = function (app) {
     app.get('/topExercices', async (req, res) => {
         try {
             const userId = req.query.userId;
-            const topExercices = await set.getTopExercices(userId);
-            res.json({ success: true, topExercices });
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 5;
+
+            const { topExercices, total } = await set.getTopExercices(userId, req.query.by, req.query.asc, page, limit);
+
+            res.json({
+                success: true,
+                topExercices,
+                pagination: {
+                    page,
+                    limit,
+                    total,
+                    hasMore: total > page * limit
+                }
+            });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
     app.get('/topFormat', async (req, res) => {
         try {
             const userId = req.query.userId;
-            const topFormat = await set.getTopFormat(userId);
-            res.json({ success: true, topFormat });
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 5;
+
+            const { topFormat, total } = await set.getTopFormat(userId, page, limit);
+            res.json({
+                success: true,
+                topFormat,
+                pagination: {
+                    page,
+                    limit,
+                    total,
+                    hasMore: total > page * limit
+                }
+            });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }
