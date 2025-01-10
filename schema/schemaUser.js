@@ -29,8 +29,8 @@ const userSchema = mongoose.Schema(
     profilePic: {
       type: String
     },
-    followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    followers: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
+    following: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
     lastLogin: {
       type: Date,
       default: Date.now
@@ -56,5 +56,7 @@ var options = {
 
 userSchema.plugin(passportLocalMongoose, options);
 userSchema.plugin(findOrCreate);
+
+userSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model("User", userSchema);

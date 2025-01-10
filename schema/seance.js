@@ -27,5 +27,8 @@ const seanceSchema = new Schema(
     }
 );
 
+seanceSchema.index({ user: 1, date: -1 }); // Compound index
+seanceSchema.index({ date: -1 });
+
 // Create and export the model
 module.exports = mongoose.model("Seance", seanceSchema);
