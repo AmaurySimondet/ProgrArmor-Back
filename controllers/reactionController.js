@@ -84,10 +84,6 @@ module.exports = function (app) {
         try {
             const { seanceId, commentId } = req.params;
             const { userId } = req.body;
-
-            console.log("USER ID", userId);
-            console.log("SEANCE ID", seanceId);
-            console.log("COMMENT ID", commentId);
             await seanceComment.deleteComment(seanceId, commentId, userId);
             res.json({ success: true });
         } catch (err) {
