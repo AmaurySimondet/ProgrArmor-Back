@@ -17,9 +17,9 @@ async function copyDatabase() {
 
         if (dropTarget) {
             await targetDb.dropDatabase();
+            console.log(`${targetDbName} database dropped`);
         }
 
-        console.log('Connected to MongoDB');
         console.log(`Copying from ${sourceDbName} to ${targetDbName}`);
 
         // Get list of collections from source database

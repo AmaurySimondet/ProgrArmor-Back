@@ -38,4 +38,6 @@ const weatherSchema = new mongoose.Schema({
     timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }
 });
 
+weatherSchema.index({ 'location.lat': 1, 'location.lon': 1, 'date': 1 });
+
 module.exports = mongoose.model('Weather', weatherSchema); 

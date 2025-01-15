@@ -15,4 +15,6 @@ const commentSchema = mongoose.Schema(
   { timestamps: { createdAt: "created_at" } }
 );
 
+commentSchema.index({ seance: 1, user: 1 });
+
 module.exports = mongoose.model("Comment", commentSchema);

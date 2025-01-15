@@ -14,4 +14,6 @@ const reactionSchema = new Schema({
     timestamps: true
 });
 
+reactionSchema.index({ seance: 1, comment: 1, user: 1 }, { unique: true });
+
 module.exports = mongoose.model('Reaction', reactionSchema); 
