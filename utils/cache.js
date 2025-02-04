@@ -43,6 +43,7 @@ const invalidateSeanceCaches = async (userId, seanceId) => {
     await invalidateCacheStartingWith(`seance_${seanceId}`);
     await invalidateCacheStartingWith(`lastSeance_${userId}`);
     await invalidateCacheStartingWith(`user_stats_${userId}`);
+    await invalidateCacheStartingWith(`regularity_score_${userId}`);
     await invalidateCacheStartingWith(`seanceNames_${userId}`);
     console.log(`Invalidated seance caches for user: ${userId} and seance: ${seanceId}`);
 };
@@ -66,6 +67,7 @@ const invalidateSetCaches = async (userId) => {
  */
 const invalidateUserCaches = async (userId) => {
     invalidateCacheStartingWith(`user_stats_${userId}`);
+    invalidateCacheStartingWith(`regularity_score_${userId}`);
     invalidateCacheStartingWith(`user_${userId}`);
     invalidateCacheStartingWith(`all_users`);
     console.log(`Invalidated user caches for user: ${userId}`);
