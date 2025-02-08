@@ -12,10 +12,14 @@ const exerciceSchema = new Schema(
         name: {
             fr: { type: String, required: true },
             en: { type: String, required: true }
+        },
+        normalizedName: {
+            fr: { type: String, required: true },
+            en: { type: String, required: true }
         }
     },
     {
-        timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" }
+        timestamps: true
     }
 );
 

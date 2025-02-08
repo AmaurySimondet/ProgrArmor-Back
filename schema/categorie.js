@@ -9,6 +9,10 @@ const categorieSchema = new Schema(
         name: {
             fr: { type: String, required: true },
             en: { type: String, required: true }
+        },
+        normalizedName: {
+            fr: { type: String, required: true },
+            en: { type: String, required: true }
         }
     },
     {

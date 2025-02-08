@@ -58,9 +58,9 @@ module.exports = function (app) {
     });
     app.delete("/deleteSeance", async (req, res) => {
         try {
-            const id = req.query.id;
+            const seanceId = req.query.seanceId;
             const user = req.query.user;
-            await seance.deleteSeance(id, user);
+            await seance.deleteSeance(seanceId, user);
             res.json({ success: true });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
