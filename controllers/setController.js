@@ -3,6 +3,7 @@ const set = require('../lib/set.js');
 module.exports = function (app) {
     app.get('/sets', async (req, res) => {
         try {
+            const excludedSeanceId = req.query.excludedSeanceId;
             const seanceId = req.query.seanceId;
             const userId = req.query.userId;
             const exercice = req.query.exercice;
@@ -14,7 +15,7 @@ module.exports = function (app) {
             const dateMin = req.query.dateMin;
             const dateMax = req.query.dateMax;
             const fields = req.query.fields;
-            const sets = await set.getSets(userId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields);
+            const sets = await set.getSets(userId, excludedSeanceId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields);
             res.json({ success: true, sets });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
