@@ -40,8 +40,9 @@ module.exports = function (app) {
             const userId = req.query.userId;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 5;
+            const seanceName = req.query.seanceName;
 
-            const { topExercices, total } = await set.getTopExercices(userId, req.query.by, req.query.asc, page, limit);
+            const { topExercices, total } = await set.getTopExercices(userId, req.query.by, req.query.asc, page, limit, seanceName);
 
             res.json({
                 success: true,
