@@ -21,10 +21,10 @@ async function addSomeDocuments() {
             await schema.create({
                 _id: mongoose.Types.ObjectId(),
                 name: { fr: name, en: name },
-                type: type,
-                // popularityScore: 10,
+                // type: type,
+                popularityScore: 26,
                 normalizedName: { fr: normalizeString(name), en: normalizeString(name) },
-                // examples: { fr: ["Pin(s) 1", "Pin(s) 2", "Pin(s) 3"], en: ["Pin(s) 1", "Pin(s) 2", "Pin(s) 3"] }
+                examples: { fr: ["Pin(s) 1", "Pin(s) 2", "Pin(s) 3"], en: ["Pin(s) 1", "Pin(s) 2", "Pin(s) 3"] }
             });
         }
 
