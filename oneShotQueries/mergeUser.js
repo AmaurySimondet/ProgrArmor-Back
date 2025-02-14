@@ -59,6 +59,7 @@ async function mergeUser(fromUserId, toUserId) {
 
         //NOTIFICATIONS FROMUSER FORUSER !!!!!!!!!!
 
+
         // Delete original user
         const deleteResult = await db.collection('users').deleteOne({ _id: fromUserObjId });
         console.log(`Deleted user: ${deleteResult.deletedCount} document`);
