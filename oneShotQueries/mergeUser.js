@@ -14,6 +14,34 @@ async function mergeUser(fromUserId, toUserId) {
         const fromUserObjId = new ObjectId(fromUserId);
         const toUserObjId = new ObjectId(toUserId);
 
+        // Update followers and following arrays in users collection
+        await db.collection('users').updateMany(
+            { followers: fromUserObjId },
+            { $set: { "followers.$": toUserObjId } }
+        );
+
+        await db.collection('users').updateMany(
+            { following: fromUserObjId },
+            { $set: { "following.$": toUserObjId } }
+        );
+
+        // Get the old user's followers and following
+        const oldUser = await db.collection('users').findOne({ _id: fromUserObjId });
+        if (!oldUser) {
+            throw new Error('Source user not found');
+        }
+
+        // Merge followers and following arrays into the target user
+        await db.collection('users').updateOne(
+            { _id: toUserObjId },
+            {
+                $addToSet: {
+                    followers: { $each: oldUser.followers || [] },
+                    following: { $each: oldUser.following || [] }
+                }
+            }
+        );
+
         // Get all collections except 'users'
         const collections = await db.listCollections().toArray();
         const filteredCollections = collections.filter(coll => coll.name !== 'users');
@@ -43,5 +71,4 @@ async function mergeUser(fromUserId, toUserId) {
 
 // Example usage (pass actual ObjectId strings):
 // mergeUser('OLD_USER_ID', 'NEW_USER_ID');
-
-mergeUser('635670e891f737000447de46', '6783b3fdc8059a0003ef9397');
+mergeUser('6783b3fdc8059a0003ef9397', '67af4613b20cf00003a492c6');
