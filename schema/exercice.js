@@ -6,8 +6,9 @@ const exerciceSchema = new Schema(
     {
         _id: Schema.Types.ObjectId,
         type: {
-            fr: { type: String, required: true },
-            en: { type: String, required: true }
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'ExerciceType',
+            required: true
         },
         name: {
             fr: { type: String, required: true },

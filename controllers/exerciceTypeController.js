@@ -35,4 +35,15 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    // Create a new exercise type
+    app.post('/exercicetype', async (req, res) => {
+        try {
+            const exerciceTypeData = req.body;
+            const newExerciceType = await exerciceType.createExerciceType(exerciceTypeData);
+            res.json({ success: true, exerciceType: newExerciceType });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

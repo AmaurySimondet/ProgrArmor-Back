@@ -33,4 +33,14 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+    // Create a new category type
+    app.post('/categorietype', async (req, res) => {
+        try {
+            const categorieTypeData = req.body;
+            const newCategorieType = await categorieType.createCategorieType(categorieTypeData);
+            res.json({ success: true, categorieType: newCategorieType });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

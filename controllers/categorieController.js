@@ -37,4 +37,15 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    // Create a new category
+    app.post('/category', async (req, res) => {
+        try {
+            const categorieData = req.body;
+            const newCategorie = await categorie.createCategorie(categorieData);
+            res.json({ success: true, category: newCategorie });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }
