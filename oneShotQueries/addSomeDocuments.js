@@ -11,31 +11,49 @@ async function addSomeDocuments() {
         console.log('Connected to MongoDB');
 
         const schema = Categorie;
-        const type = mongoose.Types.ObjectId('67a7b94e63b4932e2690ae6f');
+        const type = mongoose.Types.ObjectId('67adfe9e4baa3f3bf7d99a28');
         const namesToAdd = [
-            "Technogym",
-            "Life Fitness",
-            "Precor",
-            "Hammer Strength",
-            "Cybex",
-            "Matrix Fitness",
-            "BH Fitness",
-            "Tunturi",
-            "Gym80",
-            "Rogue Fitness",
-            "ATX",
-            "Kingsbox"
+            "Pin(s) 1",
+            "Pin(s) 2",
+            "Pin(s) 3",
+            "Pin(s) 4",
+            "Pin(s) 5",
+            "Pin(s) 6",
+            "Pin(s) 7",
+            "Pin(s) 8",
+            "Pin(s) 9",
+            "Pin(s) 10",
+            "Pin(s) 11",
+            "Pin(s) 12",
+            "Pin(s) 13",
+            "Pin(s) 14",
+            "Pin(s) 15",
+            "Pin(s) 16",
+            "Pin(s) 17",
+            "Pin(s) 18",
+            "Pin(s) 19",
+            "Pin(s) 20",
+            "Pin(s) 21",
+            "Pin(s) 22",
+            "Pin(s) 23",
+            "Pin(s) 24",
+            "Pin(s) 25",
+            "Pin(s) 26",
+            "Pin(s) 27",
+            "Pin(s) 28",
+            "Pin(s) 29",
+            "Pin(s) 30",
         ];
-        // const namesToAdd = ["Marque de machine"]
+        // const namesToAdd = ["Pin(s)"]
 
         for (const name of namesToAdd) {
             await schema.create({
                 _id: mongoose.Types.ObjectId(),
                 name: { fr: name, en: name },
                 type: type,
-                // popularityScore: 20,
+                // popularityScore: 10,
                 normalizedName: { fr: normalizeString(name), en: normalizeString(name) },
-                // examples: { fr: ["Technogym", "Matrix Fitness", "Hammer Strength"], en: ["Technogym", "Matrix Fitness", "Hammer Strength"] }
+                // examples: { fr: ["Pin(s) 1", "Pin(s) 2", "Pin(s) 3"], en: ["Pin(s) 1", "Pin(s) 2", "Pin(s) 3"] }
             });
         }
 
