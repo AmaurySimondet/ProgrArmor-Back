@@ -48,4 +48,28 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    // Get favorite categories for a user
+    app.get('/favoriteCategories', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const exerciceId = req.query.exerciceId;
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 7;
+
+            const { categories, total } = await categorie.getFavoriteCategories(userId, exerciceId, page, limit);
+            res.json({
+                success: true,
+                categories,
+                pagination: {
+                    page,
+                    limit,
+                    total,
+                    hasMore: total > page * limit
+                }
+            });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

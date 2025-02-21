@@ -1,8 +1,8 @@
 const NodeCache = require('node-cache');
 
-// Create cache instance with default TTL of 12 hours
+// Create cache instance with default TTL of 30 minutes
 const cache = new NodeCache({
-    stdTTL: 12 * 60 * 60,
+    stdTTL: 30 * 60,
     checkperiod: 120,
     useClones: false
 });
@@ -56,6 +56,7 @@ const invalidateSeanceCaches = async (userId, seanceId) => {
 const invalidateSetCaches = async (userId) => {
     await invalidateCacheStartingWith(`sets_${userId || ''}`);
     await invalidateCacheStartingWith(`topExercices:${userId || ''}`);
+    await invalidateCacheStartingWith(`favorite_categories_${userId || ''}`);
     await invalidateCacheStartingWith(`topFormat_${userId || ''}`);
     await invalidateCacheStartingWith(`prs_${userId || ''}`);
     console.log(`Invalidated set caches for user: ${userId}`);
