@@ -59,16 +59,18 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/topFormat', async (req, res) => {
+    app.get('/lastFormats', async (req, res) => {
         try {
             const userId = req.query.userId;
+            const exercice = req.query.exercice;
+            const categories = req.query.categories;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 5;
 
-            const { topFormat, total } = await set.getTopFormat(userId, page, limit);
+            const { lastFormats, total } = await set.getLastFormats(userId, exercice, categories, page, limit);
             res.json({
                 success: true,
-                topFormat,
+                lastFormats,
                 pagination: {
                     page,
                     limit,

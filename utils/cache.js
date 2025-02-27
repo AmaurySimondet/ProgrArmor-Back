@@ -57,7 +57,7 @@ const invalidateSetCaches = async (userId) => {
     await invalidateCacheStartingWith(`sets_${userId || ''}`);
     await invalidateCacheStartingWith(`topExercices:${userId || ''}`);
     await invalidateCacheStartingWith(`favorite_categories_${userId || ''}`);
-    await invalidateCacheStartingWith(`topFormat_${userId || ''}`);
+    await invalidateCacheStartingWith(`lastFormats_${userId || ''}`);
     await invalidateCacheStartingWith(`prs_${userId || ''}`);
     console.log(`Invalidated set caches for user: ${userId}`);
 };
