@@ -84,6 +84,7 @@ require(__dirname + "/controllers/notificationController")(router);
 require(__dirname + "/controllers/weatherController")(router);
 require(__dirname + "/controllers/reactionController")(router);
 require(__dirname + "/controllers/feedbackController")(router);
+require(__dirname + "/controllers/fatSecretController")(router);
 
 // Define and set up the port
 const port = process.env.PORT || 8800;

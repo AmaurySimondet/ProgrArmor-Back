@@ -13,10 +13,14 @@ const exerciceTypeSchema = new Schema(
             fr: [{ type: String }],
             en: [{ type: String }]
         },
-        popularityScore: { type: Number, required: true, default: 0 }
+        popularityScore: { type: Number, required: true, default: 0 },
+        normalizedName: {
+            fr: { type: String, required: true },
+            en: { type: String, required: true }
+        }
     },
     {
-        timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" }
+        timestamps: true
     }
 );
 

@@ -3,6 +3,7 @@ const set = require('../lib/set.js');
 module.exports = function (app) {
     app.get('/sets', async (req, res) => {
         try {
+            const excludedSeanceId = req.query.excludedSeanceId;
             const seanceId = req.query.seanceId;
             const userId = req.query.userId;
             const exercice = req.query.exercice;
@@ -14,7 +15,7 @@ module.exports = function (app) {
             const dateMin = req.query.dateMin;
             const dateMax = req.query.dateMax;
             const fields = req.query.fields;
-            const sets = await set.getSets(userId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields);
+            const sets = await set.getSets(userId, excludedSeanceId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields);
             res.json({ success: true, sets });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
@@ -39,8 +40,9 @@ module.exports = function (app) {
             const userId = req.query.userId;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 5;
+            const seanceName = req.query.seanceName;
 
-            const { topExercices, total } = await set.getTopExercices(userId, req.query.by, req.query.asc, page, limit);
+            const { topExercices, total } = await set.getTopExercices(userId, req.query.by, req.query.asc, page, limit, seanceName);
 
             res.json({
                 success: true,
@@ -57,16 +59,18 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/topFormat', async (req, res) => {
+    app.get('/lastFormats', async (req, res) => {
         try {
             const userId = req.query.userId;
+            const exercice = req.query.exercice;
+            const categories = req.query.categories;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 5;
 
-            const { topFormat, total } = await set.getTopFormat(userId, page, limit);
+            const { lastFormats, total } = await set.getLastFormats(userId, exercice, categories, page, limit);
             res.json({
                 success: true,
-                topFormat,
+                lastFormats,
                 pagination: {
                     page,
                     limit,

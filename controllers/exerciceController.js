@@ -47,4 +47,15 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    // Create a new exercise
+    app.post('/exercice', async (req, res) => {
+        try {
+            const exerciceData = req.body;
+            const newExercice = await exercice.createExercice(exerciceData);
+            res.json({ success: true, exercice: newExercice });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }

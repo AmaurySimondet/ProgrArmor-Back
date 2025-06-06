@@ -34,6 +34,12 @@ const userSchema = mongoose.Schema(
     lastLogin: {
       type: Date,
       default: Date.now
+    },
+    regularityScore: {
+      average: Number,
+      currentStreak: Number,
+      bestStreak: Number,
+      lastUpdated: Date
     }
   },
   { timestamps: true }

@@ -1,8 +1,8 @@
 const NodeCache = require('node-cache');
 
-// Create cache instance with default TTL of 12 hours
+// Create cache instance with default TTL of 30 minutes
 const cache = new NodeCache({
-    stdTTL: 12 * 60 * 60,
+    stdTTL: 30 * 60,
     checkperiod: 120,
     useClones: false
 });
@@ -43,6 +43,7 @@ const invalidateSeanceCaches = async (userId, seanceId) => {
     await invalidateCacheStartingWith(`seance_${seanceId}`);
     await invalidateCacheStartingWith(`lastSeance_${userId}`);
     await invalidateCacheStartingWith(`user_stats_${userId}`);
+    await invalidateCacheStartingWith(`regularity_score_${userId}`);
     await invalidateCacheStartingWith(`seanceNames_${userId}`);
     console.log(`Invalidated seance caches for user: ${userId} and seance: ${seanceId}`);
 };
@@ -55,7 +56,8 @@ const invalidateSeanceCaches = async (userId, seanceId) => {
 const invalidateSetCaches = async (userId) => {
     await invalidateCacheStartingWith(`sets_${userId || ''}`);
     await invalidateCacheStartingWith(`topExercices:${userId || ''}`);
-    await invalidateCacheStartingWith(`topFormat_${userId || ''}`);
+    await invalidateCacheStartingWith(`favorite_categories_${userId || ''}`);
+    await invalidateCacheStartingWith(`lastFormats_${userId || ''}`);
     await invalidateCacheStartingWith(`prs_${userId || ''}`);
     console.log(`Invalidated set caches for user: ${userId}`);
 };
@@ -66,6 +68,7 @@ const invalidateSetCaches = async (userId) => {
  */
 const invalidateUserCaches = async (userId) => {
     invalidateCacheStartingWith(`user_stats_${userId}`);
+    invalidateCacheStartingWith(`regularity_score_${userId}`);
     invalidateCacheStartingWith(`user_${userId}`);
     invalidateCacheStartingWith(`all_users`);
     console.log(`Invalidated user caches for user: ${userId}`);
