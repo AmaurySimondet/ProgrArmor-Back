@@ -1,0 +1,391 @@
+diff --git a/controllers/notificationController.js b/controllers/notificationController.js
+index 8657e7e..a46da99 100644
+--- a/controllers/notificationController.js
++++ b/controllers/notificationController.js
+@@ -4,7 +4,6 @@ module.exports = function (app) {
+     // GET notifications for a user
+     app.get('/notifications', async (req, res) => {
+         try {
+-            console.log("Getting notifications for user", req.query.userId);
+             const userId = req.query.userId;
+             if (!userId) {
+                 return res.status(400).json({ success: false, message: 'User ID is required' });
+diff --git a/lib/exercice.js b/lib/exercice.js
+index 59a95b4..fcf1c6a 100644
+--- a/lib/exercice.js
++++ b/lib/exercice.js
+@@ -185,8 +185,6 @@ async function getCombinations(page = 1, limit = 7, search = '') {
+                 });
+             });
+ 
+-<<<<<<< HEAD
+-=======
+             // Filter by search term if provided
+             if (search) {
+                 const normalizedSearch = normalizeString(search);
+@@ -196,7 +194,6 @@ async function getCombinations(page = 1, limit = 7, search = '') {
+                 );
+             }
+ 
+->>>>>>> master
+             const total = allCombinations.length;
+             const start = (page - 1) * limit;
+             const combinations = allCombinations.slice(start, start + limit);
+diff --git a/lib/login.js b/lib/login.js
+index cc6d599..73ddc05 100644
+--- a/lib/login.js
++++ b/lib/login.js
+@@ -1,30 +1,53 @@
+ const express = require("express");
+-const app = express();
+ 
+ require('dotenv').config();
+ 
+-const session = require('cookie-session');
+ const passport = require("passport");
+ const jwt = require('jsonwebtoken');
+ const User = require("../schema/schemaUser");
++const JwtStrategy = require('passport-jwt').Strategy;
++const ExtractJwt = require('passport-jwt').ExtractJwt;
+ 
+ const url = process.env.URL_BACKEND
+ const urlClient = process.env.URL_CLIENT
+ const tokenExpirationLimit = "7d"
+ 
+-app.use(session({
+-    secret: process.env.secret,
+-    keys: [process.env.secret],
++// Session configuration
++const sessionConfig = {
++    secret: process.env.JWT_SECRET,
++    keys: [process.env.JWT_SECRET],
+     resave: false,
+     saveUninitialized: false
+-}));
++};
++
++// Passport configuration
++const configurePassport = () => {
++    passport.use(User.createStrategy());
++    passport.serializeUser(User.serializeUser());
++    passport.deserializeUser(User.deserializeUser());
+ 
+-// CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
+-passport.use(User.createStrategy());
+-passport.serializeUser(User.serializeUser());
+-passport.deserializeUser(User.deserializeUser());
++    // JWT Strategy configuration
++    const jwtOptions = {
++        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
++        secretOrKey: process.env.JWT_SECRET
++    };
+ 
++    passport.use(new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
++        try {
++            const user = await User.findById(jwt_payload.id);
++            if (user) {
++                return done(null, user);
++            }
++            return done(null, false);
++        } catch (error) {
++            return done(error, false);
++        }
++    }));
++};
+ 
++// Export configurations
++exports.sessionConfig = sessionConfig;
++exports.configurePassport = configurePassport;
+ 
+ //FACEBOOK
+ const FacebookStrategy = require('passport-facebook').Strategy;
+@@ -83,7 +106,7 @@ async function facebookAuthenticate(req, res) {
+                 // Update lastLogin
+                 await User.findByIdAndUpdate(req.user._id, { lastLogin: new Date() });
+ 
+-                const token = jwt.sign({ id: req.user._id }, process.env.secret, { expiresIn: tokenExpirationLimit });
++                const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: tokenExpirationLimit });
+                 // Get redirect URL from state parameter
+                 const redirectUrl = req.query.state ? decodeURIComponent(req.query.state) : '/dashboard';
+                 res.redirect(urlClient + `/token?token=${token}&redirect=${encodeURIComponent(redirectUrl)}`);
+@@ -170,7 +193,7 @@ async function googleAuthenticate(req, res) {
+ 
+         const [_, token] = await Promise.all([
+             User.findByIdAndUpdate(req.user._id, { lastLogin: new Date() }),
+-            jwt.sign({ id: req.user._id }, process.env.secret, { expiresIn: tokenExpirationLimit })
++            jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: tokenExpirationLimit })
+         ]);
+ 
+         // Get redirect URL from state parameter
+@@ -186,7 +209,7 @@ async function googleAuthenticate(req, res) {
+ //Token
+ function verifyToken(req, res) {
+     const token = req.body.token
+-    jwt.verify(token, process.env.secret, function (err, decoded) {
++    jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
+         if (err) {
+             res.json({ success: false, message: "Token verification failed " + err.name });
+         }
+@@ -209,7 +232,7 @@ async function signup(req, res) {
+                 res.json({ success: false, message: "" + err });
+             } else {
+                 passport.authenticate("local")(req, res, function () {
+-                    const token = jwt.sign({ id: user._id }, process.env.secret, { expiresIn: tokenExpirationLimit });
++                    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: tokenExpirationLimit });
+                     res.json({ success: true, message: "Register successful", token: token });
+                 });
+             };
+@@ -222,17 +245,30 @@ async function login(req, res) {
+     const { email, password } = req.body;
+ 
+     if (!email || !password) {
++        console.log("Missing email or password");
+         return res.status(400).json({
+             success: false,
+             message: !email ? "Email was not given" : "Password was not given"
+         });
+     }
+ 
+-    const user = new User({ email, password });
+-
+     try {
++        // First find the user by email
++        const foundUser = await User.findOne({ email });
++
++        if (!foundUser) {
++            return res.status(401).json({
++                success: false,
++                message: "Email or password incorrect"
++            });
++        }
++
++        // Create a new user instance for authentication
++        const user = new User({ email, password });
++
+         req.login(user, function (err) {
+             if (err) {
++                console.log("Login error:", err);
+                 return res.status(500).json({ success: false, message: err.message });
+             }
+ 
+@@ -247,7 +283,7 @@ async function login(req, res) {
+                 // Update lastLogin
+                 await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
+ 
+-                const token = jwt.sign({ id: user._id }, process.env.secret, { expiresIn: tokenExpirationLimit });
++                const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: tokenExpirationLimit });
+                 res.json({
+                     success: true,
+                     message: "Login successful",
+@@ -256,6 +292,7 @@ async function login(req, res) {
+             })(req, res);
+         });
+     } catch (error) {
++        console.log("Login catch error:", error);
+         res.status(500).json({ success: false, message: error.message });
+     }
+ }
+diff --git a/package-lock.json b/package-lock.json
+index 24ad468..5dd30b2 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -29,6 +29,7 @@
+         "passport": "^0.5.3",
+         "passport-facebook": "^3.0.0",
+         "passport-google-oauth20": "^2.0.0",
++        "passport-jwt": "^4.0.1",
+         "passport-local": "^1.0.0",
+         "passport-local-mongoose": "^7.1.2",
+         "sharp": "^0.33.5",
+@@ -1986,6 +1987,56 @@
+         "node": ">= 0.4.0"
+       }
+     },
++    "node_modules/passport-jwt": {
++      "version": "4.0.1",
++      "resolved": "https://registry.npmjs.org/passport-jwt/-/passport-jwt-4.0.1.tgz",
++      "integrity": "sha512-UCKMDYhNuGOBE9/9Ycuoyh7vP6jpeTp/+sfMJl7nLff/t6dps+iaeE0hhNkKN8/HZHcJ7lCdOyDxHdDoxoSvdQ==",
++      "license": "MIT",
++      "dependencies": {
++        "jsonwebtoken": "^9.0.0",
++        "passport-strategy": "^1.0.0"
++      }
++    },
++    "node_modules/passport-jwt/node_modules/jsonwebtoken": {
++      "version": "9.0.2",
++      "resolved": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.2.tgz",
++      "integrity": "sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==",
++      "license": "MIT",
++      "dependencies": {
++        "jws": "^3.2.2",
++        "lodash.includes": "^4.3.0",
++        "lodash.isboolean": "^3.0.3",
++        "lodash.isinteger": "^4.0.4",
++        "lodash.isnumber": "^3.0.3",
++        "lodash.isplainobject": "^4.0.6",
++        "lodash.isstring": "^4.0.1",
++        "lodash.once": "^4.0.0",
++        "ms": "^2.1.1",
++        "semver": "^7.5.4"
++      },
++      "engines": {
++        "node": ">=12",
++        "npm": ">=6"
++      }
++    },
++    "node_modules/passport-jwt/node_modules/ms": {
++      "version": "2.1.3",
++      "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
++      "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==",
++      "license": "MIT"
++    },
++    "node_modules/passport-jwt/node_modules/semver": {
++      "version": "7.7.2",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
++      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "license": "ISC",
++      "bin": {
++        "semver": "bin/semver.js"
++      },
++      "engines": {
++        "node": ">=10"
++      }
++    },
+     "node_modules/passport-local": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/passport-local/-/passport-local-1.0.0.tgz",
+@@ -3891,6 +3942,44 @@
+         "passport-oauth2": "1.x.x"
+       }
+     },
++    "passport-jwt": {
++      "version": "4.0.1",
++      "resolved": "https://registry.npmjs.org/passport-jwt/-/passport-jwt-4.0.1.tgz",
++      "integrity": "sha512-UCKMDYhNuGOBE9/9Ycuoyh7vP6jpeTp/+sfMJl7nLff/t6dps+iaeE0hhNkKN8/HZHcJ7lCdOyDxHdDoxoSvdQ==",
++      "requires": {
++        "jsonwebtoken": "^9.0.0",
++        "passport-strategy": "^1.0.0"
++      },
++      "dependencies": {
++        "jsonwebtoken": {
++          "version": "9.0.2",
++          "resolved": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.2.tgz",
++          "integrity": "sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==",
++          "requires": {
++            "jws": "^3.2.2",
++            "lodash.includes": "^4.3.0",
++            "lodash.isboolean": "^3.0.3",
++            "lodash.isinteger": "^4.0.4",
++            "lodash.isnumber": "^3.0.3",
++            "lodash.isplainobject": "^4.0.6",
++            "lodash.isstring": "^4.0.1",
++            "lodash.once": "^4.0.0",
++            "ms": "^2.1.1",
++            "semver": "^7.5.4"
++          }
++        },
++        "ms": {
++          "version": "2.1.3",
++          "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
++          "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="
++        },
++        "semver": {
++          "version": "7.7.2",
++          "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
++          "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA=="
++        }
++      }
++    },
+     "passport-local": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/passport-local/-/passport-local-1.0.0.tgz",
+diff --git a/package.json b/package.json
+index fb37708..bf156c2 100644
+--- a/package.json
++++ b/package.json
+@@ -31,6 +31,7 @@
+     "passport": "^0.5.3",
+     "passport-facebook": "^3.0.0",
+     "passport-google-oauth20": "^2.0.0",
++    "passport-jwt": "^4.0.1",
+     "passport-local": "^1.0.0",
+     "passport-local-mongoose": "^7.1.2",
+     "sharp": "^0.33.5",
+diff --git a/server.js b/server.js
+index cd75f2a..983a949 100644
+--- a/server.js
++++ b/server.js
+@@ -4,22 +4,23 @@ const express = require("express");
+ const mongoose = require("mongoose");
+ const bodyParser = require("body-parser");
+ const passport = require("passport");
+-const User = require("./schema/schemaUser.js");
+ const session = require('cookie-session');
+ const cors = require('cors');
+ require('dotenv').config();
+ const { timingMiddleware } = require('./utils/timing');
++const { sessionConfig, configurePassport } = require('./lib/login');
+ 
+ //Depreciation warnings
+ mongoose.set('useNewUrlParser', true);
+ mongoose.set('useFindAndModify', false);
+ mongoose.set('useCreateIndex', true);
+ 
+-// Ensure environment variable is set
++// Ensure environment variables are set
+ const mongoURL = process.env.mongoURL;
++const JWT_SECRET = process.env.JWT_SECRET;
+ 
+-if (!mongoURL) {
+-  console.error("Error: mongoURL environment variable is not set.");
++if (!mongoURL || !JWT_SECRET) {
++  console.error("Error: Required environment variables are not set.");
+   process.exit(1);
+ }
+ 
+@@ -42,11 +43,8 @@ mongoose
+ //On définit notre objet express nommé app
+ const app = express();
+ 
+-app.use(session({
+-  secret: "Our little secret.",
+-  resave: false,
+-  saveUninitialized: false
+-}));
++// Use centralized session configuration
++app.use(session(sessionConfig));
+ 
+ //Body Parser
+ app.use(express.json({ limit: '50mb' }));
+@@ -58,11 +56,7 @@ app.use(express.raw({ limit: '50mb' }));
+ //PASSPORT
+ app.use(passport.initialize());
+ app.use(passport.session());
+-passport.use(User.createStrategy());
+-passport.serializeUser(User.serializeUser());
+-passport.deserializeUser(User.deserializeUser());
+-const LocalStrategy = require('passport-local').Strategy;
+-passport.use(new LocalStrategy(User.authenticate()));
++configurePassport();
+ 
+ //CORS
+ app.use(cors());
+@@ -71,6 +65,18 @@ app.use(cors());
+ const router = express.Router();
+ app.use(timingMiddleware);
+ app.use("/user", router);
++
++// Public routes that don't require authentication
++const publicRoutes = ['/login', '/verifyToken', '/signup', '/auth/facebook', '/auth/facebook/authenticate', '/auth/google', '/auth/google/authenticate'];
++
++// Protect all routes except public ones using Passport's JWT strategy
++router.use((req, res, next) => {
++  if (publicRoutes.includes(req.path)) {
++    return next();
++  }
++  passport.authenticate('jwt', { session: false })(req, res, next);
++});
++
+ require(__dirname + "/controllers/userController")(router);
+ require(__dirname + "/controllers/adminController")(router);
+ require(__dirname + "/controllers/seanceController")(router);

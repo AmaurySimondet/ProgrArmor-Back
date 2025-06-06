@@ -4,22 +4,23 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const User = require("./schema/schemaUser.js");
 const session = require('cookie-session');
 const cors = require('cors');
 require('dotenv').config();
 const { timingMiddleware } = require('./utils/timing');
+const { sessionConfig, configurePassport } = require('./lib/login');
 
 //Depreciation warnings
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-// Ensure environment variable is set
+// Ensure environment variables are set
 const mongoURL = process.env.mongoURL;
+const JWT_SECRET = process.env.JWT_SECRET;
 
-if (!mongoURL) {
-  console.error("Error: mongoURL environment variable is not set.");
+if (!mongoURL || !JWT_SECRET) {
+  console.error("Error: Required environment variables are not set.");
   process.exit(1);
 }
 
@@ -42,11 +43,8 @@ mongoose
 //On définit notre objet express nommé app
 const app = express();
 
-app.use(session({
-  secret: "Our little secret.",
-  resave: false,
-  saveUninitialized: false
-}));
+// Use centralized session configuration
+app.use(session(sessionConfig));
 
 //Body Parser
 app.use(express.json({ limit: '50mb' }));
@@ -58,11 +56,7 @@ app.use(express.raw({ limit: '50mb' }));
 //PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-const LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(User.authenticate()));
+configurePassport();
 
 //CORS
 app.use(cors());
@@ -71,6 +65,18 @@ app.use(cors());
 const router = express.Router();
 app.use(timingMiddleware);
 app.use("/user", router);
+
+// Public routes that don't require authentication
+const publicRoutes = ['/login', '/verifyToken', '/signup', '/auth/facebook', '/auth/facebook/authenticate', '/auth/google', '/auth/google/authenticate'];
+
+// Protect all routes except public ones using Passport's JWT strategy
+router.use((req, res, next) => {
+  if (publicRoutes.includes(req.path)) {
+    return next();
+  }
+  passport.authenticate('jwt', { session: false })(req, res, next);
+});
+
 require(__dirname + "/controllers/userController")(router);
 require(__dirname + "/controllers/adminController")(router);
 require(__dirname + "/controllers/seanceController")(router);

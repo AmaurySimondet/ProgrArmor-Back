@@ -4,7 +4,6 @@ module.exports = function (app) {
     // GET notifications for a user
     app.get('/notifications', async (req, res) => {
         try {
-            console.log("Getting notifications for user", req.query.userId);
             const userId = req.query.userId;
             if (!userId) {
                 return res.status(400).json({ success: false, message: 'User ID is required' });
