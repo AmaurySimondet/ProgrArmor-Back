@@ -91,6 +91,7 @@ require(__dirname + "/controllers/weatherController")(router);
 require(__dirname + "/controllers/reactionController")(router);
 require(__dirname + "/controllers/feedbackController")(router);
 require(__dirname + "/controllers/fatSecretController")(router);
+require(__dirname + "/controllers/variationController")(router);
 
 // Define and set up the port
 const port = process.env.PORT || 8800;
