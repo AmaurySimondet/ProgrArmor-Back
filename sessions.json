@@ -1,0 +1,1412 @@
+[
+  {
+    "matches": [
+      {
+        "id": "2da951da-5356-4387-a497-564992272bd4",
+        "isGrouped": false,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Snowday",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 741,
+            "oldMMR": 741,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      },
+      {
+        "id": "e482ed2f-b45e-4678-8e03-e655b2b6ec18",
+        "isGrouped": false,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Casual",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Unranked",
+              "index": 0
+            },
+            "division": {
+              "name": "Division I",
+              "index": 0
+            },
+            "newMMR": 1338,
+            "oldMMR": 1338,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-0.png"
+          }
+        }
+      },
+      {
+        "id": "2c6fafc1-85ba-46f4-bf12-27375131b54f",
+        "isGrouped": false,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Multiple",
+        "stats": {
+          "saves": 757,
+          "assists": 328,
+          "goals": 727,
+          "matchesPlayed": null,
+          "mvps": 93,
+          "shots": 1715,
+          "wins": 275
+        }
+      },
+      {
+        "id": "02cb4264-324c-4a7b-80c4-014f0a414630",
+        "isGrouped": false,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Hoops",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 1,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 697,
+            "oldMMR": 697,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      },
+      {
+        "id": "0c7ca4f7-a4ed-4635-8c27-0faadaac8ce2",
+        "isGrouped": true,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 460,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion III",
+              "index": 18
+            },
+            "division": {
+              "name": "Division I",
+              "index": 0
+            },
+            "newMMR": 1327,
+            "oldMMR": 1327,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-18.png"
+          }
+        }
+      },
+      {
+        "id": "6951be22-2a07-4c75-b91e-e14678cc4527",
+        "isGrouped": false,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Ranked Standard 3v3",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 834,
+            "oldMMR": 834,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      },
+      {
+        "id": "ae8ab600-172a-4e46-a4e6-95a3d8ab2556",
+        "isGrouped": false,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Dropshot",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 690,
+            "oldMMR": 690,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      },
+      {
+        "id": "a2b07a5a-e236-4266-a6fd-66cedb59b213",
+        "isGrouped": false,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Rumble",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum I",
+              "index": 10
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 694,
+            "oldMMR": 694,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-10.png"
+          }
+        }
+      },
+      {
+        "id": "0a42f444-015e-41e0-a4d5-dffed4eead9f",
+        "isGrouped": true,
+        "date": "2025-07-11T07:09:46.272Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 19,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Diamond I",
+              "index": 13
+            },
+            "division": {
+              "name": "Division III",
+              "index": 2
+            },
+            "newMMR": 854,
+            "oldMMR": 854,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-13.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "80d8cf62-bf4b-4324-94d1-470ef3ee8b8e",
+        "isGrouped": true,
+        "date": "2025-06-14T15:43:50.248Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 22,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion II",
+              "index": 17
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 1302,
+            "oldMMR": 1227,
+            "mmrDelta": 75,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-17.png"
+          }
+        }
+      },
+      {
+        "id": "f41fd235-df4d-45e1-9b4f-8a3e605d8234",
+        "isGrouped": false,
+        "date": "2025-06-14T15:43:50.248Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 1,
+          "mvps": null,
+          "shots": null,
+          "wins": 1,
+          "rank": {
+            "tier": {
+              "name": "Diamond I",
+              "index": 13
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 869,
+            "oldMMR": 860,
+            "mmrDelta": 9,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-13.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "1727ad95-0056-4000-b3e8-2918dd4385d8",
+        "isGrouped": false,
+        "date": "2025-06-12T23:42:11.312Z",
+        "playlist": "Hoops",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 1,
+          "mvps": null,
+          "shots": null,
+          "wins": 0,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division III",
+              "index": 2
+            },
+            "newMMR": 706,
+            "oldMMR": 721,
+            "mmrDelta": -15,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      },
+      {
+        "id": "ef639ea2-1e24-4947-af0b-b3fa53e9ed9d",
+        "isGrouped": true,
+        "date": "2025-06-12T23:42:11.312Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 263,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion II",
+              "index": 17
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 1227,
+            "oldMMR": 1136,
+            "mmrDelta": 91,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-17.png"
+          }
+        }
+      },
+      {
+        "id": "8cbd9bf4-00ef-43a9-9dab-78bf3f402e52",
+        "isGrouped": true,
+        "date": "2025-06-12T23:42:11.312Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 30,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Diamond I",
+              "index": 13
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 860,
+            "oldMMR": 824,
+            "mmrDelta": 36,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-13.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "30e4e0f4-c9c7-43c1-92f6-7e34f4ac752c",
+        "isGrouped": false,
+        "date": "2025-06-01T14:25:58.251Z",
+        "playlist": "Multiple",
+        "stats": {
+          "saves": 256,
+          "assists": 107,
+          "goals": 302,
+          "matchesPlayed": null,
+          "mvps": 36,
+          "shots": 706,
+          "wins": 102
+        }
+      },
+      {
+        "id": "d740287c-5cf5-4f07-a11f-2ded3266b5de",
+        "isGrouped": true,
+        "date": "2025-06-01T14:25:58.251Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 186,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion I",
+              "index": 16
+            },
+            "division": {
+              "name": "Division III",
+              "index": 2
+            },
+            "newMMR": 1136,
+            "oldMMR": 1169,
+            "mmrDelta": -33,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-16.png"
+          }
+        }
+      },
+      {
+        "id": "da986e23-0559-47e8-8216-8c2dc6ab3245",
+        "isGrouped": true,
+        "date": "2025-06-01T14:25:58.251Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 18,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Diamond I",
+              "index": 13
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 824,
+            "oldMMR": 802,
+            "mmrDelta": 22,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-13.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "2ea6678b-aebc-4bac-bf6a-935c7b10fa30",
+        "isGrouped": true,
+        "date": "2025-05-18T18:30:50.174Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 11,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion I",
+              "index": 16
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 1169,
+            "oldMMR": 1178,
+            "mmrDelta": -9,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-16.png"
+          }
+        }
+      },
+      {
+        "id": "194e290f-dbe3-4ee2-a8e9-ad933abde7dd",
+        "isGrouped": false,
+        "date": "2025-05-18T18:30:50.174Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 1,
+          "mvps": null,
+          "shots": null,
+          "wins": 0,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 802,
+            "oldMMR": 811,
+            "mmrDelta": -9,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "fb62bd87-a68c-49ea-9e6b-403856305de1",
+        "isGrouped": true,
+        "date": "2025-05-17T11:22:55.441Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 20,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion I",
+              "index": 16
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 1178,
+            "oldMMR": 1123,
+            "mmrDelta": 55,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-16.png"
+          }
+        }
+      },
+      {
+        "id": "1be992d2-7aa7-4cc0-932e-fc4c698e7e39",
+        "isGrouped": false,
+        "date": "2025-05-17T11:22:55.441Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 1,
+          "mvps": null,
+          "shots": null,
+          "wins": 1,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 811,
+            "oldMMR": 801,
+            "mmrDelta": 10,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "24720366-ac77-491a-a61e-e2f4780cea57",
+        "isGrouped": false,
+        "date": "2025-05-15T21:57:02.006Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": 2,
+          "assists": 2,
+          "goals": 4,
+          "matchesPlayed": 1,
+          "mvps": 1,
+          "shots": 7,
+          "wins": 1,
+          "rank": {
+            "tier": {
+              "name": "Champion I",
+              "index": 16
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 1123,
+            "oldMMR": 1114,
+            "mmrDelta": 9,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-16.png"
+          }
+        }
+      },
+      {
+        "id": "6254294e-a1d4-4de8-8712-df708ae9c819",
+        "isGrouped": true,
+        "date": "2025-05-15T21:48:16.098Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 34,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion I",
+              "index": 16
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 1114,
+            "oldMMR": 1113,
+            "mmrDelta": 1,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-16.png"
+          }
+        }
+      },
+      {
+        "id": "61874da7-b31e-4943-9fc3-71f5e4b83c16",
+        "isGrouped": true,
+        "date": "2025-05-15T21:48:16.098Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 4,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 801,
+            "oldMMR": 802,
+            "mmrDelta": -1,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "e65555a2-2bec-410d-994c-d1aa592a626e",
+        "isGrouped": false,
+        "date": "2025-05-10T17:04:02.909Z",
+        "playlist": "Multiple",
+        "stats": {
+          "saves": 815,
+          "assists": 282,
+          "goals": 1023,
+          "matchesPlayed": null,
+          "mvps": 90,
+          "shots": 2221,
+          "wins": 307
+        }
+      },
+      {
+        "id": "99f191ea-7dcd-4baa-af32-0a85c37bcd4e",
+        "isGrouped": true,
+        "date": "2025-05-10T17:04:02.909Z",
+        "playlist": "Hoops",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 4,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 721,
+            "oldMMR": 720,
+            "mmrDelta": 1,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      },
+      {
+        "id": "3ae7db46-8a5e-4ca5-b7ad-a88a3b3ccb99",
+        "isGrouped": true,
+        "date": "2025-05-10T17:04:02.909Z",
+        "playlist": "Ranked Standard 3v3",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 5,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Diamond I",
+              "index": 13
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 853,
+            "oldMMR": 827,
+            "mmrDelta": 26,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-13.png"
+          }
+        }
+      },
+      {
+        "id": "fbc2120f-bc98-463b-94b4-5b294a82e7ff",
+        "isGrouped": true,
+        "date": "2025-05-10T17:04:02.909Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 495,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion I",
+              "index": 16
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 1113,
+            "oldMMR": 1038,
+            "mmrDelta": 75,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-16.png"
+          }
+        }
+      },
+      {
+        "id": "aea5e5d2-0da3-4e59-b146-39527ab589bd",
+        "isGrouped": true,
+        "date": "2025-05-10T17:04:02.909Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 104,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 802,
+            "oldMMR": 850,
+            "mmrDelta": -48,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "5ec13fc2-9e4f-4f29-bc66-a1f31fd9ecb1",
+        "isGrouped": false,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Dropshot",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 690,
+            "oldMMR": 690,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      },
+      {
+        "id": "9f944bb0-cd87-466c-a383-d34d4af5b17c",
+        "isGrouped": false,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Casual",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Unranked",
+              "index": 0
+            },
+            "division": {
+              "name": "Division I",
+              "index": 0
+            },
+            "newMMR": 1313,
+            "oldMMR": 1313,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-0.png"
+          }
+        }
+      },
+      {
+        "id": "d43f41f3-2d3c-4516-8a1e-80be77b9f587",
+        "isGrouped": false,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Ranked Standard 3v3",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 827,
+            "oldMMR": 827,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      },
+      {
+        "id": "fe676167-112b-459f-a357-aa74331aa33d",
+        "isGrouped": false,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Snowday",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division III",
+              "index": 2
+            },
+            "newMMR": 749,
+            "oldMMR": 749,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      },
+      {
+        "id": "0a975150-cb7c-4607-b972-a27cd5e27c51",
+        "isGrouped": false,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Multiple",
+        "stats": {
+          "saves": 1089,
+          "assists": 568,
+          "goals": 1317,
+          "matchesPlayed": null,
+          "mvps": 158,
+          "shots": 3170,
+          "wins": 458
+        }
+      },
+      {
+        "id": "6275fc11-d677-4795-981f-a2edda43560d",
+        "isGrouped": false,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Rumble",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 699,
+            "oldMMR": 699,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      },
+      {
+        "id": "c58dff10-636e-4b08-bdc9-f417a9513c69",
+        "isGrouped": true,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 40,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Diamond I",
+              "index": 13
+            },
+            "division": {
+              "name": "Division III",
+              "index": 2
+            },
+            "newMMR": 850,
+            "oldMMR": 850,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-13.png"
+          }
+        }
+      },
+      {
+        "id": "73587f11-c2d9-45a9-b6ad-822e00c85330",
+        "isGrouped": true,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 200,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Diamond III",
+              "index": 15
+            },
+            "division": {
+              "name": "Division III",
+              "index": 2
+            },
+            "newMMR": 1038,
+            "oldMMR": 1038,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-15.png"
+          }
+        }
+      },
+      {
+        "id": "1867ef54-3e43-410f-97ab-0e93fdc40451",
+        "isGrouped": false,
+        "date": "2025-03-28T08:04:00.230Z",
+        "playlist": "Hoops",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 720,
+            "oldMMR": 720,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "d416127c-ce25-455d-a815-a715e0c81979",
+        "isGrouped": true,
+        "date": "2025-02-06T19:56:13.090Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 460,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Champion I",
+              "index": 16
+            },
+            "division": {
+              "name": "Division III",
+              "index": 2
+            },
+            "newMMR": 1142,
+            "oldMMR": 1024,
+            "mmrDelta": 118,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-16.png"
+          }
+        }
+      },
+      {
+        "id": "41b32345-65c7-4654-8b5b-a171a61a83d2",
+        "isGrouped": true,
+        "date": "2025-02-06T19:56:13.090Z",
+        "playlist": "Ranked Standard 3v3",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 5,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Diamond I",
+              "index": 13
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 859,
+            "oldMMR": 794,
+            "mmrDelta": 65,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-13.png"
+          }
+        }
+      },
+      {
+        "id": "840eba99-be58-40df-bfa5-bddd6d89f1a4",
+        "isGrouped": false,
+        "date": "2025-02-06T19:56:13.090Z",
+        "playlist": "Snowday",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 1,
+          "mvps": null,
+          "shots": null,
+          "wins": 1,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division III",
+              "index": 2
+            },
+            "newMMR": 749,
+            "oldMMR": 730,
+            "mmrDelta": 19,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      },
+      {
+        "id": "495937ea-9278-40ba-b997-7242e36a4cfc",
+        "isGrouped": false,
+        "date": "2025-02-06T19:56:13.090Z",
+        "playlist": "Multiple",
+        "stats": {
+          "saves": 507,
+          "assists": 279,
+          "goals": 595,
+          "matchesPlayed": null,
+          "mvps": 89,
+          "shots": 1383,
+          "wins": 244
+        }
+      },
+      {
+        "id": "1ff235c2-5f0c-4489-b3cf-0dda82fc3c4a",
+        "isGrouped": false,
+        "date": "2025-02-06T19:56:13.090Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 1,
+          "mvps": null,
+          "shots": null,
+          "wins": 0,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 761,
+            "oldMMR": 776,
+            "mmrDelta": -15,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "matches": [
+      {
+        "id": "2126e547-e914-4cc9-9138-438b6f2bf2e4",
+        "isGrouped": true,
+        "date": "2025-01-08T08:18:45.500Z",
+        "playlist": "Ranked Doubles 2v2",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 283,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Diamond III",
+              "index": 15
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 1024,
+            "oldMMR": 1024,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-15.png"
+          }
+        }
+      },
+      {
+        "id": "8496a6b4-5df6-4241-8041-7ade35b043c0",
+        "isGrouped": true,
+        "date": "2025-01-08T08:18:45.500Z",
+        "playlist": "Ranked Duel 1v1",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 5,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 776,
+            "oldMMR": 776,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      },
+      {
+        "id": "8ba5a167-3ccd-4dd6-9e42-3583ab5f5d0a",
+        "isGrouped": false,
+        "date": "2025-01-08T08:18:45.500Z",
+        "playlist": "Dropshot",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division I",
+              "index": 0
+            },
+            "newMMR": 695,
+            "oldMMR": 695,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      },
+      {
+        "id": "6c10c391-5cd9-4688-95dc-a8051da29f7c",
+        "isGrouped": false,
+        "date": "2025-01-08T08:18:45.500Z",
+        "playlist": "Multiple",
+        "stats": {
+          "saves": 669,
+          "assists": 315,
+          "goals": 871,
+          "matchesPlayed": null,
+          "mvps": 124,
+          "shots": 1915,
+          "wins": 294
+        }
+      },
+      {
+        "id": "3b92cf0e-69a7-4416-ad25-39a1757c0f97",
+        "isGrouped": false,
+        "date": "2025-01-08T08:18:45.500Z",
+        "playlist": "Rumble",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 704,
+            "oldMMR": 704,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      },
+      {
+        "id": "ef354796-5262-44c9-ac28-4ed1327099a4",
+        "isGrouped": false,
+        "date": "2025-01-08T08:18:45.500Z",
+        "playlist": "Snowday",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum II",
+              "index": 11
+            },
+            "division": {
+              "name": "Division IV",
+              "index": 3
+            },
+            "newMMR": 730,
+            "oldMMR": 730,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-11.png"
+          }
+        }
+      },
+      {
+        "id": "0b0b9958-c47d-46bb-a35b-1732544b0abd",
+        "isGrouped": false,
+        "date": "2025-01-08T08:18:45.500Z",
+        "playlist": "Ranked Standard 3v3",
+        "stats": {
+          "saves": null,
+          "assists": null,
+          "goals": null,
+          "matchesPlayed": 0,
+          "mvps": null,
+          "shots": null,
+          "wins": null,
+          "rank": {
+            "tier": {
+              "name": "Platinum III",
+              "index": 12
+            },
+            "division": {
+              "name": "Division II",
+              "index": 1
+            },
+            "newMMR": 794,
+            "oldMMR": 794,
+            "mmrDelta": null,
+            "imageURL": "https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-12.png"
+          }
+        }
+      }
+    ]
+  }
+]
