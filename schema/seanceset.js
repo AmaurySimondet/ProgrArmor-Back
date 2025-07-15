@@ -28,6 +28,12 @@ const seancesetSchema = new Schema(
         },
         PR: { type: String, default: null },
         date: { type: Date, required: true },
+        variations: [
+            {
+                variation: { type: Schema.Types.ObjectId, ref: 'Variation', required: true },
+                type: { type: Schema.Types.ObjectId, ref: 'Type', required: true },
+            }
+        ],
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }

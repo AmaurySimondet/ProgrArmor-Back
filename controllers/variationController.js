@@ -6,9 +6,10 @@ module.exports = (router) => {
         try {
             const search = req.query.search;
             const type = req.query.type;
+            const sortBy = req.query.sortBy || 'name';
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 7;
-            const { variations, total } = await variation.getVariationBySearch(search, type, page, limit);
+            const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit);
             res.json({
                 success: true,
                 variations,
@@ -27,7 +28,9 @@ module.exports = (router) => {
     router.get('/variation/all', async (req, res) => {
         try {
             const type = req.query.type;
-            const { variations, total } = await variation.getAllVariations(type);
+            const sortBy = req.query.sortBy || 'name';
+            const userId = req.query.userId;
+            const { variations, total } = await variation.getAllVariations(type, sortBy, userId);
             res.json({
                 success: true,
                 variations,
