@@ -17,6 +17,7 @@ const typeSchema = new Schema(
             en: [{ type: String }]
         },
         popularityScore: { type: Number, default: 0 },
+        megatype: { type: Schema.Types.ObjectId, ref: "Megatype" }
     },
     {
         timestamps: true

@@ -15,6 +15,7 @@ const variationSchema = new Schema(
             en: { type: String, required: true }
         },
         selfmade: { type: Boolean, required: true },
+        megatype: { type: Schema.Types.ObjectId, ref: "Megatype" }
     },
     {
         timestamps: true
