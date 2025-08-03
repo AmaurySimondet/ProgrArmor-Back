@@ -47,4 +47,32 @@ module.exports = (router) => {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    router.get('/variation/rrf', async (req, res) => {
+        try {
+            const search = req.query.search;
+            const type = req.query.type;
+            const variations = await variation.getVariationByRRFSearch(search, type);
+            res.json({
+                success: true,
+                variations
+            });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    router.get('/variation/ai', async (req, res) => {
+        try {
+            const search = req.query.search;
+            const variations = await variation.getVariationByAI(search);
+            res.json({
+                success: true,
+                variations
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }; 

@@ -15,7 +15,10 @@ const variationSchema = new Schema(
             en: { type: String, required: true }
         },
         selfmade: { type: Boolean, required: true },
-        megatype: { type: Schema.Types.ObjectId, ref: "Megatype" }
+        megatype: { type: Schema.Types.ObjectId, ref: "Megatype" },
+        isExercice: { type: Boolean, required: true },
+        mergedNamesEmbedding: { type: [Number], required: false },
+        mergedNames: { type: String, required: false }
     },
     {
         timestamps: true
