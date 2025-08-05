@@ -1,6 +1,7 @@
 const nlp = require('compromise')
 const { fra, eng } = require('stopword')
 const axios = require('axios');
+const Embedding = require('../schema/embedding');
 
 /**
  * Extrait les tokens pertinents d'une requête utilisateur.
@@ -47,11 +48,50 @@ function normalizeString(str) {
 }
 
 /**
+ * Get embedding from database
+ * @param {string} text - Text to search for
+ * @returns {Promise<Object|null>} - Embedding document or null if not found
+ */
+async function getEmbeddingFromDb(text) {
+    if (!text || typeof text !== 'string') {
+        return { embedding: null, doc: null };
+    }
+
+    try {
+        const normalizedText = normalizeString(text);
+        const embeddingDoc = await Embedding.findOne({
+            search: normalizedText,
+        });
+
+        if (embeddingDoc && embeddingDoc.embedding) {
+            // Update usage statistics
+            await Embedding.updateOne(
+                { _id: embeddingDoc._id },
+                {
+                    $inc: { usageCount: 1 },
+                    lastUsed: new Date()
+                }
+            );
+            return embeddingDoc;
+        }
+
+        return null
+    } catch (error) {
+        console.error('Error getting embedding from DB:', error.message);
+        return null
+    }
+}
+
+/**
  * Generate embedding using Hugging Face API
  * @param {string} text - Text to encode
  * @returns {Promise<number[]|null>} - Embedding vector or null on error
  */
-async function generateEmbedding(text) {
+async function getEmbeddingFromHf(text) {
+    if (!text || typeof text !== 'string') {
+        return null;
+    }
+
     const apiUrl = 'https://api-inference.huggingface.co/models/intfloat/multilingual-e5-large';
     const payload = {
         inputs: `query: ${text}`,
@@ -69,7 +109,42 @@ async function generateEmbedding(text) {
         });
         return response.data;
     } catch (error) {
-        console.error('Error generating embedding:', error.message);
+        console.error('Error generating embedding from Hugging Face:', error.message);
+        return null;
+    }
+}
+
+/**
+ * Get or create embedding with caching
+ * @param {string} text - Text to encode
+ * @returns {Promise<number[]|null>} - Embedding vector or null on error
+ */
+async function generateEmbedding(text) {
+    if (!text || typeof text !== 'string') {
+        return null;
+    }
+
+    const normalizedText = normalizeString(text);
+
+    try {
+        // First, try to get from database
+        const doc = await getEmbeddingFromDb(normalizedText);
+
+        if (!doc) {
+            const embedding = await getEmbeddingFromHf(normalizedText);
+            const newEmbedding = new Embedding({
+                search: normalizedText,
+                embedding: embedding
+            });
+            await newEmbedding.save();
+            console.log(`Embedding created for: "${normalizedText}"`);
+            return embedding;
+        }
+
+        console.log(`Embedding found in mongo for: "${normalizedText}"`);
+        return doc?.embedding;
+    } catch (error) {
+        console.error('Error in generateEmbedding:', error.message);
         return null;
     }
 }
@@ -184,6 +259,8 @@ module.exports = {
     extractTokens,
     generateTokenCombinations,
     generateEmbedding,
+    getEmbeddingFromDb,
+    getEmbeddingFromHf,
     cosineSimilarity,
     vectorSimilarity
 };

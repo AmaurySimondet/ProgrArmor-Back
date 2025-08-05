@@ -1,4 +1,5 @@
 const variation = require('../lib/variation');
+const { getOrSetCache } = require('../utils/cache');
 
 module.exports = (router) => {
     // Route statistics endpoint
@@ -66,7 +67,10 @@ module.exports = (router) => {
     router.get('/variation/ai', async (req, res) => {
         try {
             const search = req.query.search;
-            const results = await variation.getVariationByAI(search);
+            const cacheKey = `variation_ai_${search}`;
+            const results = await getOrSetCache(cacheKey, async () => {
+                return await variation.getVariationByAI(search);
+            });
             res.json({
                 success: true,
                 results
