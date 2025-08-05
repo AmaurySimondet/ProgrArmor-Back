@@ -58,6 +58,7 @@ module.exports = (router) => {
                 variations
             });
         } catch (err) {
+            console.error(err);
             res.status(500).json({ success: false, message: err.message });
         }
     });
@@ -65,10 +66,10 @@ module.exports = (router) => {
     router.get('/variation/ai', async (req, res) => {
         try {
             const search = req.query.search;
-            const variations = await variation.getVariationByAI(search);
+            const results = await variation.getVariationByAI(search);
             res.json({
                 success: true,
-                variations
+                results
             });
         } catch (err) {
             console.error(err);

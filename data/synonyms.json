@@ -1,0 +1,1830 @@
+[
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "extension",
+      "pushdown",
+      "poussée",
+      "push",
+      "press"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "curl",
+      "flexion",
+      "contraction"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "poulie",
+      "cable",
+      "machine"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "DC",
+      "BP",
+      "dc",
+      "bp",
+      "développé couché",
+      "bench press",
+      "developpe couche",
+      "bench",
+      "couché"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "DL",
+      "SDT",
+      "deadlift",
+      "dead lift",
+      "dl",
+      "sdt",
+      "soulevé de terre",
+      "souleve de terre"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "concentric",
+      "concentrique",
+      "concentric phase",
+      "phase concentrique",
+      "positive",
+      "phase positive",
+      "positive phase"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "excentric",
+      "excentrique",
+      "excentric phase",
+      "phase excentrique",
+      "negative",
+      "phase negative",
+      "negative phase"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "corde",
+      "rope"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "assis",
+      "seated",
+      "sitted"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "debout",
+      "standing"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "unilatéral",
+      "unilateral",
+      "un bras",
+      "un côté"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "biceps",
+      "muscle biceps"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "triceps",
+      "muscle triceps"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pectoraux",
+      "pecs",
+      "poitrine"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jambes",
+      "legs",
+      "membres inférieurs"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "dos",
+      "back",
+      "lats"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "épaules",
+      "deltoïdes",
+      "shoulders"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "abdos",
+      "abdominaux",
+      "abs"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hanches",
+      "hips"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "debout",
+      "standing"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "allongé",
+      "lying"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "a genoux",
+      "kneeling"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jambes au sol",
+      "legs on the ground"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hands apart",
+      "mains écartées"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hands inward",
+      "mains vers lintérieur"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on tiptoe",
+      "sur la pointe des pieds"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "feet outward",
+      "pieds vers lextérieur"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "feet inward",
+      "pieds vers lintérieur"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "elastic  strap on feet",
+      "elastique  sangle aux pieds"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "elastic  strap at knees",
+      "elastique  sangle aux genoux"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "elastic  strap at armpits",
+      "elastique  sangle aux aisselles"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "closed knees",
+      "genoux fermés"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "declined",
+      "décliné"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "leaning at 45",
+      "penché à 45"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on the back",
+      "sur le dos"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on the stomach",
+      "sur le ventre"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "above the knee",
+      "au dessus du genou"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "block  rack start",
+      "depart des blocks  du rack"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "28mm straight bar",
+      "barre droite 28mm"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre triceps",
+      "triceps bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "low pulleys",
+      "poulies basses"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre de tirage longue",
+      "long pullup bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre guidée",
+      "smith machine"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "bandes de poignets  sangles",
+      "wrist bands  straps"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "one foot on the bench",
+      "un pied sur le banc"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "cheated",
+      "triché"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "assisted",
+      "assisté"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "dos rond",
+      "rounded back"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "ulnaire",
+      "ulnar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en l",
+      "in l"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause at the top",
+      "pause en haut"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause at the middle",
+      "pause au milieu"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause sous le genou",
+      "pause under the knee"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause at the elbow",
+      "pause au coude"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "complete",
+      "complète"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "micro low rep",
+      "micro rep basse"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "12 bas",
+      "12 bottom"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en  avec saut",
+      "jumping"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "a quatre points",
+      "four dots"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "groupé enlacé",
+      "hugging tuck"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "roll",
+      "roulade"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on the head",
+      "sur la tête"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "power",
+      "puissance"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "grand écart",
+      "split"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "epaules",
+      "shoulders"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "one knee one hand on bench",
+      "un genou et une main sur le banc"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "arms on the ground",
+      "bras au sol"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "preacher",
+      "sur pupitre"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jambes tendues",
+      "stretched legs"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hanches en extension",
+      "hips extended"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "sans les mains",
+      "without hands"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on fingers",
+      "sur les doigts"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on fists",
+      "sur les poings"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hands outward",
+      "mains vers lextérieur"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hands on bench",
+      "mains sur le banc"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pieds surélevés",
+      "raised feet"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "elastic  strap under butt",
+      "elastique  sangle sous les fesses"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "elastic  strap above butt",
+      "elastique  sangle audessus des fesses"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "inclined",
+      "incliné"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "behind the neck",
+      "derrière la nuque"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hammer",
+      "marteau"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre olympique droite",
+      "straight olympic bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre olympique droite fine",
+      "straight thin olympic bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre super ez",
+      "super ez bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre droite poulie",
+      "straight bar pulley"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre de tirage longue avec poignées",
+      "long pullup bar with handles"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "simple triangle",
+      "triangle simple"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hankles weights",
+      "poids de chevilles"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "gilet lesté",
+      "weighted vest"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "aux anneaux",
+      "with rings"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on parallettes",
+      "sur parallettes"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "avec chaussures",
+      "with shoes"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre log",
+      "log bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "chaines",
+      "chains"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "balance platform",
+      "plateforme déquilibre"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "bandes de genoux",
+      "knee straps"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "inversé",
+      "reversed"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "strict  slow",
+      "stricte  lente"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "gymnast",
+      "gymnaste"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "australian",
+      "australienne"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "volant",
+      "wheel"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "dead at the bottom",
+      "dead en bas"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause above the knee",
+      "pause au dessous du genou"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause sous le coude",
+      "pause under the elbow"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "phase positiveconcentrique ralentie",
+      "slowed positiveconcentric phase"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "phase négative ralentie",
+      "slowed negativeexcentric phase"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "demi",
+      "half"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "12 haut",
+      "12 top"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "assis",
+      "sitted"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on box",
+      "sur box"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "arms outstretched",
+      "bras tendues"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "arms bent  flexed",
+      "bras pliées  flechies"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "arms crossed",
+      "bras croisés"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "arms raised",
+      "bras surélevés"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "flexed hips",
+      "hanches flechies"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jambes surélevés",
+      "raised legs"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hands clasped",
+      "mains serrées"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "feet apart",
+      "pieds écartés"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "elastic  strap under thumb",
+      "elastique  sangle au dessous du pouce"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "coudes ouverts",
+      "open elbows"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "closed elbows",
+      "coudes fermés"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "genoux ouverts",
+      "open knees"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "leaning at 90",
+      "penché à 90"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "lateral",
+      "latéral"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "au sol",
+      "on the ground"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "at knee level",
+      "au niveau du genou"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre multigrip",
+      "multigrip bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "discs",
+      "disques"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "high pulley",
+      "poulie haute"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "low pulley",
+      "poulie basse"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "high pulleys",
+      "poulies hautes"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "corde",
+      "rope"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre ez poulie",
+      "ez bar pulley"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pull triangle",
+      "triangle de tirage"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "handles",
+      "poignées"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "poids de poignets",
+      "wrists weights"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre de traction",
+      "pullup bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "sans chaussures",
+      "without shoes"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pneu",
+      "tyre"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "ballon de yoga",
+      "yoga ball"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "unilateral right",
+      "unilatéral droite"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "a un bras et à une jambe",
+      "one arm one leg"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "one hand raised",
+      "une main surélevée"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "outward",
+      "vers lextérieur"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "dead at the top",
+      "dead en haut"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause at the knee",
+      "pause au genou"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "14 bas",
+      "14 bottom"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "14 haut",
+      "14 top"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en torsion",
+      "in torsion"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pull to the neck",
+      "tirage vers le cou"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "static  isometric",
+      "statique  isométrique"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "avant bras",
+      "forearm"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "back",
+      "dos"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jambe",
+      "leg"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on bench",
+      "sur banc"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "bent  flexed legs",
+      "jambes pliées  flechies"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hanches très flechies",
+      "very flexed hips"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jambes croisés",
+      "legs crossed"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "mains surélevés",
+      "raised hands"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "feet clasped",
+      "pieds serrés"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "feet on bench",
+      "pieds sur le banc"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "elastic  strap above thumb",
+      "elastique  sangle au dessus du pouce"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "leaning at 60",
+      "penché à 60"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on the knees",
+      "sur les genoux"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "sous le genou",
+      "under the knee"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en squat",
+      "squatting"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "at hip level",
+      "au niveau des hanches"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre ez",
+      "ez bar"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "dumbbells",
+      "haltères"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "aux barres parallèles",
+      "on parallel bars"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "unilateral left",
+      "unilatéral gauche"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "one foot raised",
+      "un pied surélevé"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "one hand on the bench",
+      "une main sur le banc"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "avec balancier",
+      "with pendulum"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en sautant",
+      "jumping"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "bouncing",
+      "en rebondissant"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "inward",
+      "vers lintérieur"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "crossing",
+      "en croisant"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "bridged",
+      "ponté"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "diamant",
+      "diamond"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause at the bottom",
+      "pause en bas"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pause above the elbow",
+      "pause au dessous du coude"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "micro high rep",
+      "micro rep haute"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "micro middle rep",
+      "micro rep au milieu"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "clapped",
+      "clappé"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "clapped in the back",
+      "clappé dans le dos"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en  avec coup de pied",
+      "with kick"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en touchant le torse",
+      "touching torso"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "heel butt",
+      "talon fesse"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "sans grand écart",
+      "without split"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "3 level",
+      "3 niveau"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "au dessus de la tête",
+      "overhead"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "gêne musculaire pendant lexercice",
+      "muscular discomfort during exercise"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "douleur musculaire pendant lexercice",
+      "tendon pain during exercise"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "douleur tendineuse pendant lexercice",
+      "tendon pain during exercise"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "développé",
+      "press"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en se relevant",
+      "getting back up"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "du singe",
+      "monkey"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jumped",
+      "sauté"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "avec élan",
+      "kipping"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "avec élan bloqué",
+      "with blocked kip"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hangging",
+      "suspendu"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "i hurt myself during the exercise",
+      "je me suis blessé pendant lexercice"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en ciseau",
+      "in scissor"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "en  avec appui tendu renversé",
+      "handstanding"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "groupé",
+      "tuck"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "full tuck",
+      "groupé complet"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "on the butt",
+      "sur les fesses"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "avec extension",
+      "with extension"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "gêne tendineuse pendant lexercice",
+      "tendon discomfort during exercise"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "explosif",
+      "plyometric"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "ecartés",
+      "fly"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "rowing",
+      "tirage"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "fentes",
+      "lunges"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "relevé de buste en roulade",
+      "rolling situp"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "course",
+      "running"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "rondade",
+      "roundabout"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "ciseaux",
+      "scissors"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "essuie glasse",
+      "windshield wiper"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "tirage vertical",
+      "vertical row"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pont du lutteur",
+      "wrestlers bridge"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "planche",
+      "plank"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "le volant",
+      "the wheel"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pompe",
+      "push up"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "pull up",
+      "traction"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "drapeau",
+      "human flag"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hanging leg raises",
+      "relevé de jambes suspendu"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jump",
+      "saut"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "bobine dandrieu",
+      "wrist roller"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "obliques",
+      "side bend"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "snatch deadlift",
+      "soulevé de terre arraché"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "bench press",
+      "developpé couché"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "forward bridge",
+      "pont avant"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "abdominal bicycles",
+      "bicyclette"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "developpé militaire",
+      "shoulder press"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "deadlift",
+      "soulevé de terre"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "croix de fer",
+      "iron cross"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "appui tendu renversé",
+      "handstand"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hang",
+      "suspension"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hand jump",
+      "saut de main"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "repulsion",
+      "répulsion"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "rameur",
+      "rowing machine"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "jerk",
+      "jeté"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "dislocation dépaule",
+      "shoulder dislocation"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "oiseau",
+      "reverse fly"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "bridge",
+      "pont"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "rowing chin",
+      "tirage menton"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "barre au front",
+      "skullcrusher"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "hanging knee raise",
+      "relevé de genou suspendu"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "retournement de pneu",
+      "tire flipping"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "nageur",
+      "swimmer"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "arraché",
+      "snatch"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "clean",
+      "epaulé"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "donkey kick",
+      "ruade de lâne"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "biking",
+      "vélo"
+    ]
+  },
+  {
+    "mappingType": "equivalent",
+    "synonyms": [
+      "roue",
+      "wheel"
+    ]
+  }
+]
