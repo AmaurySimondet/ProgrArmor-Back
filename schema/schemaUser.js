@@ -40,6 +40,10 @@ const userSchema = mongoose.Schema(
       currentStreak: Number,
       bestStreak: Number,
       lastUpdated: Date
+    },
+    language: {
+      type: String,
+      default: "fr"
     }
   },
   { timestamps: true }
