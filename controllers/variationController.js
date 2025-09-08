@@ -2,7 +2,15 @@ const variation = require('../lib/variation');
 const { getOrSetCache } = require('../utils/cache');
 
 module.exports = (router) => {
-    // Route statistics endpoint
+    router.get('/variation/:id', async (req, res) => {
+        try {
+            const variationFetched = await variation.getVariationById(req.params.id, req.query.fields);
+            res.json({ success: true, variation: variationFetched });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
     router.get('/variation/search', async (req, res) => {
         try {
             const search = req.query.search;
@@ -33,7 +41,9 @@ module.exports = (router) => {
             const userId = req.query.userId;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 20;
+            console.log("params", type, sortBy, userId, page, limit);
             const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit);
+
             res.json({
                 success: true,
                 variations,

@@ -11,7 +11,7 @@ async function addSomeDocuments() {
         console.log('Connected to MongoDB');
 
         const schema = Categorie;
-        // const type = mongoose.Types.ObjectId('67adfe9e4baa3f3bf7d99a28');
+        // const type = new mongoose.Types.ObjectId('67adfe9e4baa3f3bf7d99a28');
         const namesToAdd = [
             "Détail anatomique",
         ];
@@ -19,7 +19,7 @@ async function addSomeDocuments() {
 
         for (const name of namesToAdd) {
             await schema.create({
-                _id: mongoose.Types.ObjectId(),
+                _id: new mongoose.Types.ObjectId(),
                 name: { fr: name, en: name },
                 // type: type,
                 popularityScore: 26,

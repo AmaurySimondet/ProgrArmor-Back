@@ -17,4 +17,13 @@ module.exports = (router) => {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    router.get('/type/:id', async (req, res) => {
+        try {
+            const type = await Type.findById(req.params.id).select(req.query.fields).lean().exec();
+            res.json({ success: true, type });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }; 

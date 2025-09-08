@@ -10,11 +10,6 @@ require('dotenv').config();
 const { timingMiddleware } = require('./utils/timing');
 const { sessionConfig, configurePassport } = require('./lib/login');
 
-//Depreciation warnings
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-
 // Ensure environment variables are set
 const mongoURL = process.env.mongoURL;
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -26,12 +21,7 @@ if (!mongoURL || !JWT_SECRET) {
 
 // Connection to the database
 mongoose
-  .connect(mongoURL + process.env.DATABASE, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
+  .connect(mongoURL + process.env.DATABASE)
   .then(() => {
     console.log("Connected to mongoDB");
   })
