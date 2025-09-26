@@ -23,14 +23,31 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/pr', async (req, res) => {
+    app.get('/prs', async (req, res) => {
         try {
             const userId = req.query.userId;
             const exercice = req.query.exercice;
             const categories = req.query.categories;
             const dateMin = req.query.dateMin;
-            const prs = await set.getPRs(userId, exercice, categories, dateMin);
+            const variations = req.query.variations;
+            const prs = await set.getPRs(userId, exercice, categories, dateMin, variations);
             res.json({ success: true, prs });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    app.get('/ispr', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const seanceId = req.query.seanceId;
+            const unit = req.query.unit;
+            const value = req.query.value;
+            const weightLoad = req.query.weightLoad;
+            const elastic = req.query.elastic;
+            const variations = req.query.variations;
+            const isPersonalRecord = await set.isPersonalRecord(userId, seanceId, unit, value, weightLoad, elastic, variations);
+            res.json({ success: true, isPersonalRecord });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }
