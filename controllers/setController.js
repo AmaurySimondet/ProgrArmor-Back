@@ -42,11 +42,18 @@ module.exports = function (app) {
             const userId = req.query.userId;
             const seanceId = req.query.seanceId;
             const unit = req.query.unit;
-            const value = req.query.value;
-            const weightLoad = req.query.weightLoad;
-            const elastic = req.query.elastic;
+            const value = parseFloat(req.query.value);
+            const weightLoad = parseFloat(req.query.weightLoad);
+            let elastic = null;
+            if (req.query.elastic) {
+                elastic = {
+                    use: req.query.elastic?.use,
+                    tension: parseFloat(req.query.elastic?.tension)
+                };
+            }
             const variations = req.query.variations;
             const isPersonalRecord = await set.isPersonalRecord(userId, seanceId, unit, value, weightLoad, elastic, variations);
+            console.log("isPersonalRecord response for userId:", userId, "seanceId:", seanceId, "unit:", unit, "value:", value, "weightLoad:", weightLoad, "elastic:", elastic, "variations:", variations, "isPersonalRecord:", isPersonalRecord);
             res.json({ success: true, isPersonalRecord });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
