@@ -23,7 +23,7 @@ if (!mongoURL || !JWT_SECRET) {
 mongoose
   .connect(mongoURL + process.env.DATABASE)
   .then(() => {
-    console.log("Connected to mongoDB");
+    console.log("Connected to mongoDB - " + process.env.DATABASE);
   })
   .catch((e) => {
     console.log("Error while DB connecting");
