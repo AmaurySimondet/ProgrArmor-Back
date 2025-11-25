@@ -8,9 +8,10 @@ module.exports = (router) => {
             const type = req.query.type;
             const sortBy = req.query.sortBy || 'name';
             const userId = req.query.userId;
+            const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 20;
-            const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit);
+            const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit, verified);
 
             res.json({
                 success: true,
@@ -33,9 +34,10 @@ module.exports = (router) => {
             const search = req.query.search;
             const type = req.query.type;
             const sortBy = req.query.sortBy || 'name';
+            const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 7;
-            const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit);
+            const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit, verified);
             res.json({
                 success: true,
                 variations,

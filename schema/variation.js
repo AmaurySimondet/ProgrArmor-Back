@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 // Define the Variation schema
 const variationSchema = new Schema(
     {
-        _id: Schema.Types.ObjectId,
         type: { type: Schema.Types.ObjectId, ref: 'Type', required: true },
         name: {
             fr: { type: String, required: true },
@@ -18,7 +17,11 @@ const variationSchema = new Schema(
         megatype: { type: Schema.Types.ObjectId, ref: "Megatype" },
         isExercice: { type: Boolean, required: true },
         mergedNamesEmbedding: { type: [Number], required: false },
-        mergedNames: { type: String, required: false }
+        mergedNames: { type: String, required: false },
+        picture: { type: String },
+        popularity: { type: Number, default: 0 },
+        equivalentTo: [{ type: Schema.Types.ObjectId, ref: 'Variation' }],
+        verified: { type: Boolean, default: false }
     },
     {
         timestamps: true
