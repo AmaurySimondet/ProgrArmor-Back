@@ -84,6 +84,7 @@ require(__dirname + "/controllers/fatSecretController")(router);
 require(__dirname + "/controllers/variationController")(router);
 require(__dirname + "/controllers/typesController")(router);
 require(__dirname + "/controllers/megatypesController")(router);
+require(__dirname + "/controllers/shiftController")(router);
 
 // Define and set up the port
 const port = process.env.PORT || 8800;
