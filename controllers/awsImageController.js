@@ -118,4 +118,48 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+    const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+
+    // Initialize S3 Client (Securely on the server)
+    const s3Client = new S3Client({
+        region: process.env.AWS_REGION,
+        credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        }
+    });
+
+    // Endpoint to generate Presigned URL
+    // POST /user/aws/presigned-url
+    app.post('/aws/presigned-url', async (req, res) => {
+        try {
+            const { userId, fileName, fileType } = req.body;
+
+            // Create a unique file key
+            const fileExtension = fileName.split('.').pop();
+            const key = `${userId}/${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExtension}`;
+
+            const command = new PutObjectCommand({
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: key,
+                ContentType: fileType,
+                // optional: ACL: 'public-read' if your bucket policy allows it and you want public access
+            });
+
+            // Generate the URL (valid for 5 minutes)
+            const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 300 });
+
+            // Return the upload URL and the final public URL
+            res.json({
+                uploadUrl,
+                key,
+                cloudfrontUrl: `https://${process.env.AWS_CLOUDFRONT_DOMAIN}/${key}`
+            });
+        } catch (error) {
+            console.error("Error generating presigned URL:", error);
+            res.status(500).json({ error: "Failed to generate upload URL" });
+        }
+    });
 }; 

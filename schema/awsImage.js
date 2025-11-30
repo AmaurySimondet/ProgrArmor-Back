@@ -15,11 +15,11 @@ const awsImageSchema = new mongoose.Schema({
     },
     bucket: {
         type: String,
-        required: true
+        required: false
     },
     location: {
         type: String,
-        required: true
+        required: false
     },
     cloudfrontUrl: {
         type: String,
