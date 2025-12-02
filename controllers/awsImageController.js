@@ -69,9 +69,6 @@ module.exports = function (app) {
     app.get('/aws/get-seance-photos', async (req, res) => {
         try {
             const { userId, seanceDate, seanceName } = req.query;
-            console.log("userId", userId)
-            console.log("seanceDate", seanceDate)
-            console.log("seanceName", seanceName)
 
             if (!userId || !seanceDate || !seanceName) {
                 return res.status(400).json({

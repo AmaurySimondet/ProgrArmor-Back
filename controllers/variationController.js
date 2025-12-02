@@ -12,7 +12,6 @@ module.exports = (router) => {
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 20;
-            console.log('req.query', req.query);
             const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit, verified, isExercice);
 
             res.json({
@@ -40,7 +39,6 @@ module.exports = (router) => {
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 7;
-            console.log('req.query', req.query);
             const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit, verified, isExercice);
             res.json({
                 success: true,

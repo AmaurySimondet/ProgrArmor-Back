@@ -6,12 +6,12 @@ const seancesetSchema = new Schema(
     {
         _id: { type: Schema.Types.ObjectId, required: true, auto: true },
         user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-        exercice: { type: Schema.Types.ObjectId, ref: 'Exercise', required: true },
-        exerciceType: { type: Schema.Types.ObjectId, ref: 'ExerciseType', required: true },
+        exercice: { type: Schema.Types.ObjectId, ref: 'Exercise', required: false },
+        exerciceType: { type: Schema.Types.ObjectId, ref: 'ExerciseType', required: false },
         categories: [
             {
-                category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-                categoryType: { type: Schema.Types.ObjectId, ref: 'CategoryType', required: true },
+                category: { type: Schema.Types.ObjectId, ref: 'Category', required: false },
+                categoryType: { type: Schema.Types.ObjectId, ref: 'CategoryType', required: false },
             }
         ],
         seance: { type: Schema.Types.ObjectId, ref: 'Seance', required: true },

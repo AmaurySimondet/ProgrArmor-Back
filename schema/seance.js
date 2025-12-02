@@ -20,7 +20,11 @@ const seanceSchema = new Schema(
         recordSummary: [
             { PR: { type: String, required: true }, number: { type: Number, required: true } }
         ],
-        seancePhotos: [{ type: String, required: false }]
+        seancePhotos: [{ type: String, required: false }],
+        totalSeconds: { type: Number, required: false },
+        startedAt: { type: Date, required: false },
+        endedAt: { type: Date, required: false },
+        originalSeanceId: { type: Schema.Types.ObjectId, ref: 'Seance', required: false },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }

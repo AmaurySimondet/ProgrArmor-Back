@@ -53,6 +53,7 @@ module.exports = function (app) {
             const newSeance = await seance.createSeance(seanceData, photoIds);
             res.json({ success: true, newSeance });
         } catch (err) {
+            console.error("Error creating seance:", err);
             res.status(500).json({ success: false, message: err.message });
         }
     });
