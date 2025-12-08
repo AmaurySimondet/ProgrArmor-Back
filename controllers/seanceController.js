@@ -70,7 +70,13 @@ module.exports = function (app) {
     app.put("/updateSeance", async (req, res) => {
         try {
             const id = req.query.id;
+            if (!id) {
+                throw new Error("Seance ID is required");
+            }
             const seanceData = req.body.seance;
+            if (!seanceData) {
+                throw new Error("Seance data is required");
+            }
             const photoIds = req.body.photoIds;
             const updatedSeance = await seance.updateSeance(id, seanceData, photoIds);
             res.json({ success: true, updatedSeance });

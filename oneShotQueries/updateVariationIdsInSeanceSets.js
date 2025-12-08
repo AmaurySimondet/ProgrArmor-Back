@@ -38,8 +38,8 @@ const client = new MongoClient(uri);
 async function updateVariationIdsInSeanceSets() {
     try {
         await client.connect();
-        const db = client.db(process.env.DATABASE.split('/')[1]);
-        console.log("Connected to database: ", process.env.DATABASE.split('/')[1]);
+        const db = client.db("progarmor");
+        console.log("Connected to database: ", "progarmor");
 
         let processedCount = 0;
         let successCount = 0;
