@@ -32,8 +32,16 @@ const seancesetSchema = new Schema(
             {
                 variation: { type: Schema.Types.ObjectId, ref: 'Variation', required: true },
                 type: { type: Schema.Types.ObjectId, ref: 'Type', required: true },
+                name: {
+                    fr: { type: String, required: false },
+                    en: { type: String, required: false }
+                },
             }
         ],
+        mergedVariationsNames: {
+            fr: { type: String, required: false },
+            en: { type: String, required: false }
+        },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }

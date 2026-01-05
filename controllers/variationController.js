@@ -10,9 +10,10 @@ module.exports = (router) => {
             const userId = req.query.userId;
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
+            const myExercices = req.query.myExercices === 'true' ? true : (req.query.myExercices === 'false' ? false : undefined);
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 20;
-            const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit, verified, isExercice);
+            const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit, verified, isExercice, myExercices);
 
             res.json({
                 success: true,
@@ -37,9 +38,11 @@ module.exports = (router) => {
             const sortBy = req.query.sortBy || 'name';
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
+            const myExercices = req.query.myExercices === 'true' ? true : (req.query.myExercices === 'false' ? false : undefined);
+            const userId = req.query.userId;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 7;
-            const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit, verified, isExercice);
+            const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit, verified, isExercice, myExercices, userId);
             res.json({
                 success: true,
                 variations,
