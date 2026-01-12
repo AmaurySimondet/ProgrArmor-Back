@@ -44,6 +44,10 @@ const userSchema = mongoose.Schema(
     language: {
       type: String,
       default: "fr"
+    },
+    normalizedName: {
+      type: String,
+      required: true
     }
   },
   { timestamps: true }

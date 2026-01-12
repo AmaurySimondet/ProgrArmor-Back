@@ -20,6 +20,7 @@ module.exports = function (app) {
 
     //USERS
     app.get('/getUsers', User.getUsers);
+    app.get('/searchUsers', User.searchUsers);
     app.get('/userStats', User.userStats);
     app.get('/regularityScore', User.getRegularityScore);
 
