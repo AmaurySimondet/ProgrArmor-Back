@@ -84,6 +84,20 @@ module.exports = function (app) {
         }
     });
 
+    app.get('/personalRecordsSummary', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const dateMin = req.query.dateMin;
+            const personalRecordsSummary = await set.getPersonalRecordsSummary(userId, page, limit, dateMin);
+            res.json({ success: true, ...personalRecordsSummary });
+        } catch (err) {
+            console.error("Error fetching personal records summary:", err);
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
     app.get('/lastFormats', async (req, res) => {
         try {
             const userId = req.query.userId;

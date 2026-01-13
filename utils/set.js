@@ -14,7 +14,8 @@ function compareAndAssignPR(currentPR, newSet) {
         return {
             value: newSet.value,
             weightLoad: newSet.weightLoad,
-            elastic: newSet.elastic
+            elastic: newSet.elastic,
+            date: newSet.date,
         };
     }
 
@@ -48,7 +49,8 @@ function compareAndAssignPR(currentPR, newSet) {
         return {
             value: newSet.value,
             weightLoad: newSet.weightLoad,
-            elastic: newSet.elastic
+            elastic: newSet.elastic,
+            date: newSet.date,
         };
     }
 
