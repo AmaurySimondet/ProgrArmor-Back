@@ -51,10 +51,12 @@ module.exports = function (app) {
         try {
             const { seanceId } = req.params;
             const { userId, text, seanceUser, identifiedUsers, parentComment } = req.body;
+            console.log(req.body, req.params);
 
             const newComment = await seanceComment.createComment(seanceId, userId, text, seanceUser, identifiedUsers, parentComment);
             res.json({ success: true, comment: newComment });
         } catch (err) {
+            console.log(err);
             res.status(500).json({ success: false, message: err.message });
         }
     });
