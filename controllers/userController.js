@@ -23,6 +23,7 @@ module.exports = function (app) {
     app.get('/searchUsers', User.searchUsers);
     app.get('/userStats', User.userStats);
     app.get('/regularityScore', User.getRegularityScore);
+    app.get('/topUsers', User.getTopUsers);
 
     //FOLLOWERS
     app.post('/followUser', User.followUser);
