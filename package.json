@@ -7,7 +7,8 @@
     "npm": "8.15.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.940.0",
@@ -43,5 +44,8 @@
     "trn-rocket-league": "^2.6.9",
     "uuid": "^9.0.0",
     "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
