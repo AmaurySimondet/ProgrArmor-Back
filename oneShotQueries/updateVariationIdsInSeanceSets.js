@@ -88,6 +88,14 @@ async function updateVariationIdsInSeanceSets() {
 
         console.log(`Found ${variationIdsToUpdate.length} missing variation IDs`);
 
+        const manualMapping = {
+            "669c3609218324e0b7682b5a": "66cc8e26148b9943caa05ce7",  // Puissance/Power → Explosif/Power
+            "67a7739953b06f1c809554b8": "669c3609218324e0b7682a57",  // Pupitre → Sur pupitre/Preacher
+            "677fecaf6294b680edf9765b": "691b33ba9c28bf0f3ee12357",  // Frontal → Frontale/Front
+            "6810bdeb427fbf000388fdef": "6922144d1c858345acc2d135",  // Hyper extension → Extensions lombaires/Back Extension
+            "678022e21368152aa63ae286": "669c3609218324e0b7682a66",  // 2 doigts: D-po-in → Sur les doigts/On fingers
+        };
+
         for (const originalId of variationIdsToUpdate) {
             try {
                 processedCount++;
@@ -110,13 +118,27 @@ async function updateVariationIdsInSeanceSets() {
 
                 console.log(`  ✅ Found ${docType}: ${originalDoc.name.fr} / ${originalDoc.name.en}`);
 
-                // 2. Find the variation based on the name
-                const variation = await Variation.findOne({
-                    $or: [
-                        { "name.fr": originalDoc.name.fr },
-                        { "name.en": originalDoc.name.en }
-                    ]
-                });
+                // 2. Find the variation: check manual mapping first, then "doigt" pattern, then name match
+                let variation = null;
+
+                if (manualMapping[originalId.toString()]) {
+                    variation = await Variation.findById(manualMapping[originalId.toString()]);
+                    if (variation) console.log(`  📌 Using manual mapping`);
+                }
+
+                if (!variation && (originalDoc.name.fr?.toLowerCase().includes("doigt") || originalDoc.name.en?.toLowerCase().includes("doigt"))) {
+                    variation = await Variation.findById("669c3609218324e0b7682a66");
+                    if (variation) console.log(`  📌 Matched "doigt" pattern → Sur les doigts/On fingers`);
+                }
+
+                if (!variation) {
+                    variation = await Variation.findOne({
+                        $or: [
+                            { "name.fr": originalDoc.name.fr },
+                            { "name.en": originalDoc.name.en }
+                        ]
+                    });
+                }
 
                 if (!variation) {
                     console.log(`  ❌❌❌ Variation not found for: ${originalDoc.name.fr} / ${originalDoc.name.en}`);
