@@ -1,5 +1,4 @@
 const Megatype = require('../schema/megatype');
-const { getOrSetCache } = require('../utils/cache');
 
 lookup_types = {
     from: "types",
@@ -15,12 +14,10 @@ module.exports = (router) => {
     // Route statistics endpoint
     router.get('/megatypes', async (req, res) => {
         try {
-            const megatypes = await getOrSetCache('megatypes_all', async () => {
-                return await Megatype.aggregate([
-                    { $lookup: lookup_types },
-                    { $sort: { popularityScore: -1 } }
-                ]);
-            });
+            const megatypes = await Megatype.aggregate([
+                { $lookup: lookup_types },
+                { $sort: { popularityScore: -1 } }
+            ]);
             res.json({
                 success: true,
                 megatypes
