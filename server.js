@@ -13,26 +13,50 @@ const { sessionConfig, configurePassport } = require('./lib/login');
 // Ensure environment variables are set
 const mongoURL = process.env.mongoURL;
 const JWT_SECRET = process.env.JWT_SECRET;
+const DATABASE = process.env.DATABASE;
 
-if (!mongoURL || !JWT_SECRET) {
+if (!mongoURL || !JWT_SECRET || !DATABASE) {
   console.error("Error: Required environment variables are not set.");
   process.exit(1);
 }
 
-// Connection to the database
-mongoose
-  .connect(mongoURL + process.env.DATABASE,
-    {
-      tls: true,
-      tlsAllowInvalidCertificates: true // ⚠️ uniquement pour test
-    })
-  .then(() => {
-    console.log("Connected to mongoDB - " + process.env.DATABASE);
-  })
-  .catch((e) => {
-    console.log("Error while DB connecting");
-    console.log(e);
-  });
+const MONGO_URI = mongoURL + DATABASE;
+const MAX_POOL_SIZE = Number(process.env.MONGO_MAX_POOL_SIZE || 10);
+
+const globalCache = global;
+if (!globalCache.__mongoose) {
+  globalCache.__mongoose = { conn: null, promise: null };
+}
+const cached = globalCache.__mongoose;
+
+async function connectDB() {
+  if (cached.conn && mongoose.connection.readyState === 1) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    console.log("Connecting to Mongo...");
+    cached.promise = mongoose
+      .connect(MONGO_URI, {
+        maxPoolSize: MAX_POOL_SIZE,
+        tls: true,
+        tlsAllowInvalidCertificates: true // ⚠️ uniquement pour test
+      })
+      .then((connection) => {
+        console.log("Connected to mongoDB - " + DATABASE);
+        return connection;
+      })
+      .catch((e) => {
+        cached.promise = null;
+        console.log("Error while DB connecting");
+        console.log(e);
+        throw e;
+      });
+  }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
 
 //On définit notre objet express nommé app
 const app = express();
@@ -46,6 +70,16 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
 app.use(express.raw({ limit: '50mb' }));
+
+// Lazy DB connection: in serverless, each invocation reuses cached promise/connection.
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({ error: "Database connection failed" });
+  }
+});
 
 //PASSPORT
 app.use(passport.initialize());
@@ -108,6 +142,10 @@ const getIPAddress = () => {
 
 const ipAddress = getIPAddress();
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Server is running on http://${ipAddress}:${port}`);
-});
+if (process.env.VERCEL !== "1") {
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`Server is running on http://${ipAddress}:${port}`);
+  });
+}
+
+module.exports = app;
