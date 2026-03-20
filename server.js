@@ -21,7 +21,11 @@ if (!mongoURL || !JWT_SECRET) {
 
 // Connection to the database
 mongoose
-  .connect(mongoURL + process.env.DATABASE)
+  .connect(mongoURL + process.env.DATABASE,
+    {
+      tls: true,
+      tlsAllowInvalidCertificates: true // ⚠️ uniquement pour test
+    })
   .then(() => {
     console.log("Connected to mongoDB - " + process.env.DATABASE);
   })
