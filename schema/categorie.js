@@ -20,5 +20,7 @@ const categorieSchema = new Schema(
     }
 );
 
-// Create and export the model
+categorieSchema.index({ type: 1 });
+categorieSchema.index({ 'normalizedName.fr': 1 });
+
 module.exports = mongoose.model("Categorie", categorieSchema);

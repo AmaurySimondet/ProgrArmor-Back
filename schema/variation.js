@@ -28,5 +28,6 @@ const variationSchema = new Schema(
     }
 );
 
-// Create and export the model
+variationSchema.index({ type: 1, popularity: -1 });
+
 module.exports = mongoose.model("Variation", variationSchema);

@@ -24,5 +24,6 @@ const exerciceSchema = new Schema(
     }
 );
 
-// Create and export the model
+exerciceSchema.index({ type: 1 });
+
 module.exports = mongoose.model("Exercice", exerciceSchema);

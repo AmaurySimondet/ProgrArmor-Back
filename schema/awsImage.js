@@ -50,6 +50,10 @@ const awsImageSchema = new mongoose.Schema({
     timestamps: true // Automatically adds createdAt and updatedAt fields
 });
 
+awsImageSchema.index({ user: 1, seanceDate: 1, seanceName: 1 });
+awsImageSchema.index({ seanceId: 1 });
+awsImageSchema.index({ cloudfrontUrl: 1 });
+
 const AwsImage = mongoose.model('AwsImage', awsImageSchema);
 
 module.exports = AwsImage; 

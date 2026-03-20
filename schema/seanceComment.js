@@ -11,4 +11,6 @@ const seanceCommentSchema = new Schema({
     timestamps: true
 });
 
+seanceCommentSchema.index({ seance: 1, createdAt: 1 });
+
 module.exports = mongoose.model('SeanceComment', seanceCommentSchema); 

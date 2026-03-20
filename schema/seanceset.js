@@ -48,5 +48,9 @@ const seancesetSchema = new Schema(
     }
 );
 
-// Create and export the model
+seancesetSchema.index({ user: 1, date: 1 });
+seancesetSchema.index({ seance: 1 });
+seancesetSchema.index({ user: 1, 'variations.variation': 1, unit: 1 });
+seancesetSchema.index({ user: 1, PR: 1 });
+
 module.exports = mongoose.model("Seanceset", seancesetSchema);

@@ -72,5 +72,6 @@ userSchema.plugin(passportLocalMongoose, options);
 userSchema.plugin(findOrCreate);
 
 userSchema.index({ createdAt: -1 });
+userSchema.index({ normalizedName: 1 });
 
 module.exports = mongoose.model("User", userSchema);
