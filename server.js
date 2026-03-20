@@ -21,7 +21,7 @@ if (!mongoURL || !JWT_SECRET || !DATABASE) {
 }
 
 const MONGO_URI = mongoURL + DATABASE;
-const MAX_POOL_SIZE = Number(process.env.MONGO_MAX_POOL_SIZE || 10);
+const MAX_POOL_SIZE = Number(process.env.MONGO_MAX_POOL_SIZE || 5);
 
 const globalCache = global;
 if (!globalCache.__mongoose) {
@@ -39,6 +39,8 @@ async function connectDB() {
     cached.promise = mongoose
       .connect(MONGO_URI, {
         maxPoolSize: MAX_POOL_SIZE,
+        minPoolSize: 0,
+        serverSelectionTimeoutMS: 5000,
         tls: true,
         tlsAllowInvalidCertificates: true // ⚠️ uniquement pour test
       })
