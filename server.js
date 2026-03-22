@@ -142,11 +142,13 @@ const getIPAddress = () => {
   return 'localhost'; // fallback if no external IP is found
 };
 
-const ipAddress = getIPAddress();
+const PORT = process.env.PORT || 8800;
+console.log("PORT", PORT);
+console.log("process.env.VERCEL", process.env.VERCEL);
 
 if (process.env.VERCEL !== "1") {
-  app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on http://${ipAddress}:${port}`);
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on 0.0.0.0:${PORT}`);
   });
 }
 
