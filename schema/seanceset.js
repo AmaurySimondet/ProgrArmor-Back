@@ -42,6 +42,7 @@ const seancesetSchema = new Schema(
             fr: { type: String, required: false },
             en: { type: String, required: false }
         },
+        rpe: { type: Number, required: false },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }
