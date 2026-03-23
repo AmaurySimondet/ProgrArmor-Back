@@ -126,9 +126,6 @@ require(__dirname + "/controllers/typesController")(router);
 require(__dirname + "/controllers/megatypesController")(router);
 require(__dirname + "/controllers/shiftController")(router);
 
-// Define and set up the port
-const port = process.env.PORT || 8800;
-
 // Function to get the first non-internal IP address
 const getIPAddress = () => {
   const networkInterfaces = os.networkInterfaces();
@@ -147,8 +144,9 @@ console.log("PORT", PORT);
 console.log("process.env.VERCEL", process.env.VERCEL);
 
 if (process.env.VERCEL !== "1") {
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on 0.0.0.0:${PORT}`);
+  const ip = getIPAddress();
+  app.listen(PORT, ip, () => {
+    console.log(`Server running on http://${ip}:${PORT}`);
   });
 }
 
