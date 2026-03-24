@@ -16,6 +16,8 @@ module.exports = function (app) {
     app.get('/getUser', User.getUser);
     app.post('/modifyUser', User.modifyUser);
     app.post('/resetPassword', login.resetPassword);
+    app.post('/forgotPassword', login.forgotPassword);
+    app.post('/resetPasswordWithToken', login.resetPasswordWithToken);
     app.put('/updateLanguage', User.updateLanguage);
 
     //USERS

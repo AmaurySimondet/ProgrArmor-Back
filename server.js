@@ -97,7 +97,7 @@ app.use(timingMiddleware);
 app.use("/user", router);
 
 // Public routes that don't require authentication
-const publicRoutes = ['/login', '/verifyToken', '/signup', '/auth/facebook', '/auth/facebook/authenticate', '/auth/google', '/auth/google/authenticate', '/admin/inscription'];
+const publicRoutes = ['/login', '/verifyToken', '/signup', '/forgotPassword', '/resetPasswordWithToken', '/auth/facebook', '/auth/facebook/authenticate', '/auth/google', '/auth/google/authenticate', '/admin/inscription'];
 
 // Protect all routes except public ones using Passport's JWT strategy
 router.use((req, res, next) => {
