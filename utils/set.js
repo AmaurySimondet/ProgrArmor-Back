@@ -24,8 +24,8 @@ function getEffectiveLoad(set) {
 /**
  * Helper function to compare and assign PR.
  * A set is better if:
- *   1. It has higher value (reps/seconds), OR
- *   2. Same value but higher effective load
+ *   1. It has higher effective load, OR
+ *   2. Same effective load but higher value (reps/seconds)
  * Effective load = weightLoad + elastic.tension (resistance)
  *                = weightLoad - elastic.tension (assistance)
  *                = weightLoad (no elastic)
@@ -52,12 +52,12 @@ function compareAndAssignPR(currentPR, newSet) {
     // Check if new set is better
     let isBetter = false;
 
-    // Higher value always wins
-    if (newValue > currentValue) {
+    // Higher effective load always wins
+    if (newEffectiveLoad > currentEffectiveLoad) {
         isBetter = true;
     }
-    // Same value: higher effective load wins
-    else if (newValue === currentValue && newEffectiveLoad > currentEffectiveLoad) {
+    // Same effective load: higher value wins
+    else if (newEffectiveLoad === currentEffectiveLoad && newValue > currentValue) {
         isBetter = true;
     }
 
