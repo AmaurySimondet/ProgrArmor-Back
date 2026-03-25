@@ -126,27 +126,16 @@ require(__dirname + "/controllers/typesController")(router);
 require(__dirname + "/controllers/megatypesController")(router);
 require(__dirname + "/controllers/shiftController")(router);
 
-// Function to get the first non-internal IP address
-const getIPAddress = () => {
-  const networkInterfaces = os.networkInterfaces();
-  for (const iface in networkInterfaces) {
-    for (const alias of networkInterfaces[iface]) {
-      if (alias.family === 'IPv4' && !alias.internal) {
-        return alias.address;
-      }
-    }
-  }
-  return 'localhost'; // fallback if no external IP is found
-};
-
 const PORT = process.env.PORT || 8800;
+// Sur Fly, on s'assure que Express écoute sur toutes les interfaces.
+// (évite des soucis intermittents de bind selon l'état de la machine)
+const HOST = process.env.LISTEN_HOST || '0.0.0.0';
 console.log("PORT", PORT);
 console.log("process.env.VERCEL", process.env.VERCEL);
 
 if (process.env.VERCEL !== "1") {
-  const ip = getIPAddress();
-  app.listen(PORT, ip, () => {
-    console.log(`Server running on http://${ip}:${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
   });
 }
 
