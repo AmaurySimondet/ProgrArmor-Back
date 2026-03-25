@@ -127,15 +127,34 @@ require(__dirname + "/controllers/megatypesController")(router);
 require(__dirname + "/controllers/shiftController")(router);
 
 const PORT = process.env.PORT || 8800;
-// Sur Fly, on s'assure que Express écoute sur toutes les interfaces.
-// (évite des soucis intermittents de bind selon l'état de la machine)
 const HOST = process.env.LISTEN_HOST || '0.0.0.0';
 console.log("PORT", PORT);
 console.log("process.env.VERCEL", process.env.VERCEL);
 
+function getLocalExternalIp() {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      // Skip internal (i.e., 127.0.0.1), non-ipv4, docker, etc.
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return null;
+}
+
 if (process.env.VERCEL !== "1") {
-  app.listen(PORT, HOST, () => {
-    console.log(`Server running on http://${HOST}:${PORT}`);
+  app.listen(PORT, HOST, function () {
+    // Affichage de l'IP réelle de la machine (externe, pas 0.0.0.0)
+    const externalIp = getLocalExternalIp() || HOST;
+    const address = this.address();
+    // address peut être un objet (host/port) ou une string (socket path)
+    if (typeof address === 'string') {
+      console.log(`Server running on ${address}`);
+    } else {
+      console.log(`Server running on http://${externalIp}:${address.port} (bound: ${address.address})`);
+    }
   });
 }
 
