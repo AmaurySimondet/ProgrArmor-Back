@@ -37,6 +37,20 @@ module.exports = function (app) {
         }
     });
 
+    app.get('/detailedPrs', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const exercice = req.query.exercice;
+            const categories = req.query.categories;
+            const dateMin = req.query.dateMin;
+            const variations = req.query.variations;
+            const prs = await set.getDetailedPRs(userId, exercice, categories, dateMin, variations);
+            res.json({ success: true, prs });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
     app.get('/ispr', async (req, res) => {
         try {
             const userId = req.query.userId;
