@@ -43,6 +43,8 @@ const seancesetSchema = new Schema(
             en: { type: String, required: false }
         },
         rpe: { type: Number, required: false },
+        brzycki: { type: Number, default: null },
+        epley: { type: Number, default: null },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }
