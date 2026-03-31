@@ -1,4 +1,5 @@
 const set = require('../lib/set.js');
+const whichweight = require('../lib/whichweight');
 
 module.exports = function (app) {
     app.get('/sets', async (req, res) => {
@@ -19,6 +20,34 @@ module.exports = function (app) {
             const sets = await set.getSets(userId, excludedSeanceId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields, variations);
             res.json({ success: true, sets });
         } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    app.post('/whichweight', async (req, res) => {
+        try {
+            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+            const { userId, variations, targetUnit, targetValue, maxSets } = req.body || {};
+
+            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
+                return res.status(403).json({
+                    success: false,
+                    reason: 'FORBIDDEN',
+                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
+                });
+            }
+
+            const result = await whichweight.computeRecommendedLoad({
+                userId,
+                variations,
+                targetUnit,
+                targetValue,
+                maxSets,
+            });
+
+            res.json(result);
+        } catch (err) {
+            console.error('Error in /whichweight:', err);
             res.status(500).json({ success: false, message: err.message });
         }
     });

@@ -102,4 +102,12 @@ function computeSetOneRepMaxEstimates(set) {
     };
 }
 
-module.exports = { computeSetOneRepMaxEstimates };
+module.exports = {
+    // Public helpers (used by backend + app)
+    computeSetOneRepMaxEstimates,
+    secondsToEquivalentReps,
+    estimateOneRepMaxBrzycki,
+    estimateOneRepMaxEpley,
+    getEffectiveLoadKg,
+};
+
