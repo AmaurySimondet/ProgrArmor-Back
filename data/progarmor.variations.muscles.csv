@@ -1,0 +1,375 @@
+id;fr;en;primary;secondary;weightType;includeBodyweight
+669ced7e665a3ffe7771438f;Escanor Hold;Escanor Hold;deltoids_front;triceps|forearms|chest;bodyweight_plus_external;true
+669ced7e665a3ffe77714377;Hip thrust;Hip Thrust;glutes;quads|hamstrings;external_free;false
+669ced7e665a3ffe7771437c;Muscle-up;Muscle Ups;lats;chest|deltoids_front|biceps|triceps|abs;bodyweight_plus_external;true
+669ced7e665a3ffe7771438b;V-Sit;V-Sit;abs;obliques|quads;bodyweight_plus_external;true
+669ced7e665a3ffe77714397;Crunchs vélo;Bicycle Crunch;abs;obliques|quads;bodyweight_plus_external;true
+669ced7e665a3ffe7771439f;Relevés de jambes suspendu complets;Toes To Bar;abs;obliques|quads|forearms;bodyweight_plus_external;true
+669ced7e665a3ffe7771436e;Tirage visage;Face Pull;deltoids_rear;traps|biceps;external_machine;false
+669ced7e665a3ffe77714375;Soulevé de terre;Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+669ced7e665a3ffe7771439a;Crunchs;Crunches;abs;obliques|quads;external_free;false
+669ced7e665a3ffe77714398;Roue abdominale;Ab Wheel Rollout;abs;obliques|spinal_erectors|lats;bodyweight_plus_external;true
+669c3609218324e0b7682b49;Superman;Superman;spinal_erectors;glutes|hamstrings;external_free;false
+669ced7e665a3ffe77714376;Fentes;Lunge;quads;glutes|hamstrings|calves;external_free;false
+669ced7e665a3ffe777143a4;Ciseaux;Scissor Kicks;abs;obliques;external_free;false
+669ced7e665a3ffe7771436f;Tirage vertical;Lat Pulldown;lats;upper_back|biceps|forearms;external_machine;false
+669ced7e665a3ffe77714396;Good morning;Good Morning;hamstrings;glutes|spinal_erectors|quads;external_free;false
+669ced7e665a3ffe77714391;Skin the Cat;Skin the Cat;lats;biceps|abs;bodyweight_plus_external;false
+669ced7e665a3ffe7771439e;Relevés de jambes suspendu;Hanging Leg Raise;abs;obliques|quads;external_free;false
+669ced7e665a3ffe777143a3;Russian Twist;Russian Twist;obliques;abs;external_free;false
+669ced7e665a3ffe777143bc;Épaulé;Clean;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+669ced7e665a3ffe777143ac;Burpees;Burpees;quads;chest|deltoids_front|glutes|abs;bodyweight_plus_external;true
+669ced7e665a3ffe777143a5;Essuie-glaces;Windshield Wipers;abs;obliques;bodyweight_plus_external;false
+669ced7e665a3ffe77714374;Squat;Squat;quads;glutes|hamstrings|calves;external_free;false
+669ced7e665a3ffe7771437a;Pompes;Push Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+669ced7e665a3ffe77714379;Tractions;Pull Ups;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+669ced7e665a3ffe777143bd;Soulevé de terre arraché;Snatch Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+669ced7e665a3ffe77714392;Bar Spin (360);Bar Spin (360);forearms;biceps|deltoids_front;external_free;false
+669ced7e665a3ffe77714367;Développé couché;Bench Press;chest;deltoids_front|triceps;external_free;false
+669ced7e665a3ffe77714369;Développé militaire;Military Press;chest|deltoids_side;deltoids_front|triceps|deltoids_rear;external_free;false
+669ced7e665a3ffe7771437b;Dips;Dips;chest;deltoids_front|triceps;bodyweight_plus_external;true
+669ced7e665a3ffe7771438a;L-Sit;L-Sit;abs;obliques|quads;bodyweight_plus_external;true
+669ced7e665a3ffe77714370;Barre au front;Lying Tricep Extension;triceps;deltoids_front;external_free;false
+669ced7e665a3ffe7771437e;Dragon Flag;Dragon Flag;abs;spinal_erectors|hamstrings;bodyweight_plus_external;false
+669ced7e665a3ffe7771439d;Relevés de genoux suspendu;Hanging Knee Raise;abs;obliques|quads;bodyweight_plus_external;false
+669ced7e665a3ffe7771439b;Relevés de buste;Sit Ups;abs;obliques;bodyweight_plus_external;false
+669ced7e665a3ffe777143a2;Hyperextensions inversées;Reverse Hyperextension;glutes;hamstrings|spinal_erectors;external_free;false
+669ced7e665a3ffe777143bb;Arraché;Snatch;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+688783fd6e86f456e1861dde;Hack squat;Hack Squat;quads;glutes|hamstrings|calves;external_free;false
+692081fef94b17a153ce44c5;V-Up;V-Up;abs;obliques|quads;external_free;false
+6921e77ef94b17a153ce44c6;Pullover;Pullover;lats;upper_back|biceps|forearms;external_free;false
+6922144b1c858345acc2d036;Développé épaules;Shoulder Press;chest|deltoids_side;deltoids_front|triceps|deltoids_rear;external_free;false
+6922144b1c858345acc2d03b;Développé couché haltères;Dumbbell Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144b1c858345acc2d03e;Curl haltères;Dumbbell Curl;biceps;forearms;external_free;false
+6922144b1c858345acc2d042;Presse à cuisses inclinée;Sled Leg Press;quads;glutes|hamstrings|calves;external_free;false
+6922144b1c858345acc2d045;Curl barre;Barbell Curl;biceps;forearms;external_free;false
+6922144b1c858345acc2d048;Développé incliné haltères;Incline Dumbbell Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144b1c858345acc2d04b;Rowing penché;Bent Over Row;lats;upper_back|biceps|forearms;external_free;false
+6922144b1c858345acc2d04f;Développé incliné;Incline Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144b1c858345acc2d052;Développé épaules haltères;Dumbbell Shoulder Press;chest|deltoids_side;deltoids_front|triceps|deltoids_rear;external_free;false
+6922144b1c858345acc2d056;Squat avant;Front Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144b1c858345acc2d059;Soulevé de terre barre trap;Hex Bar Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144b1c858345acc2d05c;Tractions supination;Chin Ups;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+6922144b1c858345acc2d060;Élévations latérales haltères;Dumbbell Lateral Raise;deltoids_side;deltoids_front|deltoids_rear|triceps;external_free;false
+6922144b1c858345acc2d063;Extension de jambes;Leg Extension;quads;;external_machine;false
+6922144b1c858345acc2d066;Soulevé de terre roumain;Romanian Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144b1c858345acc2d069;Épaulé explosif;Power Clean;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+6922144b1c858345acc2d06c;Presse horizontale;Horizontal Leg Press;chest|quads;deltoids_front|triceps|glutes|hamstrings|calves;external_free;false
+6922144b1c858345acc2d06f;Rowing haltères;Dumbbell Row;lats;upper_back|biceps|forearms;external_free;false
+6922144c1c858345acc2d073;Soulevé de terre sumo;Sumo Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144c1c858345acc2d076;Développé à la machine;Chest Press;chest;deltoids_front|triceps;external_machine;false
+6922144c1c858345acc2d079;Extension triceps;Tricep Pushdown;triceps;deltoids_front;external_free;false
+6922144c1c858345acc2d07c;Curl marteau;Hammer Curl;biceps;forearms;external_free;false
+6922144c1c858345acc2d07f;Rowing assis à la poulie;Seated Cable Row;lats;upper_back|biceps|forearms;external_machine;false
+6922144c1c858345acc2d085;Développé épaules assis haltères;Seated Dumbbell Shoulder Press;chest|deltoids_side;deltoids_front|triceps|deltoids_rear;external_free;false
+6922144c1c858345acc2d089;Développé épaules machine;Machine Shoulder Press;chest|deltoids_side;deltoids_front|triceps|deltoids_rear;external_machine;false
+6922144c1c858345acc2d08c;Épaulé-jeté;Clean and Jerk;quads;glutes|hamstrings|traps|deltoids_front|triceps;external_free;false
+6922144c1c858345acc2d08f;Écarté pectoraux machine;Machine Chest Fly;chest;deltoids_front|triceps;external_machine;false
+6922144c1c858345acc2d092;Squat bulgare haltères;Dumbbell Bulgarian Split Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144c1c858345acc2d095;Pompes à un bras;One Arm Push Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+6922144c1c858345acc2d099;Curl jambes assis;Seated Leg Curl;biceps|hamstrings;forearms|glutes;external_machine;false
+6922144c1c858345acc2d09c;Curl barre EZ;EZ Bar Curl;biceps;forearms;external_free;false
+6922144c1c858345acc2d0a0;Développé couché prise serrée;Close Grip Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144c1c858345acc2d0a3;Curl pupitre;Preacher Curl;biceps;forearms;external_free;false
+6922144c1c858345acc2d0a6;Développé épaules assis;Seated Shoulder Press;chest|deltoids_side;deltoids_front|triceps|deltoids_rear;external_free;false
+6922144c1c858345acc2d0a9;Squat gobelet;Goblet Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144c1c858345acc2d0ac;Shrug barre;Barbell Shrug;traps;deltoids_side|forearms;external_free;false
+6922144c1c858345acc2d0b0;Rowing barre T;T Bar Row;lats;upper_back|biceps|forearms;external_free;false
+6922144c1c858345acc2d0b3;Leg Curl allongé;Lying Leg Curl;biceps|hamstrings;forearms|glutes;external_machine;false
+6922144c1c858345acc2d0b6;Tractions prise neutre;Neutral Grip Pull Ups;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+6922144c1c858345acc2d0b9;Extension mollets machine;Machine Calf Raise;calves;;external_machine;false
+6922144c1c858345acc2d0bc;Pompes diamant;Diamond Push Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+6922144c1c858345acc2d0bf;Développé poussé;Push Press;chest;deltoids_front|triceps;external_free;false
+6922144c1c858345acc2d0c2;Écarté haltères;Dumbbell Fly;chest;deltoids_front|triceps;external_free;false
+6922144c1c858345acc2d0c5;Adduction de hanche;Hip Adduction;adductors;glutes;external_free;false
+6922144c1c858345acc2d0c8;Shrug haltères;Dumbbell Shrug;traps;deltoids_side|forearms;external_free;false
+6922144c1c858345acc2d0cb;Développé décliné;Decline Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144c1c858345acc2d0ce;Développé couché barre guidée;Smith Machine Bench Press;chest;deltoids_front|triceps;external_machine;false
+6922144c1c858345acc2d0d1;Fentes haltères;Dumbbell Lunge;quads;glutes|hamstrings|calves;external_free;false
+6922144c1c858345acc2d0d4;Squat pistol;Pistol Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144d1c858345acc2d0d8;Rowing machine;Machine Row;lats;upper_back|biceps|forearms;external_machine;false
+6922144d1c858345acc2d0db;Extension triceps corde;Tricep Rope Pushdown;triceps;deltoids_front;external_free;false
+6922144d1c858345acc2d0de;Rowing haltères appui poitrine;Chest Supported Dumbbell Row;lats;upper_back|biceps|forearms;external_free;false
+6922144d1c858345acc2d0e1;Épaulé-développé;Clean and Press;chest;deltoids_front|triceps;external_free;false
+6922144d1c858345acc2d0e4;Soulevé de terre roumain haltères;Dumbbell Romanian Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144d1c858345acc2d0e7;Squat bulgare;Bulgarian Split Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144d1c858345acc2d0ea;Rack Pull;Rack Pull;hamstrings;glutes|spinal_erectors;external_free;false
+6922144d1c858345acc2d0ed;Squat barre guidée;Smith Machine Squat;quads;glutes|hamstrings|calves;external_machine;false
+6922144d1c858345acc2d0f0;Extension triceps haltères;Dumbbell Tricep Extension;triceps;deltoids_front;external_free;false
+6922144d1c858345acc2d0f3;Rowing Pendlay;Pendlay Row;lats;upper_back|biceps|forearms;external_free;false
+6922144d1c858345acc2d0f6;Squat sur box;Box Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144d1c858345acc2d0f9;Curl biceps poulie;Cable Bicep Curl;biceps;forearms;external_machine;false
+6922144d1c858345acc2d0fc;Curl haltères incliné;Incline Dumbbell Curl;biceps;forearms;external_free;false
+6922144d1c858345acc2d0ff;Extension mollets assis;Seated Calf Raise;calves;;external_free;false
+6922144d1c858345acc2d102;Tirage vertical prise serrée;Close Grip Lat Pulldown;lats;upper_back|biceps|forearms;external_machine;false
+6922144d1c858345acc2d105;Rowing vertical;Upright Row;lats;upper_back|biceps|forearms;external_free;false
+6922144d1c858345acc2d108;Presse verticale;Vertical Leg Press;chest|quads;deltoids_front|triceps|glutes|hamstrings|calves;external_free;false
+6922144d1c858345acc2d10b;Curl biceps machine;Machine Bicep Curl;biceps;forearms;external_machine;false
+6922144d1c858345acc2d10e;Crunchs assis machine;Machine Seated Crunch;abs;obliques|quads;external_machine;false
+6922144d1c858345acc2d111;Jumping Jack;Jumping Jack;quads;calves|deltoids_side;external_free;false
+6922144d1c858345acc2d114;Élévations latérales poulie;Cable Lateral Raise;deltoids_side;deltoids_front|deltoids_rear|triceps;external_machine;false
+6922144d1c858345acc2d117;Squat Zercher;Zercher Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144d1c858345acc2d11a;Développé Arnold;Arnold Press;chest;deltoids_front|triceps;external_free;false
+6922144d1c858345acc2d11d;Soulevé de terre jambes tendues;Stiff Leg Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144d1c858345acc2d120;Écarté incliné haltères;Incline Dumbbell Fly;chest;deltoids_front|triceps;external_free;false
+6922144d1c858345acc2d123;Élévations postérieures haltères;Dumbbell Reverse Fly;chest;deltoids_front|triceps;external_free;false
+6922144d1c858345acc2d126;Épaulé depuis les cuisses;Hang Clean;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+6922144d1c858345acc2d129;Curl concentration haltères;Dumbbell Concentration Curl;biceps;forearms;external_free;false
+6922144d1c858345acc2d12c;Pompes déclinées;Decline Push Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+6922144d1c858345acc2d12f;Crunchs poulie;Cable Crunch;abs;obliques|quads;external_machine;false
+6922144d1c858345acc2d132;Élévations frontales haltères;Dumbbell Front Raise;deltoids_side;deltoids_front|deltoids_rear|triceps;external_free;false
+6922144d1c858345acc2d135;Extensions lombaires;Back Extension;spinal_erectors;glutes|hamstrings;bodyweight_plus_external;true
+6922144d1c858345acc2d138;Tractions à un bras;One Arm Pull Ups;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+6922144d1c858345acc2d13b;Extension triceps à la barre;Bar Tricep Extension;triceps;deltoids_front;external_free;false
+6922144d1c858345acc2d13e;Dips assis machine;Seated Dip Machine;chest;deltoids_front|triceps;external_machine;false
+6922144d1c858345acc2d142;Développé au sol;Floor Press;chest;deltoids_front|triceps;external_free;false
+6922144d1c858345acc2d145;Pull-over haltères;Dumbbell Pullover;lats;upper_back|biceps|forearms;external_free;false
+6922144d1c858345acc2d148;Abduction de hanche;Hip Abduction;abductors;glutes;external_free;false
+6922144e1c858345acc2d14b;Écarté poulie;Cable Fly;chest;deltoids_front|triceps;external_machine;false
+6922144e1c858345acc2d14f;Squat à une jambe;Single Leg Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144e1c858345acc2d152;Développé au sol haltères;Dumbbell Floor Press;chest;deltoids_front|triceps;external_free;false
+6922144e1c858345acc2d155;Fentes barre;Barbell Lunge;quads;glutes|hamstrings|calves;external_free;false
+6922144e1c858345acc2d158;Pompes en équilibre;Handstand Push Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+6922144e1c858345acc2d15b;Squat haltères;Dumbbell Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144e1c858345acc2d15e;Thruster;Thruster;quads;glutes|deltoids_front|triceps;external_free;false
+6922144e1c858345acc2d162;Extension Mollets barre;Barbell Calf Raise;calves;;external_free;false
+6922144e1c858345acc2d166;Pompes prise serrée;Close Grip Push Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+6922144e1c858345acc2d169;Extensions mollets;Bodyweight Calf Raise;calves;;external_free;false
+6922144e1c858345acc2d16c;Curl poignets;Wrist Curl;biceps;forearms;external_free;false
+6922144e1c858345acc2d16f;Squat overhead;Overhead Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144e1c858345acc2d173;Relevés de buste déclinés;Decline Sit Up;abs;obliques|quads;bodyweight_plus_external;false
+6922144e1c858345acc2d176;Relevés de jambes allongé;Lying Leg Raise;abs;obliques|quads;bodyweight_plus_external;false
+6922144e1c858345acc2d179;Extension triceps allongé haltères;Lying Dumbbell Tricep Extension;triceps;deltoids_front;external_free;false
+6922144e1c858345acc2d17c;Pont fessier;Glute Bridge;glutes;quads|hamstrings|calves;external_free;false
+6922144e1c858345acc2d17f;Développé couché avec pause;Paused Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144e1c858345acc2d182;Arraché explosif;Power Snatch;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+6922144e1c858345acc2d185;Dips sur banc;Bench Dips;chest;deltoids_front|triceps;bodyweight_plus_external;true
+6922144e1c858345acc2d188;Développé nuque;Behind The Neck Press;chest;deltoids_front|triceps;external_free;false
+6922144e1c858345acc2d18b;Fente statique;Split Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144e1c858345acc2d18e;Élévations postérieures poulie;Cable Reverse Fly;chest;deltoids_front|triceps;external_machine;false
+6922144e1c858345acc2d191;Élévations postérieures machine;Machine Reverse Fly;chest;deltoids_front|triceps;external_machine;false
+6922144e1c858345acc2d194;Extension triceps au dessus de la tête poulie;Cable Overhead Tricep Extension;triceps;deltoids_front;external_machine;false
+6922144e1c858345acc2d197;Soulevé de terre haltères;Dumbbell Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144e1c858345acc2d19a;Epaulé-jeté poussé;Push Jerk;quads;glutes|deltoids_front|triceps;external_free;false
+6922144e1c858345acc2d19d;Extension mollets haltères;Dumbbell Calf Raise;calves;;external_free;false
+6922144e1c858345acc2d1a0;Squat sauté;Squat Jump;quads;glutes|hamstrings|calves;external_free;false
+6922144e1c858345acc2d1a3;Squat sissy;Sissy Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144e1c858345acc2d1a6;Curl inversé barre;Reverse Barbell Curl;biceps;forearms;external_free;false
+6922144e1c858345acc2d1a9;Extension triceps haltères kickback;Dumbbell Tricep Kickback;triceps;deltoids_front;external_free;false
+6922144e1c858345acc2d1ac;Développé décliné haltères;Decline Dumbbell Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144e1c858345acc2d1af;Développé couché haltères prise serrée;Close Grip Dumbbell Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144e1c858345acc2d1b2;Tirage vertical prise inversée;Reverse Grip Lat Pulldown;lats;upper_back|biceps|forearms;external_machine;false
+6922144e1c858345acc2d1b5;Extension mollets presse inclinée;Sled Press Calf Raise;calves;;external_free;false
+6922144f1c858345acc2d1b8;Presse à une jambe;Single Leg Press;chest|quads;deltoids_front|triceps|glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d1bb;Pompes inclinées;Incline Push Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+6922144f1c858345acc2d1be;Fentes inversées barre;Barbell Reverse Lunge;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d1c1;Squat ceinture;Belt Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d1c4;Pont fessier barre;Barbell Glute Bridge;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d1c7;Développé couché prise inversée;Reverse Grip Bench Press;chest;deltoids_front|triceps;external_free;false
+6922144f1c858345acc2d1ca;Fentes inversées;Reverse Lunge;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d1cd;Curl jambe debout;Standing Leg Curl;biceps|hamstrings;forearms|glutes;external_machine;false
+6922144f1c858345acc2d1d0;Tirage poulie;Cable Pull Through;glutes;hamstrings|spinal_erectors;external_machine;false
+6922144f1c858345acc2d1d3;Squat landmine;Landmine Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d1d6;Curl pupitre un bras haltères;One Arm Dumbbell Preacher Curl;biceps;forearms;external_free;false
+6922144f1c858345acc2d1d9;Tirage bras tendus;Straight Arm Pulldown;lats;upper_back|biceps|forearms;external_machine;false
+6922144f1c858345acc2d1dc;Squat safety bar;Safety Bar Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d1df;Soulevé de terre pieds surélevés;Deficit Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144f1c858345acc2d1e2;Rowing vertical haltères;Dumbbell Upright Row;lats;upper_back|biceps|forearms;external_free;false
+6922144f1c858345acc2d1e5;Curl poignets haltères;Dumbbell Wrist Curl;biceps;forearms;external_free;false
+6922144f1c858345acc2d1e8;Curl strict;Strict Curl;biceps;forearms;external_free;false
+6922144f1c858345acc2d1ec;Extensions lombaire machine;Machine Back Extension;spinal_erectors;glutes|hamstrings;external_machine;false
+6922144f1c858345acc2d1ef;Crunchs déclinés;Decline Crunch;abs;obliques|quads;external_free;false
+6922144f1c858345acc2d1f2;Squat sumo;Sumo Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d1f5;Épaulé explosif depuis les cuisses;Hang Power Clean;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+6922144f1c858345acc2d1f8;Soulevé de terre avec pause;Pause Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144f1c858345acc2d1fb;Curl biceps un bras poulie;One Arm Cable Bicep Curl;biceps;forearms;external_machine;false
+6922144f1c858345acc2d1fe;Soulevé de terre roumain une jambe;Single Leg Romanian Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144f1c858345acc2d201;Hack squat barre;Barbell Hack Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d204;Rowing barre sur banc;Bench Pull;chest|lats;deltoids_front|triceps|upper_back|biceps|forearms;external_free;false
+6922144f1c858345acc2d207;Extension triceps machine;Machine Tricep Extension;triceps;deltoids_front;external_machine;false
+6922144f1c858345acc2d20a;Fentes latérales;Side Lunge;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d20d;Soulevé de terre Jefferson;Jefferson Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+6922144f1c858345acc2d211;Curl poignets inversé;Reverse Wrist Curl;biceps;forearms;external_free;false
+6922144f1c858345acc2d214;Extension triceps assis haltères;Seated Dumbbell Tricep Extension;triceps;deltoids_front;external_free;false
+6922144f1c858345acc2d217;Squat goupilles;Pin Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d21a;Crunchs latéraux;Side Crunch;abs;obliques|quads;external_free;false
+6922144f1c858345acc2d21d;Rowing Yates;Yates Row;lats;upper_back|biceps|forearms;external_free;false
+6922144f1c858345acc2d220;Squat avec pause;Pause Squat;quads;glutes|hamstrings|calves;external_free;false
+6922144f1c858345acc2d223;Rowing inversé;Inverted Row;lats;upper_back|biceps|forearms;external_free;false
+692214501c858345acc2d226;Shrug barre hexagonale;Hex Bar Shrug;traps;deltoids_side|forearms;external_free;false
+692214501c858345acc2d229;Soulevé de terre une jambe haltères;Single Leg Dumbbell Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+692214501c858345acc2d22c;Shrug barre guidée;Smith Machine Shrug;traps;deltoids_side;external_machine;false
+692214501c858345acc2d22f;Élévations frontales barre;Barbell Front Raise;deltoids_side;deltoids_front|deltoids_rear|triceps;external_free;false
+692214501c858345acc2d232;Élévations latérales machine;Machine Lateral Raise;deltoids_side;deltoids_front|deltoids_rear|triceps;external_machine;false
+692214501c858345acc2d235;Demi-squat;Half Squat;quads;glutes|hamstrings|calves;external_free;false
+692214501c858345acc2d238;Flexions latérales haltères;Dumbbell Side Bend;obliques;abs;external_free;false
+692214501c858345acc2d23b;Jeté fente;Split Jerk;quads;glutes|deltoids_front|triceps;external_free;false
+692214501c858345acc2d23e;Développé log;Log Press;chest;deltoids_front|triceps;external_free;false
+692214501c858345acc2d241;Développé couché goupilles;Bench Pin Press;chest;deltoids_front|triceps;external_free;false
+692214501c858345acc2d244;Shrug explosif barre;Barbell Power Shrug;traps;deltoids_side|forearms;external_free;false
+692214501c858345acc2d247;Développé JM;JM Press;chest;deltoids_front|triceps;external_free;false
+692214501c858345acc2d24a;Shrug barre derrière le dos;Behind The Back Barbell Shrug;traps;deltoids_side|forearms;external_free;false
+692214501c858345acc2d24e;Curl cou;Neck Curl;biceps;forearms;external_free;false
+692214501c858345acc2d251;Tirage haut arraché;Clean High Pull;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+692214501c858345acc2d255;Extension fessier;Glute Kickback;glutes;hamstrings;external_free;false
+692214501c858345acc2d258;Soulevé de terre derrière le dos;Behind The Back Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+692214501c858345acc2d25b;Tirage épaulé;Clean Pull;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+692214501c858345acc2d25e;Dips anneaux;Ring Dips;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214501c858345acc2d261;Développé couché prise large;Wide Grip Bench Press;chest;deltoids_front|triceps;external_free;false
+692214501c858345acc2d264;Squat Jefferson;Jefferson Squat;quads;glutes|hamstrings|calves;external_free;false
+692214501c858345acc2d267;Extension de hanche;Hip Extension;glutes;hamstrings|spinal_erectors;bodyweight_plus_external;true
+692214501c858345acc2d26a;Squat thrust;Squat Thrust;quads;glutes|hamstrings|calves;external_free;false
+692214501c858345acc2d26d;Soulevé de terre une jambe;Single Leg Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+692214501c858345acc2d270;Rowing penché haltères;Bent Over Dumbbell Row;lats;upper_back|biceps|forearms;external_free;false
+692214501c858345acc2d273;Pompes en V;Pike Push Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214501c858345acc2d276;Développé Viking;Viking Press;chest;deltoids_front|triceps;external_free;false
+692214501c858345acc2d279;Fentes marchées;Walking Lunge;quads;glutes|hamstrings|calves;external_free;false
+692214501c858345acc2d27c;Pompes archer;Archer Push Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214501c858345acc2d27f;Extension triceps prise inversée;Reverse Grip Tricep Pushdown;triceps;deltoids_front;external_free;false
+692214501c858345acc2d282;Arraché strict;Muscle Snatch;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+692214501c858345acc2d285;Extension fessiers ischio machine;Glute Ham Raise;hamstrings;glutes|spinal_erectors;external_machine;false
+692214501c858345acc2d288;Développé Z;Z Press;chest;deltoids_front|triceps;external_free;false
+692214501c858345acc2d28b;Crunchs inversés;Reverse Crunches;abs;obliques|quads;external_free;false
+692214501c858345acc2d28e;Curl triché;Cheat Curl;biceps;forearms;external_free;false
+692214501c858345acc2d291;Développé incliné prise serrée;Close Grip Incline Bench Press;chest;deltoids_front|triceps;external_free;false
+692214501c858345acc2d295;Relevés de jambes latéraux;Side Leg Raise;abs;obliques|quads;bodyweight_plus_external;false
+692214501c858345acc2d298;Développé épaules goupilles;Shoulder Pin Press;chest;deltoids_front|triceps;external_free;false
+692214501c858345acc2d29b;Soulevé de terre Zercher;Zercher Deadlift;hamstrings;glutes|spinal_erectors|quads;external_free;false
+692214511c858345acc2d29e;Tirage arraché;Snatch Pull;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+692214511c858345acc2d2a1;Curl nordique;Nordic Hamstring Curl;biceps;forearms;external_free;false
+692214511c858345acc2d2a4;Rowing vertical poulie;Cable Upright Row;lats;upper_back|biceps|forearms;external_machine;false
+692214511c858345acc2d2a7;Pull-over barre;Barbell Pullover;lats;upper_back|biceps|forearms;external_free;false
+692214511c858345acc2d2aa;Shrug machine;Machine Shrug;traps;deltoids_side;external_machine;false
+692214511c858345acc2d2ae;Arraché haltères;Dumbbell Snatch;quads;glutes|hamstrings|deltoids_front;external_free;false
+692214511c858345acc2d2b1;Développé landmine;Landmine Press;chest;deltoids_front|triceps;external_free;false
+692214511c858345acc2d2b4;Curl marteau incliné;Incline Hammer Curl;biceps;forearms;external_free;false
+692214511c858345acc2d2b7;Kickback fessier poulie;Cable Kickback;glutes;hamstrings;external_machine;false
+692214511c858345acc2d2ba;Extension cou;Neck Extension;neck;;external_free;false
+692214511c858345acc2d2bd;Curl haltères assis;Seated Dumbbell Curl;biceps;forearms;external_free;false
+692214511c858345acc2d2c0;Extension de jambes poulie;Cable Leg Extension;quads;;external_machine;false
+692214511c858345acc2d2c3;Rowing Meadows;Meadows Row;lats;upper_back|biceps|forearms;external_free;false
+692214511c858345acc2d2c6;Shrug poulie;Cable Shrug;traps;deltoids_side;external_machine;false
+692214511c858345acc2d2c9;Extension mollets assis une jambe;Single Leg Seated Calf Raise;calves;;external_free;false
+692214511c858345acc2d2cc;Rotation buste poulie;Cable Woodchopper;obliques;abs;external_machine;false
+692214511c858345acc2d2cf;Tirage un bras;One Arm Pulldown;lats;upper_back|biceps|forearms;external_machine;false
+692214511c858345acc2d2d2;Arraché depuis les cuisses;Hang Snatch;quads;glutes|hamstrings|traps|deltoids_front;external_free;false
+692214511c858345acc2d2d5;Développé Spoto;Spoto Press;chest;deltoids_front|triceps;external_free;false
+692214511c858345acc2d2d8;Tirage vertical un bras;One Arm Lat Pulldown;lats;upper_back|biceps|forearms;external_machine;false
+692214511c858345acc2d2db;Curl Spider;Spider Curl;biceps;forearms;external_free;false
+692214511c858345acc2d2de;Crunchs debout poulie;Standing Cable Crunch;abs;obliques|quads;external_machine;false
+692214511c858345acc2d2e1;Crunchs poulie haute;High Pulley Crunch;abs;obliques|quads;external_machine;false
+692214511c858345acc2d2e4;Curl biceps poulie au dessus de la tête;Overhead Cable Curl;biceps;forearms;external_machine;false
+692214511c858345acc2d2e7;Flexions latérales chaise romaine;Roman Chair Side Bend;obliques;abs;external_free;false
+692214511c858345acc2d2ea;Curl poignets inversé haltères;Dumbbell Reverse Wrist Curl;biceps;forearms;external_free;false
+692214511c858345acc2d2ed;Curl Rotation;Zottman Curl;biceps;forearms;external_free;false
+692214511c858345acc2d2f0;Curl incliné poulie;Incline Cable Curl;biceps;forearms;external_machine;false
+692214511c858345acc2d2f3;Rowing renegade;Renegade Row;lats;upper_back|biceps|forearms;external_free;false
+692214511c858345acc2d2f6;Curl biceps allongé poulie;Lying Cable Curl;biceps;forearms;external_machine;false
+692214511c858345acc2d2f9;Tirage sur banc haltères;Dumbbell Bench Pull;chest;deltoids_front|triceps;external_free;false
+692214511c858345acc2d2fc;Développé landmine un bras;One Arm Landmine Press;chest;deltoids_front|triceps;external_free;false
+692214511c858345acc2d2ff;Squat avant haltères;Dumbbell Front Squat;quads;glutes|hamstrings|calves;external_free;false
+692214511c858345acc2d302;Rowing assis un bras poulie;One Arm Seated Cable Row;lats;upper_back|biceps|forearms;external_machine;false
+692214511c858345acc2d305;Développé Tate;Tate Press;chest;deltoids_front|triceps;external_free;false
+692214511c858345acc2d308;Curl marteau poulie;Cable Hammer Curl;biceps;forearms;external_machine;false
+692214511c858345acc2d30b;Extension de hanche au sol;Floor Hip Extension;glutes;hamstrings;external_free;false
+692214521c858345acc2d30e;Développé Z haltères;Dumbbell Z Press;chest;deltoids_front|triceps;external_free;false
+692214521c858345acc2d311;Squat fente haltères;Dumbbell Split Squat;quads;glutes|hamstrings|calves;external_free;false
+692214521c858345acc2d314;Lancé de médecine ball;Wall Ball;quads;glutes|deltoids_front|triceps;external_free;false
+692214521c858345acc2d317;Abduction de hanche au sol;Floor Hip Abduction;abductors;glutes;external_free;false
+692214521c858345acc2d31a;Curl inversé haltères;Dumbbell Reverse Curl;biceps;forearms;external_free;false
+692214521c858345acc2d31d;Traction claquée;Clap Pull Up;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214521c858345acc2d320;Pull-over barre bras fléchis;Bent Arm Barbell Pullover;lats;upper_back|biceps|forearms;external_free;false
+692214521c858345acc2d323;Muscle-up anneaux;Ring Muscle Ups;lats;chest|deltoids_front|biceps|triceps|abs;bodyweight_plus_external;true
+692214521c858345acc2d326;Thruster haltères;Dumbbell Thruster;quads;glutes|deltoids_front|triceps;external_free;false
+692214521c858345acc2d329;Écarté décliné haltères;Decline Dumbbell Fly;chest;deltoids_front|triceps;external_free;false
+692214521c858345acc2d32c;Tirage vertical haltères;Dumbbell High Pull;traps;deltoids_side|forearms;external_free;false
+692214521c858345acc2d32f;Tirage visage haltères;Dumbbell Face Pull;deltoids_rear;traps|biceps;external_free;false
+692214521c858345acc2d332;Épaulé explosif avec haltères depuis les cuisses;Dumbbell Hang Clean;quads;glutes|hamstrings|deltoids_front;external_free;false
+692214521c858345acc2d335;Extension mollets marchés haltères;Dumbbell Walking Calf Raise;calves;;external_free;false
+692214521c858345acc2d338;Développé poussé haltères;Dumbbell Push Press;chest;deltoids_front|triceps;external_free;false
+692214521c858345acc2d33b;Élévations Y incliné haltères;Dumbbell Incline Y Raise;deltoids_side;deltoids_rear|traps;external_free;false
+692214521c858345acc2d33e;Épaulé-développé haltères;Dumbbell Clean and Press;chest;deltoids_front|triceps;external_free;false
+692214521c858345acc2d341;Rotation externe poulie;Cable External Rotation;deltoids_rear;;external_machine;false
+692214521c858345acc2d344;Battements de jambes;Flutter Kicks;abs;obliques|quads;external_free;false
+692214521c858345acc2d347;Grimpeur;Mountain Climbers;abs;obliques|quads|deltoids_front;external_free;false
+692214521c858345acc2d34a;Extension mollets à l'âne;Donkey Calf Raise;calves;;external_free;false
+692214521c858345acc2d34f;Pompes sur les genoux;Knee Push-Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d352;Pompes prise large;Wide Push-Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d355;Pompes Typewriter;Typewriter Push-Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d358;Pseudo Planche Push-Up;Pseudo Planche Push-Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d35b;Maltese Push-Up;Maltese Push-Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d35e;Pompes sur les doigts;Finger Push-Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d361;Pompes sur les poings;Knuckle Push-Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d364;Sphinx Push-Up;Sphinx Push-Up (Triceps Extension Push-Up);chest|triceps;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d367;Hindu Push-Up;Hindu Push-Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d36a;Pompes claquées;Clap Push-Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d36d;Pompes Superman;Superman Push-Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d370;Pompes Aztèques;Aztec Push-Ups;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d373;Dips barre droite;Straight Bar Dips;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d376;Dips coréens;Korean Dips;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d379;Russian Dips;Russian Dips;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d37c;Impossible Dip;Impossible Dip;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214521c858345acc2d37f;Ring Support Hold;Ring Support Hold;triceps;chest|deltoids_front|abs;bodyweight_plus_external;true
+692214521c858345acc2d382;Dips bulgares aux anneaux;Bulgarian Ring Dips;chest|quads;deltoids_front|triceps|glutes|hamstrings|calves;bodyweight_plus_external;true
+692214521c858345acc2d385;Pike Push-Up pieds surélevés;Elevated Pike Push-Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214531c858345acc2d388;Handstand Push-Up (dos au mur);Wall Handstand Push-Up (Back-to-wall);chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214531c858345acc2d38b;Handstand Push-Up (face au mur);Wall Handstand Push-Up (Chest-to-wall);chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214531c858345acc2d38e;Pompes 90 degrés;90 Degree Push-Up;chest;deltoids_front|triceps;bodyweight_plus_external;true
+692214531c858345acc2d391;Suspension passive;Passive Hang;forearms;lats|deltoids_side;external_free;false
+692214531c858345acc2d394;Tirage scapulaire;Scapula Pull-Up;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d397;Tractions australiennes;Australian Pull-Ups / Body Rows;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d39a;Tractions prise large;Wide Grip Pull-Ups;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d39d;Tractions prise serrée;Close Grip Pull-Ups;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3a0;Commando Pull-Up;Commando Pull-Up;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3a3;Tractions L-Sit;L-Sit Pull-Up;lats|abs;upper_back|biceps|forearms|obliques|quads;bodyweight_plus_external;true
+692214531c858345acc2d3a6;Archer Pull-Up;Archer Pull-Up;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3a9;Typewriter Pull-Up;Typewriter Pull-Up;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3ac;High Pull-Up (explosif);High Pull-Up;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3af;OAP assistée;One Arm Pull-Up (Assisted);lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3b2;OAP négative;One Arm Pull-Up (Negative);lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3b5;Tractions Front Lever;Front Lever Pull-Up;lats;upper_back|biceps|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3b8;Muscle-Up Kipping;Muscle-Up (Kipping);lats;chest|deltoids_front|biceps|triceps|abs;bodyweight_plus_external;true
+692214531c858345acc2d3bb;Muscle-Up prise large;Wide Grip Muscle-Up;lats;chest|deltoids_front|biceps|triceps|abs;bodyweight_plus_external;true
+692214531c858345acc2d3be;Rowing aux anneaux;Ring Rows;lats;upper_back|biceps|forearms;external_free;false
+692214531c858345acc2d3c1;Face Pull aux anneaux;Ring Face Pull;deltoids_rear;traps|biceps;external_free;false
+692214531c858345acc2d3c4;Pelican Curl;Pelican Curl;biceps;forearms;external_free;false
+692214531c858345acc2d3c7;Hefesto;Hefesto;biceps;lats|deltoids_front|forearms;bodyweight_plus_external;true
+692214531c858345acc2d3ca;Squat prisonnier;Prisoner Squat;quads;glutes|hamstrings|calves;external_free;false
+692214531c858345acc2d3cd;Pistol Squat assisté;Assisted Pistol Squat;quads;glutes|hamstrings|calves;external_free;false
+692214531c858345acc2d3d0;Dragon Pistol Squat;Dragon Pistol Squat;quads;glutes|hamstrings|calves;external_free;false
+692214531c858345acc2d3d3;Shrimp Squat;Shrimp Squat;quads;glutes|hamstrings|calves;external_free;false
+692214531c858345acc2d3d6;Glute Bridge une jambe;Single Leg Glute Bridge;quads;glutes|hamstrings|calves;external_free;false
+692214531c858345acc2d3d9;Extension mollets debout (2 jambes);Standing Calf Raise;calves;;external_free;false
+692214531c858345acc2d3dc;Extension mollets une jambe;Single Leg Calf Raise;calves;;external_free;false
+692214531c858345acc2d3df;Tibialis Raise;Tibialis Raise;calves;;external_free;false
+692214531c858345acc2d3e2;Planche;Plank;abs;obliques|quads;bodyweight_plus_external;true
+692214531c858345acc2d3e5;Planche latérale;Side Plank;abs;obliques|quads;bodyweight_plus_external;true
+692214531c858345acc2d3e8;Hollow Hold;Hollow Body Hold;abs;obliques|quads;external_free;false
+692214531c858345acc2d3eb;Maintien Superman / Arc;Superman / Arch Hold;spinal_erectors;glutes|hamstrings;external_free;false
+692214531c858345acc2d3f0;Ab Wheel Rollout (genoux);Ab Wheel Rollout (Kneeling);abs;obliques|spinal_erectors|lats;bodyweight_plus_external;true
+692214531c858345acc2d3f3;Ab Wheel Rollout (debout);Ab Wheel Rollout (Standing);abs;obliques|spinal_erectors|lats;bodyweight_plus_external;true
+692214531c858345acc2d3f7;Around the World;Around the World;deltoids_side;deltoids_front|deltoids_rear|traps;external_free;false
+692214541c858345acc2d3fc;Position du corbeau;Crow Pose;lats;upper_back|biceps|forearms;external_free;false
+692214541c858345acc2d3ff;Headstand (sur la tête);Headstand;deltoids_front;triceps|abs;external_free;false
+692214541c858345acc2d402;Handstand mur (ventre au mur);Handstand Wall Hold (Chest-to-wall);deltoids_front;triceps|abs;external_free;false
+692214541c858345acc2d405;Handstand libre;Free Handstand;deltoids_front;triceps|abs;external_free;false
+692214541c858345acc2d408;Handstand à un bras;One Arm Handstand;deltoids_front;triceps|abs;external_free;false
+692214541c858345acc2d40b;Planche Lean;Planche Lean;deltoids_front;triceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d40e;Tuck Planche;Tuck Planche;deltoids_front;triceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d411;Advanced Tuck Planche;Advanced Tuck Planche;deltoids_front;triceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d414;Straddle Planche;Straddle Planche;deltoids_front;triceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d417;Full Planche;Full Planche;deltoids_front;triceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d41a;Tuck Front Lever;Tuck Front Lever;lats;biceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d41d;Advanced Tuck Front Lever;Advanced Tuck Front Lever;lats;biceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d420;One Leg Front Lever;One Leg Front Lever;lats;biceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d423;Straddle Front Lever;Straddle Front Lever;lats;biceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d426;Full Front Lever;Full Front Lever;lats;biceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d429;German Hang;German Hang;lats;biceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d42c;Tuck Back Lever;Tuck Back Lever;lats;biceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d42f;Full Back Lever;Full Back Lever;lats;biceps|abs;bodyweight_plus_external;true
+692214541c858345acc2d432;Drapeau vertical;Human Flag (Vertical progression);obliques;lats|deltoids_side|glutes;bodyweight_plus_external;true
+692214541c858345acc2d435;Tuck Human Flag;Tuck Human Flag;obliques;lats|deltoids_side|glutes;bodyweight_plus_external;true
+692214541c858345acc2d438;Drapeau complet;Human Flag (Full);obliques;lats|deltoids_side|glutes;bodyweight_plus_external;true
+692214541c858345acc2d43b;Navy Seal Burpees;Navy Seal Burpees;quads;chest|deltoids_front|glutes|abs;bodyweight_plus_external;true
+692214541c858345acc2d43e;Bear Crawl;Bear Crawl;quads;chest|deltoids_front|glutes|abs;bodyweight_plus_external;true
+692214541c858345acc2d444;Back Hip Circle;Back Hip Circle;lats;biceps|abs;external_free;false

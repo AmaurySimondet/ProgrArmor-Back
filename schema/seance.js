@@ -21,6 +21,7 @@ const seanceSchema = new Schema(
             { PR: { type: String, required: true }, number: { type: Number, required: true } }
         ],
         seancePhotos: [{ type: String, required: false }],
+        breakTimes: { type: [Number], default: [] },
         totalSeconds: { type: Number, required: false },
         startedAt: { type: Date, required: false },
         endedAt: { type: Date, required: false },

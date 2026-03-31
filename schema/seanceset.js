@@ -45,6 +45,8 @@ const seancesetSchema = new Schema(
         rpe: { type: Number, required: false },
         brzycki: { type: Number, default: null },
         epley: { type: Number, default: null },
+        validated: { type: String, enum: ['undone', 'pending', 'done'], default: 'undone' },
+        breakTime: { type: Number, min: 0, default: null },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }
