@@ -84,4 +84,20 @@ module.exports = function (app) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    app.post("/seance/nameSuggestion", async (req, res) => {
+        try {
+            const payload = req.body || {};
+            const result = await seance.getSeanceNameSuggestion(payload);
+            res.json({
+                success: true,
+                suggestions: result.suggestions,
+                patternLabel: result.patternLabel,
+                loadTypeLabel: result.loadTypeLabel,
+                intensityLabel: result.intensityLabel,
+            });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 }
