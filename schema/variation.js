@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const MUSCLES = [
+const UPPER_BODY_MUSCLES = [
     "chest",
     "upper_back",
     "lats",
@@ -15,7 +15,10 @@ const MUSCLES = [
     "forearms",
     "abs",
     "obliques",
-    "spinal_erectors",
+    "spinal_erectors"
+];
+
+const LOWER_BODY_MUSCLES = [
     "glutes",
     "hamstrings",
     "quads",
@@ -23,6 +26,8 @@ const MUSCLES = [
     "abductors",
     "calves"
 ];
+
+const MUSCLES = [...UPPER_BODY_MUSCLES, ...LOWER_BODY_MUSCLES];
 
 // Define the Variation schema
 const variationSchema = new Schema(

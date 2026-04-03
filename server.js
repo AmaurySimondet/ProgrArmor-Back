@@ -125,6 +125,7 @@ require(__dirname + "/controllers/variationController")(router);
 require(__dirname + "/controllers/typesController")(router);
 require(__dirname + "/controllers/megatypesController")(router);
 require(__dirname + "/controllers/shiftController")(router);
+require(__dirname + "/controllers/successController")(router);
 
 const PORT = process.env.PORT || 8800;
 const HOST = process.env.LISTEN_HOST || '0.0.0.0';
