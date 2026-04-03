@@ -27,7 +27,7 @@ module.exports = function (app) {
     app.post('/whichweight', async (req, res) => {
         try {
             const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
-            const { userId, variations, targetUnit, targetValue, maxSets } = req.body || {};
+            const { userId, variations, targetUnit, targetValue, maxSets, sessionSets } = req.body || {};
 
             if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
                 return res.status(403).json({
@@ -43,6 +43,7 @@ module.exports = function (app) {
                 targetUnit,
                 targetValue,
                 maxSets,
+                sessionSets,
             });
 
             res.json(result);
