@@ -90,7 +90,7 @@ function buildCondition(row) {
         collection: nullable(row.collection),
         field: nullable(row.field),
         howMany: parseNumeric(row.howMany),
-        userId: nullable(row.userId),
+        userId: parseObjectIdOrNull(row.userId),
         inactivityPeriodDays: parseNumeric(row.inactivityPeriodDays),
         durationMinSecs: parseNumeric(row.durationMinSecs),
         durationMaxSecs: parseNumeric(row.durationMaxSecs),
