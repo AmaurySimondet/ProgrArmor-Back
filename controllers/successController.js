@@ -49,4 +49,14 @@ module.exports = function (router) {
             res.status(500).json({ success: false, message: err.message });
         }
     });
+
+    router.get("/success/usedonprofile", async (req, res) => {
+        try {
+            const user = req.query?.user;
+            const result = await success.getUsedOnProfileSuccessesForUser(user);
+            res.json({ success: true, ...result });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 };
