@@ -45,6 +45,10 @@ const seancesetSchema = new Schema(
         rpe: { type: Number, required: false },
         brzycki: { type: Number, default: null },
         epley: { type: Number, default: null },
+        /** Charge effective (kg), ex. barre + élastique signé — optionnel, fourni par l’app ou backfill */
+        effectiveWeightLoad: { type: Number, default: null },
+        weightLoadLbs: { type: Number, default: null },
+        effectiveWeightLoadLbs: { type: Number, default: null },
         validated: { type: String, enum: ['undone', 'pending', 'done'], default: 'undone' },
         breakTime: { type: Number, min: 0, default: null },
     },

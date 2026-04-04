@@ -96,7 +96,22 @@ module.exports = function (app) {
                 };
             }
             const variations = req.query.variations;
-            const isPersonalRecord = await set.isPersonalRecord(userId, seanceId, unit, value, weightLoad, elastic, variations);
+            let effectiveWeightLoadOverride = undefined;
+            const effRaw = req.query.effectiveWeightLoad;
+            if (effRaw !== undefined && effRaw !== "") {
+                const n = parseFloat(effRaw);
+                effectiveWeightLoadOverride = Number.isFinite(n) ? n : undefined;
+            }
+            const isPersonalRecord = await set.isPersonalRecord(
+                userId,
+                seanceId,
+                unit,
+                value,
+                weightLoad,
+                elastic,
+                variations,
+                effectiveWeightLoadOverride
+            );
             console.log("isPersonalRecord response for userId:", userId, "seanceId:", seanceId, "unit:", unit, "value:", value, "weightLoad:", weightLoad, "elastic:", elastic, "variations:", variations, "isPersonalRecord:", isPersonalRecord);
             res.json({ success: true, isPersonalRecord });
         } catch (err) {

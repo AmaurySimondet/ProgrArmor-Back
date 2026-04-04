@@ -22,6 +22,19 @@ function getEffectiveLoad(set) {
 }
 
 /**
+ * Charge effective (kg) pour comparaison : utilise effectiveWeightLoad persisté si présent, sinon weightLoad + élastique.
+ * @param {Object|null} set
+ * @returns {number}
+ */
+function getEffectiveLoadPreferringPersisted(set) {
+    const persisted = set?.effectiveWeightLoad;
+    if (persisted != null && Number.isFinite(Number(persisted))) {
+        return Number(persisted);
+    }
+    return getEffectiveLoad(set);
+}
+
+/**
  * Helper function to compare and assign PR.
  * A set is better if:
  *   1. It has higher effective load, OR
@@ -73,4 +86,4 @@ function compareAndAssignPR(currentPR, newSet) {
     return currentPR;
 }
 
-module.exports = { compareAndAssignPR, getElasticDelta, getEffectiveLoad };
+module.exports = { compareAndAssignPR, getElasticDelta, getEffectiveLoad, getEffectiveLoadPreferringPersisted };
