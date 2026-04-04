@@ -157,6 +157,7 @@ async function run() {
                 hint: { fr: row.hint_fr || "", en: row.hint_en || "" },
                 picture: buildPictures(row),
                 condition: buildCondition(row),
+                conditionUpdatedAt: new Date(),
             };
             return {
                 updateOne: {

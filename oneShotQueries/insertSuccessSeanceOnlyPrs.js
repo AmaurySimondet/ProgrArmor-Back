@@ -43,14 +43,22 @@ async function run() {
 
     await mongoose.connect(mongoURL + DATABASE);
     try {
+        const filter = {
+            type: DOC.type,
+            level: DOC.level,
+            "name.fr": DOC.name.fr,
+        };
+        const existing = await Success.findOne(filter).select("condition").lean();
+        const conditionChanged =
+            !existing || JSON.stringify(existing.condition) !== JSON.stringify(DOC.condition);
+
         const res = await Success.updateOne(
+            filter,
             {
-                type: DOC.type,
-                level: DOC.level,
-                "name.fr": DOC.name.fr,
-            },
-            {
-                $set: DOC,
+                $set: {
+                    ...DOC,
+                    ...(conditionChanged ? { conditionUpdatedAt: new Date() } : {}),
+                },
                 $setOnInsert: { howManyUsersHaveIt: 0 },
             },
             { upsert: true }
@@ -66,12 +74,8 @@ async function run() {
                 2
             )
         );
-        const saved = await Success.findOne({
-            type: DOC.type,
-            level: DOC.level,
-            "name.fr": DOC.name.fr,
-        })
-            .select("_id condition")
+        const saved = await Success.findOne(filter)
+            .select("_id condition conditionUpdatedAt")
             .lean();
         console.log("stored:", saved);
     } finally {

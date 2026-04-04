@@ -33,10 +33,19 @@ const successSchema = new Schema(
             en: { type: String, required: false, default: null },
         },
         condition: { type: Schema.Types.Mixed, required: true },
+        /** Dernière modification des règles de déblocage (condition), indépendante du compteur howManyUsersHaveIt */
+        conditionUpdatedAt: { type: Date, required: false },
         howManyUsersHaveIt: { type: Number, default: 0 },
     },
     { timestamps: true }
 );
+
+successSchema.pre("save", function (next) {
+    if (this.isModified("condition")) {
+        this.conditionUpdatedAt = new Date();
+    }
+    next();
+});
 
 successSchema.index({ type: 1, level: 1 });
 successSchema.index({ "name.fr": 1, level: 1 });

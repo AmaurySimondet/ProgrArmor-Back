@@ -9,6 +9,8 @@ const userSuccessSchema = new Schema(
         usedOnProfile: { type: Boolean, default: false },
         /** Détails au moment du déblocage (set déclencheur, métriques exactes, etc.) */
         unlockDetail: { type: Schema.Types.Mixed, required: false },
+        /** Dernière version de condition (Success.conditionUpdatedAt) validée pour ce déblocage */
+        conditionSyncedAt: { type: Date, required: false },
     },
     { timestamps: true }
 );
