@@ -86,6 +86,33 @@ module.exports = (router) => {
         }
     });
 
+    router.get('/variation/:id/equivalents', async (req, res) => {
+        try {
+            const raw = req.query.level;
+            const maxLevel = raw === undefined || raw === ''
+                ? 3
+                : Math.min(3, Math.max(0, parseInt(raw, 10)));
+            if (Number.isNaN(maxLevel)) {
+                return res.status(400).json({ success: false, message: 'Invalid level' });
+            }
+            const result = await variation.getVariationEquivalents(req.params.id, maxLevel);
+            res.json({
+                success: true,
+                level: maxLevel,
+                variation: result.inputVariation,
+                directEquivalent: result.directEquivalent,
+                equivalentSecondLevel: result.equivalentSecondLevel,
+                equivalentThirdLevel: result.equivalentThirdLevel,
+                equivalentFourthLevel: result.equivalentFourthLevel
+            });
+        } catch (err) {
+            if (err.statusCode === 404) {
+                return res.status(404).json({ success: false, message: err.message });
+            }
+            console.error(err);
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
 
     router.get('/variation/:id', async (req, res) => {
         try {
