@@ -19,6 +19,7 @@ module.exports = function (app) {
     app.post('/forgotPassword', login.forgotPassword);
     app.post('/resetPasswordWithToken', login.resetPasswordWithToken);
     app.put('/updateLanguage', User.updateLanguage);
+    app.put('/updateWeightUnit', User.updateWeightUnit);
 
     //USERS
     app.get('/getUsers', User.getUsers);
