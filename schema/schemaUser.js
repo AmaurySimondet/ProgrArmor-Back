@@ -50,6 +50,11 @@ const userSchema = mongoose.Schema(
       enum: ["kg", "lb"],
       default: "kg"
     },
+    heightUnit: {
+      type: String,
+      enum: ["cm", "ft"],
+      default: "cm"
+    },
     normalizedName: {
       type: String,
       required: true

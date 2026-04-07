@@ -20,6 +20,12 @@ module.exports = function (app) {
     app.post('/resetPasswordWithToken', login.resetPasswordWithToken);
     app.put('/updateLanguage', User.updateLanguage);
     app.put('/updateWeightUnit', User.updateWeightUnit);
+    app.put('/updateHeightUnit', User.updateHeightUnit);
+    app.get('/getLastUserMeasure', User.getLastUserMeasure);
+    app.get('/getUserMeasures', User.getUserMeasures);
+    app.post('/createUserMeasure', User.createUserMeasure);
+    app.put('/updateUserMeasure', User.updateUserMeasure);
+    app.delete('/deleteUserMeasure', User.deleteUserMeasure);
 
     //USERS
     app.get('/getUsers', User.getUsers);
