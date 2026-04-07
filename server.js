@@ -131,6 +131,7 @@ const PORT = process.env.PORT || 8800;
 const HOST = process.env.LISTEN_HOST || '0.0.0.0';
 console.log("PORT", PORT);
 console.log("process.env.VERCEL", process.env.VERCEL);
+console.log("process.env.DATABASE", process.env.DATABASE);
 
 function getLocalExternalIp() {
   const interfaces = os.networkInterfaces();

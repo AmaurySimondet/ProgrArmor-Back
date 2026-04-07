@@ -1,6 +1,7 @@
 /**
  * Champs optionnels persistés sur Seanceset (1RM, charges kg/lb) — alignés avec l’app (createSet).
  */
+const mongoose = require("mongoose");
 
 const PERSISTED_OPTIONAL_NUMBER_FIELDS = [
     "brzycki",
@@ -54,6 +55,49 @@ function mergePersistedOptionalFieldsFromClient(setData) {
             throw new Error(`set.${key}: ${e.message}`);
         }
     }
+    if (Object.prototype.hasOwnProperty.call(setData, "prDetail")) {
+        out.prDetail = normalizePrDetailObjectIds(setData.prDetail);
+    }
+    return out;
+}
+
+function toObjectIdIfValid(value) {
+    if (value == null) return value;
+    if (value instanceof mongoose.Types.ObjectId) return value;
+    if (typeof value === "string" && mongoose.Types.ObjectId.isValid(value)) {
+        return new mongoose.Types.ObjectId(value);
+    }
+    return value;
+}
+
+function normalizePrDetailObjectIds(prDetail) {
+    if (!prDetail || typeof prDetail !== "object") {
+        return prDetail;
+    }
+    const out = { ...prDetail };
+    const referenceBestSet = prDetail.referenceBestSet;
+    if (!referenceBestSet || typeof referenceBestSet !== "object") {
+        return out;
+    }
+
+    const ref = { ...referenceBestSet };
+    ref._id = toObjectIdIfValid(ref._id);
+    ref.seance = toObjectIdIfValid(ref.seance);
+
+    if (Array.isArray(ref.variations)) {
+        ref.variations = ref.variations.map((variationItem) => {
+            if (!variationItem || typeof variationItem !== "object") {
+                return variationItem;
+            }
+            return {
+                ...variationItem,
+                variation: toObjectIdIfValid(variationItem.variation),
+                type: toObjectIdIfValid(variationItem.type),
+            };
+        });
+    }
+
+    out.referenceBestSet = ref;
     return out;
 }
 
@@ -73,4 +117,5 @@ module.exports = {
     mergePersistedOptionalFieldsFromClient,
     KG_TO_LB,
     round2,
+    normalizePrDetailObjectIds,
 };

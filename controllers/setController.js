@@ -56,11 +56,12 @@ module.exports = function (app) {
     app.get('/prs', async (req, res) => {
         try {
             const userId = req.query.userId;
+            const excludedSeanceId = req.query.excludedSeanceId;
             const exercice = req.query.exercice;
             const categories = req.query.categories;
             const dateMin = req.query.dateMin;
             const variations = req.query.variations;
-            const prs = await set.getPRs(userId, exercice, categories, dateMin, variations);
+            const prs = await set.getPRs(userId, excludedSeanceId, exercice, categories, dateMin, variations);
             res.json({ success: true, prs });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
@@ -102,7 +103,7 @@ module.exports = function (app) {
                 const n = parseFloat(effRaw);
                 effectiveWeightLoadOverride = Number.isFinite(n) ? n : undefined;
             }
-            const isPersonalRecord = await set.isPersonalRecord(
+            const { isPersonalRecord, prDetail } = await set.isPersonalRecordWithDetail(
                 userId,
                 seanceId,
                 unit,
@@ -112,8 +113,8 @@ module.exports = function (app) {
                 variations,
                 effectiveWeightLoadOverride
             );
-            console.log("isPersonalRecord response for userId:", userId, "seanceId:", seanceId, "unit:", unit, "value:", value, "weightLoad:", weightLoad, "elastic:", elastic, "variations:", variations, "isPersonalRecord:", isPersonalRecord);
-            res.json({ success: true, isPersonalRecord });
+            console.log("isPersonalRecord response for userId:", userId, "seanceId:", seanceId, "unit:", unit, "value:", value, "weightLoad:", weightLoad, "elastic:", elastic, "variations:", variations, "isPersonalRecord:", isPersonalRecord, "prDetail:", prDetail);
+            res.json({ success: true, isPersonalRecord, prDetail });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }

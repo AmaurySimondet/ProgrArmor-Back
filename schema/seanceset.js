@@ -51,6 +51,7 @@ const seancesetSchema = new Schema(
         effectiveWeightLoadLbs: { type: Number, default: null },
         validated: { type: String, enum: ['undone', 'pending', 'done'], default: 'undone' },
         breakTime: { type: Number, min: 0, default: null },
+        prDetail: { type: Object, default: null },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }
