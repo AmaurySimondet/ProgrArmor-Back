@@ -1,33 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-
-const UPPER_BODY_MUSCLES = [
-    "chest",
-    "upper_back",
-    "lats",
-    "traps",
-    "neck",
-    "deltoids_front",
-    "deltoids_side",
-    "deltoids_rear",
-    "biceps",
-    "triceps",
-    "forearms",
-    "abs",
-    "obliques",
-    "spinal_erectors"
-];
-
-const LOWER_BODY_MUSCLES = [
-    "glutes",
-    "hamstrings",
-    "quads",
-    "adductors",
-    "abductors",
-    "calves"
-];
-
-const MUSCLES = [...UPPER_BODY_MUSCLES, ...LOWER_BODY_MUSCLES];
+const { schema: { MUSCLES } } = require('../constants');
 
 // Define the Variation schema
 const variationSchema = new Schema(

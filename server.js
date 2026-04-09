@@ -9,11 +9,10 @@ const cors = require('cors');
 require('dotenv').config();
 const { timingMiddleware } = require('./utils/timing');
 const { sessionConfig, configurePassport } = require('./lib/login');
+const { server: serverConstants } = require('./constants');
 
 // Ensure environment variables are set
-const mongoURL = process.env.mongoURL;
-const JWT_SECRET = process.env.JWT_SECRET;
-const DATABASE = process.env.DATABASE;
+const { MONGO_URL: mongoURL, JWT_SECRET, DATABASE } = serverConstants;
 
 if (!mongoURL || !JWT_SECRET || !DATABASE) {
   console.error("Error: Required environment variables are not set.");
@@ -21,7 +20,7 @@ if (!mongoURL || !JWT_SECRET || !DATABASE) {
 }
 
 const MONGO_URI = mongoURL + DATABASE;
-const MAX_POOL_SIZE = Number(process.env.MONGO_MAX_POOL_SIZE || 5);
+const { MONGO_MAX_POOL_SIZE, PORT, HOST } = serverConstants;
 
 const globalCache = global;
 if (!globalCache.__mongoose) {
@@ -38,7 +37,7 @@ async function connectDB() {
     console.log("Connecting to Mongo...");
     cached.promise = mongoose
       .connect(MONGO_URI, {
-        maxPoolSize: MAX_POOL_SIZE,
+        maxPoolSize: MONGO_MAX_POOL_SIZE,
         minPoolSize: 0,
         serverSelectionTimeoutMS: 5000,
         tls: true,
@@ -127,8 +126,6 @@ require(__dirname + "/controllers/megatypesController")(router);
 require(__dirname + "/controllers/shiftController")(router);
 require(__dirname + "/controllers/successController")(router);
 
-const PORT = process.env.PORT || 8800;
-const HOST = process.env.LISTEN_HOST || '0.0.0.0';
 console.log("PORT", PORT);
 console.log("process.env.VERCEL", process.env.VERCEL);
 console.log("process.env.DATABASE", process.env.DATABASE);

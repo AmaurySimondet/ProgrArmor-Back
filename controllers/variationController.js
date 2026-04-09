@@ -5,7 +5,7 @@ module.exports = (router) => {
     router.get('/variation/all', async (req, res) => {
         try {
             const type = req.query.type;
-            const sortBy = req.query.sortBy || 'name';
+            const sortBy = req.query.sortBy || 'popularity';
             const userId = req.query.userId;
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
@@ -34,7 +34,7 @@ module.exports = (router) => {
         try {
             const search = req.query.search;
             const type = req.query.type;
-            const sortBy = req.query.sortBy || 'name';
+            const sortBy = req.query.sortBy || 'popularity';
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
             const myExercices = req.query.myExercices === 'true' ? true : (req.query.myExercices === 'false' ? false : undefined);

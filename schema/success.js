@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-
-const SUCCESS_TYPES = ["seances", "kgs", "n_exercises", "secret", "prs", "serie", "exercise"];
+const { success: { SUCCESS_TYPES } } = require('../constants');
 
 const successSchema = new Schema(
     {

@@ -1,6 +1,4 @@
-const ONE_DAY_MS = 24 * 60 * 60 * 1000;
-const ONE_WEEK_MS = 7 * ONE_DAY_MS;
-const UTC_MONDAY_EPOCH_MS = Date.UTC(1970, 0, 5); // First Monday after Unix epoch.
+const { week: { ONE_DAY_MS, ONE_WEEK_MS, UTC_MONDAY_EPOCH_MS } } = require('../constants');
 
 function getWeekIndex(date) {
     const utcMidnightMs = Date.UTC(
