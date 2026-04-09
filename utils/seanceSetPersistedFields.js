@@ -6,9 +6,19 @@ const mongoose = require("mongoose");
 const PERSISTED_OPTIONAL_NUMBER_FIELDS = [
     "brzycki",
     "epley",
+    "oneRepMaxUserWeightKg",
+    "oneRepMaxExerciseBodyWeightRatio",
+    "brzyckiWithBodyweight",
+    "epleyWithBodyweight",
     "effectiveWeightLoad",
+    "effectiveWeightLoadWithBodyweight",
     "weightLoadLbs",
     "effectiveWeightLoadLbs",
+    "effectiveWeightLoadWithBodyweightLbs",
+];
+
+const PERSISTED_OPTIONAL_BOOLEAN_FIELDS = [
+    "oneRepMaxIncludesBodyweight",
 ];
 
 /**
@@ -30,6 +40,12 @@ function parseOptionalFiniteNumberOrNull(value) {
     return n;
 }
 
+function parseOptionalBoolean(value) {
+    if (value === undefined) return undefined;
+    if (typeof value === "boolean") return value;
+    throw new Error("booléen attendu");
+}
+
 /**
  * Extrait et valide les champs persistés optionnels depuis le body client (createSet / futur updateSet).
  * @param {Object|null|undefined} setData
@@ -46,6 +62,21 @@ function mergePersistedOptionalFieldsFromClient(setData) {
         }
         try {
             const parsed = parseOptionalFiniteNumberOrNull(setData[key]);
+            if (parsed === undefined) {
+                delete out[key];
+            } else {
+                out[key] = parsed;
+            }
+        } catch (e) {
+            throw new Error(`set.${key}: ${e.message}`);
+        }
+    }
+    for (const key of PERSISTED_OPTIONAL_BOOLEAN_FIELDS) {
+        if (!Object.prototype.hasOwnProperty.call(setData, key)) {
+            continue;
+        }
+        try {
+            const parsed = parseOptionalBoolean(setData[key]);
             if (parsed === undefined) {
                 delete out[key];
             } else {
@@ -113,7 +144,9 @@ function round2(value) {
 
 module.exports = {
     PERSISTED_OPTIONAL_NUMBER_FIELDS,
+    PERSISTED_OPTIONAL_BOOLEAN_FIELDS,
     parseOptionalFiniteNumberOrNull,
+    parseOptionalBoolean,
     mergePersistedOptionalFieldsFromClient,
     KG_TO_LB,
     round2,

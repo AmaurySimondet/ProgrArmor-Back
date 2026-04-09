@@ -59,6 +59,7 @@ const variationSchema = new Schema(
             enum: ["bodyweight_plus_external", "external_free", "external_machine"]
         },
         includeBodyweight: { type: Boolean },
+        exerciseBodyWeightRatio: { type: Number, min: 0, max: 1.5 },
         mergedNamesEmbedding: { type: [Number], required: false },
         mergedNames: { type: String, required: false },
         picture: { type: String },

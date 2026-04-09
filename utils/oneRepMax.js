@@ -17,9 +17,23 @@ const getSignedElasticTensionKg = (elastic) => {
 };
 
 /** @param {{ weightLoad?: number|null, elastic?: object|null }} set */
-const getEffectiveLoadKg = (set) => {
+const getExternalEffectiveLoadKg = (set) => {
     const w = toFiniteNumber(set?.weightLoad, 0);
     return w + getSignedElasticTensionKg(set?.elastic);
+};
+
+/**
+ * @param {{ weightLoad?: number|null, elastic?: object|null }} set
+ * @param {{ includeBodyweight?: boolean, userWeightKg?: number|null|undefined }} [options]
+ */
+const getEffectiveLoadKg = (set, options = {}) => {
+    const externalLoad = getExternalEffectiveLoadKg(set);
+    const includeBodyweight = options?.includeBodyweight === true;
+    if (!includeBodyweight) {
+        return externalLoad;
+    }
+    const userWeightKg = toFiniteNumber(options?.userWeightKg, 0);
+    return externalLoad + userWeightKg;
 };
 
 const SECONDS_TO_REPS_KNOTS = [
@@ -108,6 +122,7 @@ module.exports = {
     secondsToEquivalentReps,
     estimateOneRepMaxBrzycki,
     estimateOneRepMaxEpley,
+    getExternalEffectiveLoadKg,
     getEffectiveLoadKg,
 };
 
