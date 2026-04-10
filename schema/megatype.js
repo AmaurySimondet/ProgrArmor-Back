@@ -9,6 +9,7 @@ const megatypeSchema = new Schema(
             en: { type: String, required: true }
         },
         popularityScore: { type: Number, default: 0 },
+        onlyContainsExercises: { type: Boolean, default: false },
     },
     {
         timestamps: true

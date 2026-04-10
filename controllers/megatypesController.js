@@ -1,6 +1,6 @@
 const Megatype = require('../schema/megatype');
 
-lookup_types = {
+const lookup_types = {
     from: "types",
     localField: "_id",
     foreignField: "megatype",
@@ -8,14 +8,33 @@ lookup_types = {
     pipeline: [
         { $sort: { popularityScore: -1 } }
     ]
-}
+};
+
+const parseBooleanQuery = (value) => {
+    if (value === "true") return true;
+    if (value === "false") return false;
+    return undefined;
+};
 
 module.exports = (router) => {
     // Route statistics endpoint
     router.get('/megatypes', async (req, res) => {
         try {
+            const onlyContainsExercises = parseBooleanQuery(req.query.onlyContainsExercises);
+            const megatypeMatchStage = typeof onlyContainsExercises === "boolean"
+                ? [{ $match: { onlyContainsExercises } }]
+                : [];
+            const typesLookupMatchStage = typeof onlyContainsExercises === "boolean"
+                ? [{ $match: { onlyContainsExercises } }]
+                : [];
+            const typesLookupPipeline = [
+                ...typesLookupMatchStage,
+                ...lookup_types.pipeline
+            ];
+
             const megatypes = await Megatype.aggregate([
-                { $lookup: lookup_types },
+                ...megatypeMatchStage,
+                { $lookup: { ...lookup_types, pipeline: typesLookupPipeline } },
                 { $sort: { popularityScore: -1 } }
             ]);
             res.json({

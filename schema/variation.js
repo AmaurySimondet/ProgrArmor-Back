@@ -36,7 +36,8 @@ const variationSchema = new Schema(
         mergedNamesEmbedding: { type: [Number], required: false },
         mergedNames: { type: String, required: false },
         picture: { type: String },
-        popularity: { type: Number, default: 0 },
+        // Backward-compatible: Number for exercise variations, Object for detail contextual popularity
+        popularity: { type: Schema.Types.Mixed, default: 0 },
         equivalentTo: [{ type: Schema.Types.ObjectId, ref: 'Variation' }],
         verified: { type: Boolean, default: false }
     },
@@ -45,6 +46,7 @@ const variationSchema = new Schema(
     }
 );
 
-variationSchema.index({ type: 1, popularity: -1 });
+variationSchema.index({ type: 1, isExercice: 1, popularity: -1 });
+variationSchema.index({ type: 1, isExercice: 1, 'popularity.global': -1 });
 
 module.exports = mongoose.model("Variation", variationSchema);

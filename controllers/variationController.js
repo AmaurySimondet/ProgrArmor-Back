@@ -10,9 +10,10 @@ module.exports = (router) => {
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
             const myExercices = req.query.myExercices === 'true' ? true : (req.query.myExercices === 'false' ? false : undefined);
+            const weightType = req.query.weightType;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 20;
-            const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit, verified, isExercice, myExercices);
+            const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit, verified, isExercice, myExercices, weightType);
 
             res.json({
                 success: true,
@@ -38,10 +39,11 @@ module.exports = (router) => {
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
             const myExercices = req.query.myExercices === 'true' ? true : (req.query.myExercices === 'false' ? false : undefined);
+            const weightType = req.query.weightType;
             const userId = req.query.userId;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 7;
-            const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit, verified, isExercice, myExercices, userId);
+            const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit, verified, isExercice, myExercices, userId, weightType);
             res.json({
                 success: true,
                 variations,
@@ -53,6 +55,50 @@ module.exports = (router) => {
                 }
             });
         } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    router.get('/variation/grouped-by-type', async (req, res) => {
+        try {
+            const sortBy = req.query.sortBy || 'popularity';
+            const type = req.query.type;
+            const userId = req.query.userId;
+            const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
+            const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
+            const weightType = req.query.weightType;
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const typesPage = parseInt(req.query.typesPage) || 1;
+            const typesLimit = req.query.typesLimit !== undefined ? parseInt(req.query.typesLimit) : undefined;
+
+            const { groups, totalTypes } = await variation.getVariationsGroupedByType(
+                sortBy,
+                page,
+                limit,
+                verified,
+                isExercice,
+                weightType,
+                type,
+                typesPage,
+                typesLimit,
+                userId
+            );
+
+            res.json({
+                success: true,
+                groups,
+                pagination: {
+                    page,
+                    limit,
+                    totalTypes,
+                    typesPage,
+                    typesLimit: typesLimit || null,
+                    hasMoreTypes: typesLimit ? totalTypes > typesPage * typesLimit : false
+                }
+            });
+        } catch (err) {
+            console.error(err);
             res.status(500).json({ success: false, message: err.message });
         }
     });

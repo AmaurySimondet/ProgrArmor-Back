@@ -81,7 +81,7 @@ module.exports = {
             : 2500,
         SEARCH_MIN_RELATIVE_SCORE: Number.isFinite(Number(process.env.SEARCH_MIN_RELATIVE_SCORE))
             ? Number(process.env.SEARCH_MIN_RELATIVE_SCORE)
-            : 0.85,
+            : 0.60,
         SEARCH_EXACT_TOKEN_BONUS: Number.isFinite(Number(process.env.SEARCH_EXACT_TOKEN_BONUS))
             ? Number(process.env.SEARCH_EXACT_TOKEN_BONUS)
             : 0.02,
