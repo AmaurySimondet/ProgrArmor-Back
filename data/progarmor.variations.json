@@ -18714,5 +18714,46 @@
         "abs"
       ]
     }
+  },
+  {
+    "_id": {
+      "$oid": "69da850534ea4fdeb9a9f86b"
+    },
+    "type": {
+      "$oid": "669cee980c89e9434327caa7"
+    },
+    "name": {
+      "fr": "Pont du lutteur",
+      "en": "Wrestler's bridge"
+    },
+    "normalizedName": {
+      "fr": "pont du lutteur",
+      "en": "wrestlers bridge"
+    },
+    "selfmade": false,
+    "megatype": {
+      "$oid": "68878e406e86f456e1861de1"
+    },
+    "isExercice": true,
+    "picture": "https://d28n1fykqesg8f.cloudfront.net/variations/wrestler-bridge.png",
+    "popularity": 20,
+    "verified": true,
+    "equivalentTo": [],
+    "createdAt": {
+      "$date": "2026-04-11T12:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-04-11T12:00:00.000Z"
+    },
+    "__v": 0,
+    "weightType": "bodyweight_plus_external",
+    "includeBodyweight": true,
+    "exerciseBodyWeightRatio": 0.6,
+    "muscles": {
+      "primary": [
+        "neck"
+      ],
+      "secondary": []
+    }
   }
 ]

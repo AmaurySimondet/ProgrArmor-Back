@@ -20,6 +20,7 @@ function getRatioForVariationName(fr = "", en = "") {
     if (/human flag|drapeau/.test(n)) return 0.8;
     if (/l-?sit|v-?sit|support hold/.test(n)) return 0.75;
     if (/ab wheel|rollout|russian twist|bicycle crunch|crunch|ciseaux|windshield|wipers/.test(n)) return 0.5;
+    if (/wrestler.*bridge|pont du lutteur/.test(n)) return 0.6;
     return 0.85;
 }
 
