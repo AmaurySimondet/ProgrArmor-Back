@@ -132,6 +132,75 @@ module.exports = {
         MUSCLES
     },
     variation: {
-        EQUIVALENT_PROJECTION: { mergedNamesEmbedding: 0 }
+        EQUIVALENT_PROJECTION: { mergedNamesEmbedding: 0 },
+        /**
+         * Tri `sortBy=recommended` sur /variation/grouped-by-type et /variation/search (avec userId) :
+         * strate 1 : tout ce que l’utilisateur a loggé (usage > 0) avant le reste.
+         * strate « utilisé » : USAGE_WEIGHT * log1p(usage) puis POPULARITY_WEIGHT * score catalogue en tie-break.
+         * strate « jamais utilisé » : popularité catalogue (× VARIATION_ZERO_USAGE_CATALOG_MULTIPLIER pour les variations).
+         * Exos : préfixe de `variations` (du plus long au plus court) normalisé vers une variation vérifiée si `equivalentTo` matche exactement le même jeu d’IDs (comme my exercises) ; sinon [0]. Puis spillover equivalentTo. Détails : slots > 0 ; `contextVariationId` filtre [0] base ∪ { equivalentTo ⊃ base }.
+         */
+        GROUPED_BY_TYPE_RECOMMENDED: {
+            POPULARITY_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_POPULARITY_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 1;
+            })(),
+            USAGE_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_USAGE_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 1;
+            })(),
+            /** Tri des variations dans chaque type (sortBy=recommended + userId) : pool des N plus populaires puis score hybride. */
+            VARIATION_POPULARITY_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_POPULARITY_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 1;
+            })(),
+            VARIATION_USAGE_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_USAGE_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 2.5;
+            })(),
+            VARIATION_CANDIDATE_LIMIT_PER_TYPE: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_CANDIDATE_LIMIT_PER_TYPE);
+                return Number.isFinite(v) && v >= 1 ? Math.floor(v) : 50;
+            })(),
+            /**
+             * Taille max du préfixe de `variations` testée pour matcher un `equivalentTo` vérifié (garde-fou données aberrantes).
+             */
+            EXERCISE_COMPOSITION_PREFIX_MAX_SLOTS: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_EXERCISE_COMPOSITION_PREFIX_MAX_SLOTS);
+                return Number.isFinite(v) && v >= 2 ? Math.floor(v) : 16;
+            })(),
+            /** 1 = désactivé. < 1 réduit légèrement le poids du catalogue si l’utilisateur n’a jamais loggé cette variation (évite Squat/Pompes en #1 si jamais faits). */
+            VARIATION_ZERO_USAGE_CATALOG_MULTIPLIER: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_ZERO_USAGE_CATALOG_MULTIPLIER);
+                return Number.isFinite(v) && v > 0 && v <= 1 ? v : 0.93;
+            })(),
+            /**
+             * Réservé (recommended exos : normalisation préfixe + equivalentTo ; détails = slots > 0).
+             * Conservés pour compatibilité env / évolution future.
+             */
+            VARIATION_PRIMARY_SLOT_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_PRIMARY_SLOT_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 1;
+            })(),
+            VARIATION_SECONDARY_SLOT_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_SECONDARY_SLOT_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 0.35;
+            })(),
+            /**
+             * Part du score d’usage (après slots) propagée aux autres IDs du cluster `equivalentTo`
+             * (ex. Zercher / Smith → crédit réduit vers Squat). 0 = désactivé. Uniquement si isExercice=true.
+             */
+            VARIATION_EQUIVALENT_SPILLOVER_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_EQUIVALENT_SPILLOVER_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 0.25;
+            })(),
+            /**
+             * Clusters equivalentTo plus grands que ce seuil : pas de spillover (évite un mega-graphe qui gonfle artificiellement certaines variations).
+             */
+            EQUIVALENT_SPILLOVER_MAX_CLUSTER_SIZE: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_EQUIVALENT_SPILLOVER_MAX_CLUSTER_SIZE);
+                return Number.isFinite(v) && v >= 2 ? Math.floor(v) : 24;
+            })()
+        }
     }
 };

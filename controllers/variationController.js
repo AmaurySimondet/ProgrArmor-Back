@@ -43,7 +43,31 @@ module.exports = (router) => {
             const userId = req.query.userId;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 7;
-            const { variations, total } = await variation.getVariationBySearch(search, type, sortBy, page, limit, verified, isExercice, myExercices, userId, weightType);
+            const recommendedVariationPopularityWeight =
+                req.query.recommendedVariationPopularityWeight !== undefined
+                    ? parseFloat(req.query.recommendedVariationPopularityWeight)
+                    : undefined;
+            const recommendedVariationUsageWeight =
+                req.query.recommendedVariationUsageWeight !== undefined
+                    ? parseFloat(req.query.recommendedVariationUsageWeight)
+                    : undefined;
+            const contextVariationId = req.query.contextVariationId || undefined;
+
+            const { variations, total } = await variation.getVariationBySearch(
+                search,
+                type,
+                sortBy,
+                page,
+                limit,
+                verified,
+                isExercice,
+                myExercices,
+                userId,
+                weightType,
+                recommendedVariationPopularityWeight,
+                recommendedVariationUsageWeight,
+                contextVariationId
+            );
             res.json({
                 success: true,
                 variations,
@@ -61,7 +85,7 @@ module.exports = (router) => {
 
     router.get('/variation/grouped-by-type', async (req, res) => {
         try {
-            const sortBy = req.query.sortBy || 'popularity';
+            const sortBy = req.query.sortBy || 'recommended';
             const type = req.query.type;
             const userId = req.query.userId;
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
@@ -71,6 +95,23 @@ module.exports = (router) => {
             const limit = parseInt(req.query.limit) || 10;
             const typesPage = parseInt(req.query.typesPage) || 1;
             const typesLimit = req.query.typesLimit !== undefined ? parseInt(req.query.typesLimit) : undefined;
+            const recommendedPopularityWeight =
+                req.query.recommendedPopularityWeight !== undefined
+                    ? parseFloat(req.query.recommendedPopularityWeight)
+                    : undefined;
+            const recommendedUsageWeight =
+                req.query.recommendedUsageWeight !== undefined
+                    ? parseFloat(req.query.recommendedUsageWeight)
+                    : undefined;
+            const recommendedVariationPopularityWeight =
+                req.query.recommendedVariationPopularityWeight !== undefined
+                    ? parseFloat(req.query.recommendedVariationPopularityWeight)
+                    : undefined;
+            const recommendedVariationUsageWeight =
+                req.query.recommendedVariationUsageWeight !== undefined
+                    ? parseFloat(req.query.recommendedVariationUsageWeight)
+                    : undefined;
+            const contextVariationId = req.query.contextVariationId || undefined;
 
             const { groups, totalTypes } = await variation.getVariationsGroupedByType(
                 sortBy,
@@ -82,7 +123,12 @@ module.exports = (router) => {
                 type,
                 typesPage,
                 typesLimit,
-                userId
+                userId,
+                recommendedPopularityWeight,
+                recommendedUsageWeight,
+                recommendedVariationPopularityWeight,
+                recommendedVariationUsageWeight,
+                contextVariationId
             );
 
             res.json({
