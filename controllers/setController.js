@@ -45,7 +45,6 @@ module.exports = function (app) {
                 maxSets,
                 sessionSets,
             });
-
             res.json(result);
         } catch (err) {
             console.error('Error in /whichweight:', err);
