@@ -17700,11 +17700,7 @@
     "isExercice": true,
     "picture": null,
     "popularity": 30,
-    "equivalentTo": [
-      {
-        "$oid": "669ced7e665a3ffe77714386"
-      }
-    ],
+    "equivalentTo": [],
     "verified": true,
     "createdAt": {
       "$date": "2025-11-22T19:51:48.085Z"
