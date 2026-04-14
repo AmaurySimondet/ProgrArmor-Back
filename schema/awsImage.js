@@ -45,6 +45,14 @@ const awsImageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Seance',
         required: false
+    },
+    usedOnProfile: {
+        type: Boolean,
+        default: false
+    },
+    usedOnProfileOrder: {
+        type: Number,
+        default: null
     }
 }, {
     timestamps: true // Automatically adds createdAt and updatedAt fields
@@ -53,6 +61,7 @@ const awsImageSchema = new mongoose.Schema({
 awsImageSchema.index({ user: 1, seanceDate: 1, seanceName: 1 });
 awsImageSchema.index({ seanceId: 1 });
 awsImageSchema.index({ cloudfrontUrl: 1 });
+awsImageSchema.index({ user: 1, usedOnProfile: 1, usedOnProfileOrder: 1 });
 
 const AwsImage = mongoose.model('AwsImage', awsImageSchema);
 

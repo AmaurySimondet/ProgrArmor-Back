@@ -1,6 +1,28 @@
 const awsImage = require('../lib/awsImage');
 
 module.exports = function (app) {
+    function parseBooleanQueryParam(value, defaultValue = undefined) {
+        if (value === undefined) {
+            return defaultValue;
+        }
+
+        if (typeof value === 'boolean') {
+            return value;
+        }
+
+        if (typeof value === 'string') {
+            const normalized = value.trim().toLowerCase();
+            if (normalized === 'true') {
+                return true;
+            }
+            if (normalized === 'false') {
+                return false;
+            }
+        }
+
+        return defaultValue;
+    }
+
     function hasRequiredUploadFields(uploadResult) {
         return uploadResult && uploadResult.key && uploadResult.cloudfrontUrl;
     }
@@ -149,10 +171,36 @@ module.exports = function (app) {
     app.get('/aws/images/:userId', async (req, res) => {
         try {
             const userId = req.params.userId;
-            const images = await awsImage.getUserImages(userId);
+            const usedOnProfile = parseBooleanQueryParam(req.query.usedOnProfile);
+            const images = await awsImage.getUserImages(userId, usedOnProfile);
             res.json({ success: true, images });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    // Set user profile images (1 to 3 IDs, ordered)
+    app.patch('/aws/images/used-on-profile', async (req, res) => {
+        try {
+            const userId = req.user && req.user._id ? req.user._id.toString() : null;
+            const { imageIds } = req.body;
+
+            if (!userId) {
+                return res.status(401).json({ success: false, message: 'Unauthorized' });
+            }
+
+            const images = await awsImage.setUsedOnProfileImages(userId, imageIds);
+            res.json({ success: true, images });
+        } catch (err) {
+            const validationMessages = [
+                'imageIds must be an array',
+                'imageIds must contain between 1 and 3 IDs',
+                'imageIds must be unique',
+                'One or more imageIds are invalid',
+                'One or more images do not belong to this user'
+            ];
+            const status = validationMessages.includes(err.message) ? 400 : 500;
+            res.status(status).json({ success: false, message: err.message });
         }
     });
 
