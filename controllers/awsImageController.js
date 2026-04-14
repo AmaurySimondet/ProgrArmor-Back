@@ -1,15 +1,19 @@
 const awsImage = require('../lib/awsImage');
 
 module.exports = function (app) {
+    function hasRequiredUploadFields(uploadResult) {
+        return uploadResult && uploadResult.key && uploadResult.cloudfrontUrl;
+    }
+
     // Record profile picture upload
     app.post('/aws/record-pp', async (req, res) => {
         try {
             const { userId, uploadResult } = req.body;
 
-            if (!userId || !uploadResult) {
+            if (!userId || !hasRequiredUploadFields(uploadResult)) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Missing required parameters: userId and uploadResult are required'
+                    message: 'Missing required parameters: userId and uploadResult with key/cloudfrontUrl are required'
                 });
             }
 
@@ -26,10 +30,10 @@ module.exports = function (app) {
         try {
             const { userId, uploadResult, seanceDate, seanceName } = req.body;
 
-            if (!userId || !uploadResult || !seanceDate || !seanceName) {
+            if (!userId || !hasRequiredUploadFields(uploadResult) || !seanceDate || !seanceName) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Missing required parameters: userId, uploadResult, seanceDate, and seanceName are required'
+                    message: 'Missing required parameters: userId, uploadResult with key/cloudfrontUrl, seanceDate, and seanceName are required'
                 });
             }
 
@@ -37,6 +41,42 @@ module.exports = function (app) {
             res.json({ success: true, image: result });
         } catch (err) {
             console.error('Seance photo recording error:', err);
+            res.status(500).json({
+                success: false,
+                message: err.message,
+                details: process.env.NODE_ENV === 'development' ? err.stack : undefined
+            });
+        }
+    });
+
+    // Record upload (unified route for profile picture and seance photos)
+    app.post('/aws/record-upload', async (req, res) => {
+        try {
+            const { userId, uploadResult, isProfilePic = false, seanceDate, seanceName } = req.body;
+
+            if (!userId || !hasRequiredUploadFields(uploadResult)) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Missing required parameters: userId and uploadResult with key/cloudfrontUrl are required'
+                });
+            }
+
+            if (!isProfilePic && (!seanceDate || !seanceName)) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Missing required parameters for seance upload: seanceDate and seanceName are required'
+                });
+            }
+
+            const image = await awsImage.recordUpload(userId, uploadResult, {
+                isProfilePic,
+                seanceDate,
+                seanceName
+            });
+
+            res.json({ success: true, image });
+        } catch (err) {
+            console.error('Record upload error:', err);
             res.status(500).json({
                 success: false,
                 message: err.message,
@@ -132,11 +172,20 @@ module.exports = function (app) {
     // POST /user/aws/presigned-url
     app.post('/aws/presigned-url', async (req, res) => {
         try {
-            const { userId, fileName, fileType } = req.body;
+            const { userId, fileName, fileType, isProfilePic = false, uploadType } = req.body;
+
+            if (!userId || !fileName || !fileType) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Missing required parameters: userId, fileName, and fileType are required'
+                });
+            }
 
             // Create a unique file key
             const fileExtension = fileName.split('.').pop();
-            const key = `${userId}/${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExtension}`;
+            const normalizedUploadType = uploadType === 'profile' || isProfilePic ? 'profile' : 'seance';
+            const folder = normalizedUploadType === 'profile' ? 'profile' : 'seances';
+            const key = `users/${userId}/${folder}/${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExtension}`;
 
             const command = new PutObjectCommand({
                 Bucket: process.env.AWS_BUCKET_NAME,
