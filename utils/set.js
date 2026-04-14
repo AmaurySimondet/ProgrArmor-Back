@@ -50,9 +50,12 @@ function getEffectiveLoadPreferringPersisted(set) {
 function compareAndAssignPR(currentPR, newSet) {
     if (!currentPR) {
         return {
+            _id: newSet._id,
             value: newSet.value,
             weightLoad: newSet.weightLoad,
             elastic: newSet.elastic,
+            brzycki: newSet.brzycki ?? null,
+            rpe: newSet.rpe ?? null,
             date: newSet.date,
         };
     }
@@ -76,9 +79,12 @@ function compareAndAssignPR(currentPR, newSet) {
 
     if (isBetter) {
         return {
+            _id: newSet._id,
             value: newSet.value,
             weightLoad: newSet.weightLoad,
             elastic: newSet.elastic,
+            brzycki: newSet.brzycki ?? null,
+            rpe: newSet.rpe ?? null,
             date: newSet.date,
         };
     }
