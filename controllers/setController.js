@@ -29,7 +29,16 @@ module.exports = function (app) {
     app.post('/whichweight', async (req, res) => {
         try {
             const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
-            const { userId, variations, targetUnit, targetValue, maxSets, sessionSets } = req.body || {};
+            const {
+                userId,
+                variations,
+                targetUnit,
+                targetValue,
+                maxSets,
+                sessionSets,
+                isUnilateral,
+                unilateralSide,
+            } = req.body || {};
 
             if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
                 return res.status(403).json({
@@ -46,6 +55,8 @@ module.exports = function (app) {
                 targetValue,
                 maxSets,
                 sessionSets,
+                isUnilateral,
+                unilateralSide,
             });
             res.json(result);
         } catch (err) {
@@ -57,7 +68,16 @@ module.exports = function (app) {
     app.post('/whichvalue', async (req, res) => {
         try {
             const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
-            const { userId, variations, targetUnit, effectiveWeightLoad, maxSets, sessionSets } = req.body || {};
+            const {
+                userId,
+                variations,
+                targetUnit,
+                effectiveWeightLoad,
+                maxSets,
+                sessionSets,
+                isUnilateral,
+                unilateralSide,
+            } = req.body || {};
 
             if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
                 return res.status(403).json({
@@ -74,6 +94,8 @@ module.exports = function (app) {
                 effectiveWeightLoad,
                 maxSets,
                 sessionSets,
+                isUnilateral,
+                unilateralSide,
             });
             res.json(result);
         } catch (err) {
@@ -133,6 +155,10 @@ module.exports = function (app) {
                 const n = parseFloat(effRaw);
                 effectiveWeightLoadOverride = Number.isFinite(n) ? n : undefined;
             }
+            let isUnilateral = undefined;
+            if (req.query.isUnilateral === 'true') isUnilateral = true;
+            else if (req.query.isUnilateral === 'false') isUnilateral = false;
+            const unilateralSide = req.query.unilateralSide;
             const { isPersonalRecord, prDetail } = await set.isPersonalRecordWithDetail(
                 userId,
                 seanceId,
@@ -141,7 +167,9 @@ module.exports = function (app) {
                 weightLoad,
                 elastic,
                 variations,
-                effectiveWeightLoadOverride
+                effectiveWeightLoadOverride,
+                isUnilateral,
+                unilateralSide
             );
             console.log("isPersonalRecord response for userId:", userId, "seanceId:", seanceId, "unit:", unit, "value:", value, "weightLoad:", weightLoad, "elastic:", elastic, "variations:", variations, "isPersonalRecord:", isPersonalRecord, "prDetail:", prDetail);
             res.json({ success: true, isPersonalRecord, prDetail });
