@@ -51,6 +51,14 @@ module.exports = (router) => {
                 req.query.recommendedVariationUsageWeight !== undefined
                     ? parseFloat(req.query.recommendedVariationUsageWeight)
                     : undefined;
+            const recommendedVariationSearchWeight =
+                req.query.recommendedVariationSearchWeight !== undefined
+                    ? parseFloat(req.query.recommendedVariationSearchWeight)
+                    : undefined;
+            const recommendedVariationMultiTokenWeight =
+                req.query.recommendedVariationMultiTokenWeight !== undefined
+                    ? parseFloat(req.query.recommendedVariationMultiTokenWeight)
+                    : undefined;
             const contextVariationId = req.query.contextVariationId || undefined;
 
             const { variations, total } = await variation.getVariationBySearch(
@@ -66,7 +74,9 @@ module.exports = (router) => {
                 weightType,
                 recommendedVariationPopularityWeight,
                 recommendedVariationUsageWeight,
-                contextVariationId
+                contextVariationId,
+                recommendedVariationSearchWeight,
+                recommendedVariationMultiTokenWeight
             );
             res.json({
                 success: true,

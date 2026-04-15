@@ -85,6 +85,14 @@ module.exports = {
         SEARCH_EXACT_TOKEN_BONUS: Number.isFinite(Number(process.env.SEARCH_EXACT_TOKEN_BONUS))
             ? Number(process.env.SEARCH_EXACT_TOKEN_BONUS)
             : 0.02,
+        /**
+         * En sortBy=recommended, quand la recherche contient >=2 tokens,
+         * on peut exiger une couverture minimale des tokens dans le nom.
+         * 1 = tous les tokens doivent être présents.
+         */
+        SEARCH_RECOMMENDED_MIN_TOKEN_COVERAGE: Number.isFinite(Number(process.env.SEARCH_RECOMMENDED_MIN_TOKEN_COVERAGE))
+            ? Number(process.env.SEARCH_RECOMMENDED_MIN_TOKEN_COVERAGE)
+            : 1,
         SEARCH_STOPWORDS
     },
     server: {
@@ -157,6 +165,30 @@ module.exports = {
             VARIATION_USAGE_WEIGHT: (() => {
                 const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_USAGE_WEIGHT);
                 return Number.isFinite(v) && v >= 0 ? v : 2.5;
+            })(),
+            /**
+             * Poids du score texte Atlas Search dans le tri recommended des variations.
+             * Plus la valeur est haute, plus la requête utilisateur impacte le classement.
+             */
+            VARIATION_SEARCH_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_SEARCH_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 1.5;
+            })(),
+            /**
+             * Bonus appliqué sur la couverture exacte des tokens de recherche (multi-token).
+             * coverage = nb tokens trouvés / nb tokens utiles.
+             */
+            VARIATION_MULTI_TOKEN_WEIGHT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_MULTI_TOKEN_WEIGHT);
+                return Number.isFinite(v) && v >= 0 ? v : 2;
+            })(),
+            /**
+             * Taille fixe du pool candidat pour /variation/search?sortBy=recommended.
+             * Pool fixe => pagination stable et sans recouvrement inter-pages.
+             */
+            VARIATION_SEARCH_CANDIDATE_LIMIT: (() => {
+                const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_SEARCH_CANDIDATE_LIMIT);
+                return Number.isFinite(v) && v >= 1 ? Math.floor(v) : 200;
             })(),
             VARIATION_CANDIDATE_LIMIT_PER_TYPE: (() => {
                 const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_CANDIDATE_LIMIT_PER_TYPE);

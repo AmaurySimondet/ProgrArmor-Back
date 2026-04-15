@@ -22,6 +22,8 @@ const seancesetSchema = new Schema(
         unit: { type: String, required: true },
         weightLoad: { type: Number, required: true },
         value: { type: Number, required: true },
+        isUnilateral: { type: Boolean, default: false },
+        unilateralSide: { type: String, enum: ['left', 'right'], default: undefined },
         elastic: {
             use: String,
             tension: Number

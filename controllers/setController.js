@@ -18,7 +18,8 @@ module.exports = function (app) {
             const dateMax = req.query.dateMax;
             const fields = req.query.fields;
             const variations = req.query.variations;
-            const sets = await set.getSets(userId, excludedSeanceId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields, variations);
+            const unilateralSide = req.query.unilateralSide;
+            const sets = await set.getSets(userId, excludedSeanceId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields, variations, unilateralSide);
             res.json({ success: true, sets });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
@@ -88,7 +89,8 @@ module.exports = function (app) {
             const categories = req.query.categories;
             const dateMin = req.query.dateMin;
             const variations = req.query.variations;
-            const prs = await set.getPRs(userId, excludedSeanceId, exercice, categories, dateMin, variations);
+            const unilateralSide = req.query.unilateralSide;
+            const prs = await set.getPRs(userId, excludedSeanceId, exercice, categories, dateMin, variations, unilateralSide);
             res.json({ success: true, prs });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
@@ -102,7 +104,8 @@ module.exports = function (app) {
             const categories = req.query.categories;
             const dateMin = req.query.dateMin;
             const variations = req.query.variations;
-            const prs = await set.getDetailedPRs(userId, exercice, categories, dateMin, variations);
+            const unilateralSide = req.query.unilateralSide;
+            const prs = await set.getDetailedPRs(userId, exercice, categories, dateMin, variations, unilateralSide);
             res.json({ success: true, prs });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });

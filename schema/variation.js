@@ -17,6 +17,7 @@ const variationSchema = new Schema(
         selfmade: { type: Boolean, required: true },
         megatype: { type: Schema.Types.ObjectId, ref: "Megatype" },
         isExercice: { type: Boolean, required: true },
+        isUnilateral: { type: Boolean, default: false },
         muscles: {
             primary: [{
                 type: String,
