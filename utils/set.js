@@ -48,18 +48,16 @@ function getEffectiveLoadPreferringPersisted(set) {
  * @returns {Object} - The updated PR if the new set is better, otherwise the current PR.
  */
 function compareAndAssignPR(currentPR, newSet) {
+    const toPRPayload = (setLike) => ({
+        ...setLike,
+        isUnilateral: setLike?.isUnilateral ?? false,
+        unilateralSide: setLike?.unilateralSide,
+        brzycki: setLike?.brzycki ?? null,
+        rpe: setLike?.rpe ?? null,
+    });
+
     if (!currentPR) {
-        return {
-            _id: newSet._id,
-            value: newSet.value,
-            weightLoad: newSet.weightLoad,
-            elastic: newSet.elastic,
-            isUnilateral: newSet.isUnilateral ?? false,
-            unilateralSide: newSet.unilateralSide,
-            brzycki: newSet.brzycki ?? null,
-            rpe: newSet.rpe ?? null,
-            date: newSet.date,
-        };
+        return toPRPayload(newSet);
     }
 
     const currentValue = currentPR.value ?? 0;
@@ -80,17 +78,7 @@ function compareAndAssignPR(currentPR, newSet) {
     }
 
     if (isBetter) {
-        return {
-            _id: newSet._id,
-            value: newSet.value,
-            weightLoad: newSet.weightLoad,
-            elastic: newSet.elastic,
-            isUnilateral: newSet.isUnilateral ?? false,
-            unilateralSide: newSet.unilateralSide,
-            brzycki: newSet.brzycki ?? null,
-            rpe: newSet.rpe ?? null,
-            date: newSet.date,
-        };
+        return toPRPayload(newSet);
     }
 
     return currentPR;

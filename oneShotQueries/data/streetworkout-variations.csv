@@ -1,0 +1,36 @@
+_id,type,typeLabel,isExercice,verified,popularity,name_fr,name_en,equivalentTo
+692214541c858345acc2d41d,669cee980c89e9434327caa8,exercices,TRUE,TRUE,15,Advanced Tuck Front Lever,Advanced Tuck Front Lever,669ced7e665a3ffe77714383|669c3609218324e0b7682b2c
+692214541c858345acc2d411,669cee980c89e9434327caa8,exercices,TRUE,TRUE,15,Advanced Tuck Planche,Advanced Tuck Planche,669ced7e665a3ffe77714385|669c3609218324e0b7682b2c
+669ced7e665a3ffe77714384,669cee980c89e9434327caa8,exercices,TRUE,FALSE,,Back Lever,Back Lever,
+669ced7e665a3ffe77714388,669cee980c89e9434327caa8,exercices,TRUE,FALSE,,Drapeau,Human flag,
+692214541c858345acc2d438,669cee980c89e9434327caa8,exercices,TRUE,TRUE,5,Drapeau complet,Human Flag (Full),669ced7e665a3ffe77714388|669c3609218324e0b7682b33
+669ced7e665a3ffe7771438d,669cee980c89e9434327caa8,exercices,TRUE,FALSE,,Elbow Lever,Elbow Lever,
+669ced7e665a3ffe77714383,669cee980c89e9434327caa8,exercices,TRUE,FALSE,,Front Lever,Front Lever,
+692214541c858345acc2d42f,669cee980c89e9434327caa8,exercices,TRUE,TRUE,10,Full Back Lever,Full Back Lever,669ced7e665a3ffe77714384|669c3609218324e0b7682b33
+692214541c858345acc2d426,669cee980c89e9434327caa8,exercices,TRUE,TRUE,5,Full Front Lever,Full Front Lever,669ced7e665a3ffe77714383|669c3609218324e0b7682b33
+692214541c858345acc2d417,669cee980c89e9434327caa8,exercices,TRUE,TRUE,5,Full Planche,Full Planche,669ced7e665a3ffe77714385|669c3609218324e0b7682b33
+692214541c858345acc2d429,669cee980c89e9434327caa8,exercices,TRUE,TRUE,20,German Hang,German Hang,
+692214541c858345acc2d405,669cee980c89e9434327caa8,exercices,TRUE,TRUE,18,Handstand libre,Free Handstand,6922144e1c858345acc2d158
+692214541c858345acc2d402,669cee980c89e9434327caa8,exercices,TRUE,TRUE,22,Handstand mur (ventre au mur),Handstand Wall Hold (Chest-to-wall),6922144e1c858345acc2d158|69206952f94b17a153ce44bc
+692214541c858345acc2d408,669cee980c89e9434327caa8,exercices,TRUE,TRUE,5,Handstand à un bras,One Arm Handstand,692214541c858345acc2d405|691ae56e9c28bf0f3ee1234c
+692214541c858345acc2d3ff,669cee980c89e9434327caa8,exercices,TRUE,TRUE,10,Headstand (sur la tête),Headstand,
+669ced7e665a3ffe77714387,669cee980c89e9434327caa8,exercices,TRUE,FALSE,,Maltese,Maltese,
+692214541c858345acc2d420,669cee980c89e9434327caa8,exercices,TRUE,TRUE,10,One Leg Front Lever,One Leg Front Lever,669ced7e665a3ffe77714383|669c3609218324e0b7682b2e
+669ced7e665a3ffe77714385,669cee980c89e9434327caa8,exercices,TRUE,FALSE,,Planche,Planche,
+692214541c858345acc2d40b,669cee980c89e9434327caa8,exercices,TRUE,TRUE,25,Planche Lean,Planche Lean,669ced7e665a3ffe77714385|691c2b729c28bf0f3ee12362
+692214541c858345acc2d423,669cee980c89e9434327caa8,exercices,TRUE,TRUE,8,Straddle Front Lever,Straddle Front Lever,669ced7e665a3ffe77714383|669c3609218324e0b7682b2f
+692214541c858345acc2d414,669cee980c89e9434327caa8,exercices,TRUE,TRUE,8,Straddle Planche,Straddle Planche,669ced7e665a3ffe77714385|669c3609218324e0b7682b2f
+692214541c858345acc2d42c,669cee980c89e9434327caa8,exercices,TRUE,TRUE,15,Tuck Back Lever,Tuck Back Lever,669ced7e665a3ffe77714384|669c3609218324e0b7682b2b
+692214541c858345acc2d41a,669cee980c89e9434327caa8,exercices,TRUE,TRUE,25,Tuck Front Lever,Tuck Front Lever,669ced7e665a3ffe77714383|669c3609218324e0b7682b2b
+692214541c858345acc2d435,669cee980c89e9434327caa8,exercices,TRUE,TRUE,10,Tuck Human Flag,Tuck Human Flag,669ced7e665a3ffe77714388|669c3609218324e0b7682b2b
+692214541c858345acc2d40e,669cee980c89e9434327caa8,exercices,TRUE,TRUE,20,Tuck Planche,Tuck Planche,669ced7e665a3ffe77714385|669c3609218324e0b7682b2b
+669ced7e665a3ffe77714390,669cee980c89e9434327caa8,exercices,TRUE,FALSE,,Victorian,Victorian,
+669c3609218324e0b7682b2c,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":33,""bodyweight_plus_external"":90,""external_free"":15,""external_machine"":1}",Advanced tuck,Advanced tuck,
+669c3609218324e0b7682b30,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":34,""bodyweight_plus_external"":74,""external_free"":15,""external_machine"":5}",Avancé une jambe,Advanced one leg,
+669c3609218324e0b7682b2d,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":34,""bodyweight_plus_external"":86,""external_free"":15,""external_machine"":5}",Closed hip straddle,Closed hip straddle,
+669c3609218324e0b7682b33,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":33,""bodyweight_plus_external"":66,""external_free"":15,""external_machine"":1}",Full,Full,
+669c3609218324e0b7682b31,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":34,""bodyweight_plus_external"":55,""external_free"":15,""external_machine"":5}",Half lay,Half lay,
+669c3609218324e0b7682b2f,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":34,""bodyweight_plus_external"":82,""external_free"":15,""external_machine"":5}",Open hip straddle,Open hip straddle,
+669c3609218324e0b7682b2b,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":33,""bodyweight_plus_external"":95,""external_free"":15,""external_machine"":1}",Tuck,Tuck,
+669c3609218324e0b7682b2e,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":34,""bodyweight_plus_external"":78,""external_free"":15,""external_machine"":5}",Une jambe,One leg,
+669c3609218324e0b7682b32,669cda3b33e75a33610be158,details,FALSE,FALSE,"{""global"":34,""bodyweight_plus_external"":70,""external_free"":15,""external_machine"":5}",Une jambe semi-tendue,One leg half,

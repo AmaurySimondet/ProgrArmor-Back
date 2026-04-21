@@ -125,7 +125,8 @@ module.exports = {
         UTC_MONDAY_EPOCH_MS: Date.UTC(1970, 0, 5)
     },
     whichWeight: {
-        MAX_SESSION_SETS: 50
+        MAX_SESSION_SETS: 50,
+        MAX_BRZYCKI_TARGET_REPS: 15
     },
     detail: {
         PAGINATION_LIMIT: 10

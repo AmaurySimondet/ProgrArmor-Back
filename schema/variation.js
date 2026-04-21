@@ -40,7 +40,8 @@ const variationSchema = new Schema(
         // Backward-compatible: Number for exercise variations, Object for detail contextual popularity
         popularity: { type: Schema.Types.Mixed, default: 0 },
         equivalentTo: [{ type: Schema.Types.ObjectId, ref: 'Variation' }],
-        verified: { type: Boolean, default: false }
+        verified: { type: Boolean, default: false },
+        possibleProgression: { type: Boolean, default: true }
     },
     {
         timestamps: true

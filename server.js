@@ -125,6 +125,7 @@ require(__dirname + "/controllers/typesController")(router);
 require(__dirname + "/controllers/megatypesController")(router);
 require(__dirname + "/controllers/shiftController")(router);
 require(__dirname + "/controllers/successController")(router);
+require(__dirname + "/controllers/variationProgressionEdgeController")(router);
 
 console.log("PORT", PORT);
 console.log("process.env.VERCEL", process.env.VERCEL);

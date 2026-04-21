@@ -28,6 +28,11 @@ const userMeasureSchema = new mongoose.Schema(
             kg: { type: Number, required: true, validate: positiveNumberValidator },
             lb: { type: Number, required: true, validate: positiveNumberValidator }
         },
+        heightMultiplier: {
+            type: Number,
+            min: 0,
+            default: 1
+        },
         bodyFatPct: {
             type: Number,
             validate: positiveNumberValidator
@@ -69,5 +74,16 @@ const userMeasureSchema = new mongoose.Schema(
 );
 
 userMeasureSchema.index({ userId: 1, measuredAt: -1 });
+
+function computeHeightMultiplier(heightCm) {
+    const h = Number(heightCm);
+    if (!Number.isFinite(h) || h <= 0) return 1;
+    return Math.round((((h / 170) ** 2) + Number.EPSILON) * 1000000) / 1000000;
+}
+
+userMeasureSchema.pre("validate", function setHeightMultiplier(next) {
+    this.heightMultiplier = computeHeightMultiplier(this?.height?.cm);
+    next();
+});
 
 module.exports = mongoose.model("UserMeasure", userMeasureSchema);
