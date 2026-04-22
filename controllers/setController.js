@@ -255,6 +255,73 @@ module.exports = function (app) {
         }
     });
 
+    app.get('/variation-family/performed', async (req, res) => {
+        try {
+            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+            const userId = req.query.userId;
+            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
+                return res.status(403).json({
+                    success: false,
+                    reason: 'FORBIDDEN',
+                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
+                });
+            }
+
+            const rawVariations = req.query.variations;
+            const variationIds = (Array.isArray(rawVariations) ? rawVariations : [rawVariations])
+                .flatMap((value) => {
+                    if (value == null) return [];
+                    if (typeof value === 'string') {
+                        return value.split(',').map((id) => id.trim()).filter(Boolean);
+                    }
+                    if (typeof value === 'object' && value.variation) {
+                        return [String(value.variation)];
+                    }
+                    return [String(value)];
+                })
+                .filter(Boolean);
+            const legacyRootVariationId = req.query.rootVariationId;
+            const inputVariations = variationIds.length > 0
+                ? variationIds
+                : (legacyRootVariationId ? [String(legacyRootVariationId)] : []);
+            if (!inputVariations.length) {
+                return res.status(400).json({
+                    success: false,
+                    reason: 'VALIDATION_ERROR',
+                    message: 'variations est requis (liste d\'ids)'
+                });
+            }
+
+            const maxDepthRaw = parseInt(req.query.maxDepth, 10);
+            const payload = await set.getNormalFlowPerformedVariationFamilies({
+                userId,
+                variations: inputVariations,
+                maxDepth: Number.isFinite(maxDepthRaw) ? maxDepthRaw : undefined,
+                dateMin: req.query.dateMin || null,
+                unilateralSide: req.query.unilateralSide
+            });
+
+            return res.json({
+                success: true,
+                ...payload,
+                frontFlow: {
+                    stepA: 'call variation-family/performed with variations[]',
+                    stepB: 'show family buttons then performed variations from performedVariationsByFamily',
+                    stepC: 'on variation click keep current flow with /variation-progression/timeseries and /prs or /detailedPrs'
+                }
+            });
+        } catch (err) {
+            console.error('Error in /variation-family/performed:', err);
+            const isValidationError = typeof err?.message === 'string'
+                && err.message.startsWith('variations invalide');
+            return res.status(isValidationError ? 400 : 500).json({
+                success: false,
+                ...(isValidationError ? { reason: 'VALIDATION_ERROR' } : {}),
+                message: err.message
+            });
+        }
+    });
+
     app.get('/detailedPrs', async (req, res) => {
         try {
             const userId = req.query.userId;

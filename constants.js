@@ -104,7 +104,13 @@ module.exports = {
         HOST: process.env.LISTEN_HOST || '0.0.0.0'
     },
     set: {
-        PR_CATEGORIES
+        PR_CATEGORIES,
+        NORMAL_FLOW_FAMILY_MAX_DEPTH: Number.isFinite(Number(process.env.NORMAL_FLOW_FAMILY_MAX_DEPTH))
+            ? Math.max(1, Math.floor(Number(process.env.NORMAL_FLOW_FAMILY_MAX_DEPTH)))
+            : 4,
+        NORMAL_FLOW_MAX_FAMILIES: Number.isFinite(Number(process.env.NORMAL_FLOW_MAX_FAMILIES))
+            ? Math.max(1, Math.floor(Number(process.env.NORMAL_FLOW_MAX_FAMILIES)))
+            : 24
     },
     user: {
         ONE_DAY: 24 * 60 * 60 * 1000,
