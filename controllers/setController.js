@@ -421,6 +421,7 @@ module.exports = function (app) {
 
     app.get('/ispr', async (req, res) => {
         try {
+            console.log('[GET /ispr] Incoming query:', req.query);
             const userId = req.query.userId;
             const seanceId = req.query.seanceId;
             const unit = req.query.unit;
@@ -444,6 +445,20 @@ module.exports = function (app) {
             if (req.query.isUnilateral === 'true') isUnilateral = true;
             else if (req.query.isUnilateral === 'false') isUnilateral = false;
             const unilateralSide = req.query.unilateralSide;
+
+            console.log('[GET /ispr] Parsed params:', {
+                userId,
+                seanceId,
+                unit,
+                value,
+                weightLoad,
+                elastic,
+                variations,
+                effectiveWeightLoadOverride,
+                isUnilateral,
+                unilateralSide
+            });
+
             const { isPersonalRecord, prDetail } = await set.isPersonalRecordWithDetail(
                 userId,
                 seanceId,
@@ -456,9 +471,16 @@ module.exports = function (app) {
                 isUnilateral,
                 unilateralSide
             );
-            console.log("isPersonalRecord response for userId:", userId, "seanceId:", seanceId, "unit:", unit, "value:", value, "weightLoad:", weightLoad, "elastic:", elastic, "variations:", variations, "isPersonalRecord:", isPersonalRecord, "prDetail:", prDetail);
+            console.log('[GET /ispr] Result:', {
+                userId,
+                seanceId,
+                unit,
+                isPersonalRecord,
+                prDetail
+            });
             res.json({ success: true, isPersonalRecord, prDetail });
         } catch (err) {
+            console.error('[GET /ispr] Error:', err);
             res.status(500).json({ success: false, message: err.message });
         }
     });

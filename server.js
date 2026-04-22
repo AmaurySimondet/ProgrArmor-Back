@@ -109,11 +109,7 @@ router.use((req, res, next) => {
 require(__dirname + "/controllers/userController")(router);
 require(__dirname + "/controllers/adminController")(router);
 require(__dirname + "/controllers/seanceController")(router);
-require(__dirname + "/controllers/exerciceTypeController")(router);
-require(__dirname + "/controllers/exerciceController")(router);
-require(__dirname + "/controllers/categorieTypeController")(router);
 require(__dirname + "/controllers/setController")(router);
-require(__dirname + "/controllers/categorieController")(router);
 require(__dirname + "/controllers/awsImageController")(router);
 require(__dirname + "/controllers/notificationController")(router);
 require(__dirname + "/controllers/weatherController")(router);
