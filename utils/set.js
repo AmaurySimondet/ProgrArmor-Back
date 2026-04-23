@@ -48,8 +48,16 @@ function getEffectiveLoadPreferringPersisted(set) {
  * @returns {Object} - The updated PR if the new set is better, otherwise the current PR.
  */
 function compareAndAssignPR(currentPR, newSet) {
+    const toPlainObject = (value) => {
+        if (!value) return value;
+        if (typeof value.toObject === 'function') {
+            return value.toObject();
+        }
+        return value;
+    };
+
     const toPRPayload = (setLike) => ({
-        ...setLike,
+        ...toPlainObject(setLike),
         isUnilateral: setLike?.isUnilateral ?? false,
         unilateralSide: setLike?.unilateralSide,
         brzycki: setLike?.brzycki ?? null,

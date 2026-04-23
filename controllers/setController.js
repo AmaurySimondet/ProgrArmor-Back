@@ -74,7 +74,6 @@ module.exports = function (app) {
 
     app.post('/whichweight', async (req, res) => {
         try {
-            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
             const {
                 userId,
                 variations,
@@ -85,14 +84,6 @@ module.exports = function (app) {
                 isUnilateral,
                 unilateralSide,
             } = req.body || {};
-
-            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
-                return res.status(403).json({
-                    success: false,
-                    reason: 'FORBIDDEN',
-                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
-                });
-            }
 
             const result = await whichweight.computeRecommendedLoad({
                 userId,
@@ -113,7 +104,6 @@ module.exports = function (app) {
 
     app.post('/whichvalue', async (req, res) => {
         try {
-            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
             const {
                 userId,
                 variations,
@@ -124,14 +114,6 @@ module.exports = function (app) {
                 isUnilateral,
                 unilateralSide,
             } = req.body || {};
-
-            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
-                return res.status(403).json({
-                    success: false,
-                    reason: 'FORBIDDEN',
-                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
-                });
-            }
 
             const result = await whichvalue.computeRecommendedValue({
                 userId,
@@ -151,7 +133,6 @@ module.exports = function (app) {
 
     app.post('/whichweight-figure', async (req, res) => {
         try {
-            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
             const {
                 userId,
                 mainExerciseId,
@@ -166,13 +147,6 @@ module.exports = function (app) {
                 dateMin,
                 unilateralSide
             } = req.body || {};
-            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
-                return res.status(403).json({
-                    success: false,
-                    reason: 'FORBIDDEN',
-                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
-                });
-            }
             const result = await whichfigure.computeRecommendedWeightFigure({
                 userId,
                 mainExerciseId,
@@ -196,7 +170,6 @@ module.exports = function (app) {
 
     app.post('/whichvalue-figure', async (req, res) => {
         try {
-            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
             const {
                 userId,
                 mainExerciseId,
@@ -211,13 +184,6 @@ module.exports = function (app) {
                 dateMin,
                 unilateralSide
             } = req.body || {};
-            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
-                return res.status(403).json({
-                    success: false,
-                    reason: 'FORBIDDEN',
-                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
-                });
-            }
             const result = await whichfigure.computeRecommendedValueFigure({
                 userId,
                 mainExerciseId,
@@ -257,15 +223,7 @@ module.exports = function (app) {
 
     app.get('/variation-family/performed', async (req, res) => {
         try {
-            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
             const userId = req.query.userId;
-            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
-                return res.status(403).json({
-                    success: false,
-                    reason: 'FORBIDDEN',
-                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
-                });
-            }
 
             const rawVariations = req.query.variations;
             const variationIds = (Array.isArray(rawVariations) ? rawVariations : [rawVariations])
