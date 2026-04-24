@@ -50,5 +50,7 @@ const variationSchema = new Schema(
 
 variationSchema.index({ type: 1, isExercice: 1, popularity: -1 });
 variationSchema.index({ type: 1, isExercice: 1, 'popularity.global': -1 });
+variationSchema.index({ 'muscles.primary': 1 });
+variationSchema.index({ 'muscles.secondary': 1 });
 
 module.exports = mongoose.model("Variation", variationSchema);

@@ -199,7 +199,7 @@ module.exports = {
             })(),
             VARIATION_CANDIDATE_LIMIT_PER_TYPE: (() => {
                 const v = Number(process.env.GROUPED_BY_TYPE_RECOMMENDED_VARIATION_CANDIDATE_LIMIT_PER_TYPE);
-                return Number.isFinite(v) && v >= 1 ? Math.floor(v) : 50;
+                return Number.isFinite(v) && v >= 1 ? Math.floor(v) : 250;
             })(),
             /**
              * Taille max du préfixe de `variations` testée pour matcher un `equivalentTo` vérifié (garde-fou données aberrantes).

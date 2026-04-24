@@ -1,4 +1,12 @@
 const variation = require('../lib/variation');
+const { schema: { MUSCLES } } = require('../constants');
+
+function normalizeMuscleParam(rawMuscle) {
+    if (rawMuscle === undefined || rawMuscle === null) return undefined;
+    const normalized = String(rawMuscle).trim();
+    if (!normalized || normalized.toLowerCase() === 'null') return undefined;
+    return normalized;
+}
 
 module.exports = (router) => {
     // Move this route BEFORE the /:id route
@@ -60,6 +68,10 @@ module.exports = (router) => {
                     ? parseFloat(req.query.recommendedVariationMultiTokenWeight)
                     : undefined;
             const contextVariationId = req.query.contextVariationId || undefined;
+            const muscle = normalizeMuscleParam(req.query.muscle);
+            if (muscle && !MUSCLES.includes(muscle)) {
+                return res.status(400).json({ success: false, message: 'Invalid muscle' });
+            }
 
             const { variations, total } = await variation.getVariationBySearch(
                 search,
@@ -76,7 +88,8 @@ module.exports = (router) => {
                 recommendedVariationUsageWeight,
                 contextVariationId,
                 recommendedVariationSearchWeight,
-                recommendedVariationMultiTokenWeight
+                recommendedVariationMultiTokenWeight,
+                muscle
             );
             res.json({
                 success: true,
@@ -122,6 +135,10 @@ module.exports = (router) => {
                     ? parseFloat(req.query.recommendedVariationUsageWeight)
                     : undefined;
             const contextVariationId = req.query.contextVariationId || undefined;
+            const muscle = normalizeMuscleParam(req.query.muscle);
+            if (muscle && !MUSCLES.includes(muscle)) {
+                return res.status(400).json({ success: false, message: 'Invalid muscle' });
+            }
 
             const { groups, totalTypes } = await variation.getVariationsGroupedByType(
                 sortBy,
@@ -138,7 +155,8 @@ module.exports = (router) => {
                 recommendedUsageWeight,
                 recommendedVariationPopularityWeight,
                 recommendedVariationUsageWeight,
-                contextVariationId
+                contextVariationId,
+                muscle
             );
 
             res.json({

@@ -8,16 +8,19 @@ async function copyDatabase() {
         const client = new MongoClient(process.env.mongoURL);
         await client.connect();
 
-        const dropTarget = true;
         const sourceDbName = 'progarmor';
         const targetDbName = 'progarmor-test';
 
         const sourceDb = client.db(sourceDbName);
         const targetDb = client.db(targetDbName);
 
-        if (dropTarget) {
-            await targetDb.dropDatabase();
-            console.log(`${targetDbName} database dropped`);
+        // Clear all target collections without dropping the database itself.
+        // This preserves Atlas Search settings and collection indexes.
+        const targetCollections = await targetDb.listCollections().toArray();
+        for (const targetCollection of targetCollections) {
+            const targetCollectionName = targetCollection.name;
+            const deleteResult = await targetDb.collection(targetCollectionName).deleteMany({});
+            console.log(`Deleted ${deleteResult.deletedCount} documents from ${targetCollectionName}`);
         }
 
         console.log(`Copying from ${sourceDbName} to ${targetDbName}`);
