@@ -1,9 +1,17 @@
 const variation = require('../lib/variation');
 const { schema: { MUSCLES } } = require('../constants');
+const WEIGHT_TYPES = ['bodyweight_plus_external', 'external_free', 'external_machine'];
 
 function normalizeMuscleParam(rawMuscle) {
     if (rawMuscle === undefined || rawMuscle === null) return undefined;
     const normalized = String(rawMuscle).trim();
+    if (!normalized || normalized.toLowerCase() === 'null') return undefined;
+    return normalized;
+}
+
+function normalizeWeightTypeParam(rawWeightType) {
+    if (rawWeightType === undefined || rawWeightType === null) return undefined;
+    const normalized = String(rawWeightType).trim();
     if (!normalized || normalized.toLowerCase() === 'null') return undefined;
     return normalized;
 }
@@ -18,7 +26,7 @@ module.exports = (router) => {
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
             const myExercices = req.query.myExercices === 'true' ? true : (req.query.myExercices === 'false' ? false : undefined);
-            const weightType = req.query.weightType;
+            const weightType = normalizeWeightTypeParam(req.query.weightType);
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 20;
             const { variations, total } = await variation.getAllVariations(type, sortBy, userId, page, limit, verified, isExercice, myExercices, weightType);
@@ -47,7 +55,7 @@ module.exports = (router) => {
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
             const myExercices = req.query.myExercices === 'true' ? true : (req.query.myExercices === 'false' ? false : undefined);
-            const weightType = req.query.weightType;
+            const weightType = normalizeWeightTypeParam(req.query.weightType);
             const userId = req.query.userId;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 7;
@@ -72,6 +80,9 @@ module.exports = (router) => {
             if (muscle && !MUSCLES.includes(muscle)) {
                 return res.status(400).json({ success: false, message: 'Invalid muscle' });
             }
+            if (weightType && !WEIGHT_TYPES.includes(weightType)) {
+                return res.status(400).json({ success: false, message: 'Invalid weightType' });
+            }
 
             const { variations, total } = await variation.getVariationBySearch(
                 search,
@@ -89,7 +100,8 @@ module.exports = (router) => {
                 contextVariationId,
                 recommendedVariationSearchWeight,
                 recommendedVariationMultiTokenWeight,
-                muscle
+                muscle,
+                weightType
             );
             res.json({
                 success: true,
@@ -113,7 +125,7 @@ module.exports = (router) => {
             const userId = req.query.userId;
             const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
             const isExercice = req.query.isExercice === 'true' ? true : (req.query.isExercice === 'false' ? false : undefined);
-            const weightType = req.query.weightType;
+            const weightType = normalizeWeightTypeParam(req.query.weightType);
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 10;
             const typesPage = parseInt(req.query.typesPage) || 1;
@@ -139,6 +151,9 @@ module.exports = (router) => {
             if (muscle && !MUSCLES.includes(muscle)) {
                 return res.status(400).json({ success: false, message: 'Invalid muscle' });
             }
+            if (weightType && !WEIGHT_TYPES.includes(weightType)) {
+                return res.status(400).json({ success: false, message: 'Invalid weightType' });
+            }
 
             const { groups, totalTypes } = await variation.getVariationsGroupedByType(
                 sortBy,
@@ -156,7 +171,8 @@ module.exports = (router) => {
                 recommendedVariationPopularityWeight,
                 recommendedVariationUsageWeight,
                 contextVariationId,
-                muscle
+                muscle,
+                weightType
             );
 
             res.json({
