@@ -37,4 +37,5 @@ module.exports = function (app) {
     //FOLLOWERS
     app.post('/followUser', User.followUser);
     app.post('/unfollowUser', User.unfollowUser);
+    app.get('/follow-suggestion', User.getFollowSuggestion);
 }
