@@ -48,9 +48,16 @@ module.exports = function (app) {
     });
     app.post("/createSeance", async (req, res) => {
         try {
+            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+            if (!authenticatedUserId) {
+                return res.status(401).json({ success: false, message: "Unauthorized" });
+            }
             const seanceData = req.body.seance;
+            if (!seanceData) {
+                return res.status(400).json({ success: false, message: "Seance data is required" });
+            }
             const photoIds = req.body.photoIds;
-            const newSeance = await seance.createSeance(seanceData, photoIds);
+            const newSeance = await seance.createSeance(seanceData, photoIds, authenticatedUserId);
             res.json({ success: true, newSeance });
         } catch (err) {
             console.error("Error creating seance:", err);
@@ -59,16 +66,24 @@ module.exports = function (app) {
     });
     app.delete("/deleteSeance", async (req, res) => {
         try {
+            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+            if (!authenticatedUserId) {
+                return res.status(401).json({ success: false, message: "Unauthorized" });
+            }
             const seanceId = req.query.seanceId;
-            const user = req.query.user;
-            await seance.deleteSeance(seanceId, user);
+            await seance.deleteSeance(seanceId, authenticatedUserId);
             res.json({ success: true });
         } catch (err) {
-            res.status(500).json({ success: false, message: err.message });
+            const status = typeof err?.message === "string" && err.message.includes("forbidden") ? 403 : 500;
+            res.status(status).json({ success: false, message: err.message });
         }
     });
     app.put("/updateSeance", async (req, res) => {
         try {
+            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+            if (!authenticatedUserId) {
+                return res.status(401).json({ success: false, message: "Unauthorized" });
+            }
             const id = req.query.id;
             if (!id) {
                 throw new Error("Seance ID is required");
@@ -78,10 +93,11 @@ module.exports = function (app) {
                 throw new Error("Seance data is required");
             }
             const photoIds = req.body.photoIds;
-            const updatedSeance = await seance.updateSeance(id, seanceData, photoIds);
+            const updatedSeance = await seance.updateSeance(id, seanceData, photoIds, authenticatedUserId);
             res.json({ success: true, updatedSeance });
         } catch (err) {
-            res.status(500).json({ success: false, message: err.message });
+            const status = typeof err?.message === "string" && err.message.includes("forbidden") ? 403 : 500;
+            res.status(status).json({ success: false, message: err.message });
         }
     });
 

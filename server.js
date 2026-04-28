@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const session = require('cookie-session');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 const { timingMiddleware } = require('./utils/timing');
 const { sessionConfig, configurePassport } = require('./lib/login');
@@ -21,6 +23,17 @@ if (!mongoURL || !JWT_SECRET || !DATABASE) {
 
 const MONGO_URI = mongoURL + DATABASE;
 const { MONGO_MAX_POOL_SIZE, PORT, HOST } = serverConstants;
+const allowInvalidMongoCerts = process.env.NODE_ENV !== 'production';
+const isProduction = process.env.NODE_ENV === 'production';
+const configuredOrigins = (process.env.CORS_ORIGINS || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const defaultClientOrigin = process.env.URL_CLIENT ? process.env.URL_CLIENT.trim() : "";
+const allowedOrigins = [...new Set([
+  ...configuredOrigins,
+  ...(defaultClientOrigin ? [defaultClientOrigin] : [])
+])];
 
 const globalCache = global;
 if (!globalCache.__mongoose) {
@@ -41,7 +54,8 @@ async function connectDB() {
         minPoolSize: 0,
         serverSelectionTimeoutMS: 5000,
         tls: true,
-        tlsAllowInvalidCertificates: true // ⚠️ uniquement pour test
+        // Keep permissive cert validation only outside production.
+        tlsAllowInvalidCertificates: allowInvalidMongoCerts
       })
       .then((connection) => {
         console.log("Connected to mongoDB - " + DATABASE);
@@ -87,8 +101,28 @@ app.use(passport.initialize());
 app.use(passport.session());
 configurePassport();
 
+// Basic security headers with API-friendly defaults.
+app.use(helmet({
+  crossOriginResourcePolicy: false
+}));
+
 //CORS
-app.use(cors());
+app.use(cors({
+  origin(origin, callback) {
+    // Allow mobile apps, server-to-server calls and non-browser clients.
+    if (!origin) return callback(null, true);
+    if (!isProduction) {
+      const isLocalOrigin = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin);
+      if (isLocalOrigin) {
+        return callback(null, true);
+      }
+    }
+    if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(null, false);
+  }
+}));
 
 //Définition du routeur
 const router = express.Router();
@@ -97,6 +131,26 @@ app.use("/user", router);
 
 // Public routes that don't require authentication
 const publicRoutes = ['/login', '/verifyToken', '/signup', '/forgotPassword', '/resetPasswordWithToken', '/auth/facebook', '/auth/facebook/authenticate', '/auth/google', '/auth/google/authenticate', '/admin/inscription'];
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: process.env.NODE_ENV === 'production' ? 25 : 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: "Too many requests, please try again later." }
+});
+const strictResetLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: process.env.NODE_ENV === 'production' ? 10 : 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: "Too many reset attempts, please try again later." }
+});
+
+router.use('/login', authLimiter);
+router.use('/signup', authLimiter);
+router.use('/verifyToken', authLimiter);
+router.use('/forgotPassword', strictResetLimiter);
+router.use('/resetPasswordWithToken', strictResetLimiter);
 
 // Protect all routes except public ones using Passport's JWT strategy
 router.use((req, res, next) => {

@@ -2,6 +2,7 @@ const set = require('../lib/set.js');
 const whichweight = require('../lib/whichweight');
 const whichvalue = require('../lib/whichvalue');
 const whichfigure = require('../lib/whichfigure');
+const Seance = require('../schema/seance');
 
 module.exports = function (app) {
     const DEFAULT_REFERENCE_VARIATION_ID = '669c3609218324e0b7682b2b'; // tuck
@@ -508,7 +509,19 @@ module.exports = function (app) {
     // POST
     app.post('/createSet', async (req, res) => {
         try {
+            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+            if (!authenticatedUserId) {
+                return res.status(401).json({ success: false, message: "Unauthorized" });
+            }
             const setData = req.body.set;
+            if (!setData || !setData.seance) {
+                return res.status(400).json({ success: false, message: "Set and seance are required" });
+            }
+            const ownerSeance = await Seance.findOne({ _id: setData.seance, user: authenticatedUserId }, { _id: 1 }).lean();
+            if (!ownerSeance) {
+                return res.status(403).json({ success: false, message: "Forbidden" });
+            }
+            setData.user = authenticatedUserId;
             const newSet = await set.createSet(setData);
             res.json({ success: true, newSet });
         } catch (err) {
@@ -519,7 +532,18 @@ module.exports = function (app) {
     // DELETE
     app.delete('/deleteSets', async (req, res) => {
         try {
+            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+            if (!authenticatedUserId) {
+                return res.status(401).json({ success: false, message: "Unauthorized" });
+            }
             const seanceId = req.query.seanceId;
+            if (!seanceId) {
+                return res.status(400).json({ success: false, message: "Seance ID is required" });
+            }
+            const ownerSeance = await Seance.findOne({ _id: seanceId, user: authenticatedUserId }, { _id: 1 }).lean();
+            if (!ownerSeance) {
+                return res.status(403).json({ success: false, message: "Forbidden" });
+            }
             await set.deleteSets(seanceId);
             res.json({ success: true });
         } catch (err) {
