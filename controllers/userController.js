@@ -6,8 +6,8 @@ module.exports = function (app) {
     app.post('/login', login.login);
     app.post('/signup', login.signup);
     app.get('/logout', login.logout);
-    app.get('/auth/facebook', login.facebook);
-    app.get('/auth/facebook/authenticate', login.facebookAuthenticate);
+    // app.get('/auth/facebook', login.facebook);
+    // app.get('/auth/facebook/authenticate', login.facebookAuthenticate);
     app.get('/auth/google', login.google);
     app.get('/auth/google/authenticate', login.googleAuthenticate);
     app.post('/verifyToken', login.verifyToken)

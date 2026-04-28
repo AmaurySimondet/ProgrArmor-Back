@@ -36,7 +36,7 @@ This project is my property only and you can't share it for commercial purpose. 
 
 ## First time starting the project
 - npm install --legacy-peer-deps
-- npm run start
+- npm run dev
 
 ## Deployment
 - update package.json and package-lock.json
