@@ -115,7 +115,10 @@ configurePassport();
 
 // Basic security headers with API-friendly defaults.
 app.use(helmet({
-  crossOriginResourcePolicy: false
+  crossOriginResourcePolicy: false,
+  // OAuth providers (Google prompt=none / popup/iframe flows) can require framing.
+  // Keeping frameguard enabled causes browser-side "Unsafe attempt to load URL ... chrome-error://chromewebdata/" in production.
+  frameguard: false
 }));
 
 //CORS
