@@ -75,6 +75,8 @@ async function connectDB() {
 
 //On définit notre objet express nommé app
 const app = express();
+// Trust first proxy hop (e.g. Render/Heroku/Nginx) so req.ip uses X-Forwarded-For correctly.
+app.set('trust proxy', process.env.NODE_ENV === 'production' ? 1 : false);
 
 // Use centralized session configuration
 app.use(session(sessionConfig));
