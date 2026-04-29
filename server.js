@@ -110,6 +110,9 @@ app.use(helmet({
 
 //CORS
 app.use(cors({
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   origin(origin, callback) {
     // Allow mobile apps, server-to-server calls and non-browser clients.
     if (!origin) return callback(null, true);
@@ -125,6 +128,7 @@ app.use(cors({
     return callback(null, false);
   }
 }));
+app.options('*', cors());
 
 //Définition du routeur
 const router = express.Router();
