@@ -30,10 +30,20 @@ const configuredOrigins = (process.env.CORS_ORIGINS || "")
   .map((origin) => origin.trim())
   .filter(Boolean);
 const defaultClientOrigin = process.env.URL_CLIENT ? process.env.URL_CLIENT.trim() : "";
+
+function normalizeOrigin(origin) {
+  const trimmed = origin.trim();
+  try {
+    return new URL(trimmed).origin.toLowerCase();
+  } catch (_) {
+    return trimmed.replace(/\/+$/, "").toLowerCase();
+  }
+}
+
 const allowedOrigins = [...new Set([
   ...configuredOrigins,
   ...(defaultClientOrigin ? [defaultClientOrigin] : [])
-])];
+].map(normalizeOrigin))];
 
 const globalCache = global;
 if (!globalCache.__mongoose) {
@@ -109,7 +119,7 @@ app.use(helmet({
 }));
 
 //CORS
-app.use(cors({
+const corsOptions = {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -122,13 +132,15 @@ app.use(cors({
         return callback(null, true);
       }
     }
-    if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+    const normalizedOrigin = normalizeOrigin(origin);
+    if (allowedOrigins.length === 0 || allowedOrigins.includes(normalizedOrigin)) {
       return callback(null, true);
     }
     return callback(null, false);
   }
-}));
-app.options('*', cors());
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 //Définition du routeur
 const router = express.Router();
