@@ -134,6 +134,11 @@ const corsOptions = {
       if (isLocalOrigin) {
         return callback(null, true);
       }
+      // Allow private LAN origins in development (mobile device testing).
+      const isPrivateLanOrigin = /^https?:\/\/((192\.168\.\d{1,3}\.\d{1,3})|(10\.\d{1,3}\.\d{1,3}\.\d{1,3})|(172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}))(:\d+)?$/i.test(origin);
+      if (isPrivateLanOrigin) {
+        return callback(null, true);
+      }
     }
     const normalizedOrigin = normalizeOrigin(origin);
     if (allowedOrigins.length === 0 || allowedOrigins.includes(normalizedOrigin)) {
