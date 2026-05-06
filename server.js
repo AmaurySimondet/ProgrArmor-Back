@@ -203,6 +203,47 @@ require(__dirname + "/controllers/shiftController")(router);
 require(__dirname + "/controllers/successController")(router);
 require(__dirname + "/controllers/variationProgressionEdgeController")(router);
 
+const DEBUG_ENV_KEYS = [
+  "mongoURL",
+  "DATABASE",
+  "GOOGLE_CLIENT_ID",
+  "GOOGLE_CLIENT_SECRET",
+  "FACEBOOK_CLIENT_SECRET",
+  "FACEBOOK_CLIENT_ID",
+  "URL_CLIENT",
+  "URL_BACKEND",
+  "JWT_SECRET",
+  "RESEND_API_KEY",
+  "RESEND_FROM_EMAIL",
+  "RESET_PASSWORD_URL",
+  "ADMIN_ID",
+  "AWS_SECRET_ACCESS_KEY",
+  "AWS_BUCKET_NAME",
+  "secret",
+  "HUGGINGFACE_API_KEY",
+  "AWS_CLOUDFRONT_DISTRIBUTION_ID",
+  "FATSECRET_CONSUMER_SECRET",
+  "AWS_REGION",
+  "AWS_ACCESS_KEY_ID",
+  "FATSECRET_CLIENT_SECRET",
+  "FATSECRET_CLIENT_ID",
+  "AWS_CLOUDFRONT_DOMAIN",
+  "OPENWEATHER_API_KEY",
+  "SENDGRID_RECOVERY"
+];
+
+function formatEnvDebugValue(value) {
+  if (value == null || value === "") return "(missing)";
+  return String(value);
+}
+
+if (process.env.DEBUG_ENV === "1") {
+  const envDebugReport = Object.fromEntries(
+    DEBUG_ENV_KEYS.map((key) => [key, formatEnvDebugValue(process.env[key])])
+  );
+  console.log("[ENV DEBUG]", envDebugReport);
+}
+
 console.log("PORT", PORT);
 console.log("process.env.VERCEL", process.env.VERCEL);
 console.log("process.env.DATABASE", process.env.DATABASE);
