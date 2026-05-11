@@ -3,6 +3,8 @@
  * @see https://en.wikipedia.org/wiki/One-repetition_maximum
  */
 
+const { whichWeight: { MAX_BRZYCKI_TARGET_REPS } } = require('../constants');
+
 const toFiniteNumber = (value, fallback = 0) => {
     const n = typeof value === "number" ? value : Number(value);
     return Number.isFinite(n) ? n : fallback;
@@ -83,6 +85,12 @@ const clampRepsForOneRmFormulas = (reps) => {
     return Math.min(Math.max(r, 1), 36);
 };
 
+const shouldUseBrzyckiForRepsEquivalent = (reps) => {
+    const r = clampRepsForOneRmFormulas(reps);
+    if (r === null) return false;
+    return r < MAX_BRZYCKI_TARGET_REPS;
+};
+
 const estimateOneRepMaxBrzycki = (weightKg, reps) => {
     const w = toFiniteNumber(weightKg, 0);
     const r = clampRepsForOneRmFormulas(reps);
@@ -110,8 +118,11 @@ const roundKg = (value) => {
 function computeSetOneRepMaxEstimates(set) {
     const repsEq = getTrainingRepsEquivalent(set);
     const w = getEffectiveLoadKg(set);
+    const brzycki = shouldUseBrzyckiForRepsEquivalent(repsEq)
+        ? roundKg(estimateOneRepMaxBrzycki(w, repsEq))
+        : null;
     return {
-        brzycki: roundKg(estimateOneRepMaxBrzycki(w, repsEq)),
+        brzycki,
         epley: roundKg(estimateOneRepMaxEpley(w, repsEq)),
     };
 }
@@ -120,6 +131,7 @@ module.exports = {
     // Public helpers (used by backend + app)
     computeSetOneRepMaxEstimates,
     secondsToEquivalentReps,
+    shouldUseBrzyckiForRepsEquivalent,
     estimateOneRepMaxBrzycki,
     estimateOneRepMaxEpley,
     getExternalEffectiveLoadKg,
