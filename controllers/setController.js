@@ -5,7 +5,6 @@ const whichfigure = require('../lib/whichfigure');
 const Seance = require('../schema/seance');
 
 module.exports = function (app) {
-    const DEFAULT_REFERENCE_VARIATION_ID = '669c3609218324e0b7682b2b'; // tuck
     app.get('/sets', async (req, res) => {
         try {
             const excludedSeanceId = req.query.excludedSeanceId;
@@ -43,7 +42,7 @@ module.exports = function (app) {
                 });
             }
 
-            const referenceVariations = req.query.referenceVariations || DEFAULT_REFERENCE_VARIATION_ID;
+            const referenceVariations = req.query.referenceVariations;
             const mainExerciseId = req.query.mainExerciseId || null;
             const dateMin = req.query.dateMin;
             const dateMax = req.query.dateMax;
@@ -151,7 +150,7 @@ module.exports = function (app) {
             const result = await whichfigure.computeRecommendedWeightFigure({
                 userId,
                 mainExerciseId,
-                referenceVariations: referenceVariations || DEFAULT_REFERENCE_VARIATION_ID,
+                referenceVariations,
                 targetUnit,
                 targetValue,
                 includeAllGraphTargets: includeAllGraphTargets !== false,
@@ -188,7 +187,7 @@ module.exports = function (app) {
             const result = await whichfigure.computeRecommendedValueFigure({
                 userId,
                 mainExerciseId,
-                referenceVariations: referenceVariations || DEFAULT_REFERENCE_VARIATION_ID,
+                referenceVariations,
                 targetUnit,
                 effectiveWeightLoad,
                 includeAllGraphTargets: includeAllGraphTargets !== false,
@@ -313,7 +312,7 @@ module.exports = function (app) {
             const categories = req.query.categories;
             const dateMin = req.query.dateMin;
             const unilateralSide = req.query.unilateralSide;
-            const referenceVariations = req.query.referenceVariations || DEFAULT_REFERENCE_VARIATION_ID;
+            const referenceVariations = req.query.referenceVariations;
             const mainExerciseId = req.query.mainExerciseId;
             const includeAllGraphTargets = req.query.includeAllGraphTargets === 'true';
             const maxTargetsRaw = parseInt(req.query.maxTargets, 10);
@@ -354,7 +353,7 @@ module.exports = function (app) {
             const categories = req.query.categories;
             const dateMin = req.query.dateMin;
             const unilateralSide = req.query.unilateralSide;
-            const referenceVariations = req.query.referenceVariations || DEFAULT_REFERENCE_VARIATION_ID;
+            const referenceVariations = req.query.referenceVariations;
             const mainExerciseId = req.query.mainExerciseId;
             const includeAllGraphTargets = req.query.includeAllGraphTargets === 'true';
             const maxTargetsRaw = parseInt(req.query.maxTargets, 10);
