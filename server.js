@@ -202,6 +202,7 @@ require(__dirname + "/controllers/megatypesController")(router);
 require(__dirname + "/controllers/shiftController")(router);
 require(__dirname + "/controllers/successController")(router);
 require(__dirname + "/controllers/variationProgressionEdgeController")(router);
+require(__dirname + "/controllers/variationAdminController")(router);
 
 const DEBUG_ENV_KEYS = [
   "mongoURL",
