@@ -32,15 +32,7 @@ module.exports = function (app) {
 
     app.get('/variation-progression/timeseries', async (req, res) => {
         try {
-            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
             const userId = req.query.userId;
-            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
-                return res.status(403).json({
-                    success: false,
-                    reason: 'FORBIDDEN',
-                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
-                });
-            }
 
             const referenceVariations = req.query.referenceVariations;
             const mainExerciseId = req.query.mainExerciseId || null;
@@ -339,15 +331,7 @@ module.exports = function (app) {
 
     app.get('/figure-detailed-prs', async (req, res) => {
         try {
-            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
             const userId = req.query.userId;
-            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
-                return res.status(403).json({
-                    success: false,
-                    reason: 'FORBIDDEN',
-                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
-                });
-            }
 
             const exercice = req.query.exercice;
             const categories = req.query.categories;
