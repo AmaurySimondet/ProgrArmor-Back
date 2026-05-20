@@ -58,6 +58,9 @@ async function run() {
         pointsCount: points.length,
         targetVariationId: result?.meta?.targetVariationId || null,
         strengthPeakNormalized: result?.meta?.strengthPeakNormalized || null,
+        strengthPeak: result?.meta?.strengthPeak || null,
+        percentageFromStart: result?.meta?.strengthPeak?.percentageFromStart ?? null,
+        firstSetPeak: result?.meta?.strengthPeak?.firstSetPeak ?? null,
         difficultyRatioDistribution: byRatio,
         pathLengthDistribution: byPathLength
     });

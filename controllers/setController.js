@@ -2,6 +2,7 @@ const set = require('../lib/set.js');
 const whichweight = require('../lib/whichweight');
 const whichvalue = require('../lib/whichvalue');
 const whichfigure = require('../lib/whichfigure');
+const { computeStrengthPeakFromSets, normalizeWeightUnit } = require('../lib/strengthPeak');
 const Seance = require('../schema/seance');
 
 module.exports = function (app) {
@@ -24,7 +25,22 @@ module.exports = function (app) {
             const variations = req.query.variations;
             const unilateralSide = req.query.unilateralSide;
             const sets = await set.getSets(userId, excludedSeanceId, seanceId, exercice, categories, unit, value, weightLoad, elasticTension, dateMin, dateMax, fields, variations, unilateralSide, undefined, valueMin, valueMax);
-            res.json({ success: true, sets });
+            const sortedSets = Array.isArray(sets)
+                ? [...sets].filter((s) => s?.date).sort((a, b) => new Date(a.date) - new Date(b.date))
+                : [];
+            const strengthPeak = userId && variations
+                ? computeStrengthPeakFromSets(sortedSets, {
+                    weightUnit: normalizeWeightUnit(req.query.weightUnit),
+                })
+                : null;
+            res.json({
+                success: true,
+                sets,
+                meta: {
+                    strengthPeak,
+                    setsCount: sortedSets.length,
+                },
+            });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }
@@ -55,7 +71,8 @@ module.exports = function (app) {
                 valueMax,
                 unit,
                 unilateralSide: req.query.unilateralSide,
-                isUnilateral
+                isUnilateral,
+                weightUnit: normalizeWeightUnit(req.query.weightUnit),
             });
             return res.json({ success: true, ...result });
         } catch (err) {
@@ -71,7 +88,6 @@ module.exports = function (app) {
                 variations,
                 targetUnit,
                 targetValue,
-                maxSets,
                 sessionSets,
                 isUnilateral,
                 unilateralSide,
@@ -82,7 +98,6 @@ module.exports = function (app) {
                 variations,
                 targetUnit,
                 targetValue,
-                maxSets,
                 sessionSets,
                 isUnilateral,
                 unilateralSide,
@@ -101,7 +116,6 @@ module.exports = function (app) {
                 variations,
                 targetUnit,
                 effectiveWeightLoad,
-                maxSets,
                 sessionSets,
                 isUnilateral,
                 unilateralSide,
@@ -112,7 +126,6 @@ module.exports = function (app) {
                 variations,
                 targetUnit,
                 effectiveWeightLoad,
-                maxSets,
                 sessionSets,
                 isUnilateral,
                 unilateralSide,
@@ -289,13 +302,12 @@ module.exports = function (app) {
 
     app.get('/figure-prs', async (req, res) => {
         try {
-            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
             const userId = req.query.userId;
-            if (!authenticatedUserId || authenticatedUserId !== String(userId)) {
-                return res.status(403).json({
+            if (!userId) {
+                return res.status(400).json({
                     success: false,
-                    reason: 'FORBIDDEN',
-                    message: 'Accès non autorisé pour cet utilisateur. / Unauthorized access for this user.'
+                    reason: 'VALIDATION_ERROR',
+                    message: 'userId est requis. / userId is required.'
                 });
             }
 

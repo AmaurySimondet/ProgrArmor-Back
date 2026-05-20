@@ -132,7 +132,9 @@ module.exports = {
     },
     whichWeight: {
         MAX_SESSION_SETS: 50,
-        MAX_BRZYCKI_TARGET_REPS: 15
+        MAX_BRZYCKI_TARGET_REPS: 15,
+        /** Fenêtre pour le pic 1RM des recommandations charge/valeur (performances récentes). */
+        PEAK_RECENT_SETS_FOR_RECOMMENDATION: 10,
     },
     detail: {
         PAGINATION_LIMIT: 10
