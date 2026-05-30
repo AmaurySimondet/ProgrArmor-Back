@@ -7,10 +7,45 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const setLib = require("../lib/set");
+const Variation = require("../schema/variation");
+const {
+    resolveFamilyAnchorId,
+    resolveTargetVariationId,
+    isStreetFigureType,
+    DEFAULT_REFERENCE_VARIATION_ID,
+} = require("../lib/progressionResolution");
 
 const DEFAULT_USER_ID = "6365489f44d4b4000470882b";
-const DEFAULT_MAIN_EXERCISE_ID = "669ced7e665a3ffe7771437e";
-const DEFAULT_REFERENCE_VARIATION_ID = "669c3609218324e0b7682b2b"; // tuck
+const DEFAULT_MAIN_EXERCISE_ID = "669ced7e665a3ffe7771437b"; // dips
+
+const RESOLUTION_SAMPLES = [
+    { label: "Dips", variationId: "669ced7e665a3ffe7771437b", expectTuck: false },
+    { label: "Pull-ups", variationId: "669ced7e665a3ffe77714379", expectTuck: false },
+    { label: "Human flag tuck (street figure type)", variationId: "692214541c858345acc2d435", expectTuck: true },
+    { label: "V-Sit (explicit ref)", variationId: "669ced7e665a3ffe7771438b", expectTuck: false },
+];
+
+async function logResolutionSamples() {
+    console.log("=== Resolution samples ===");
+    for (const sample of RESOLUTION_SAMPLES) {
+        const doc = await Variation.findById(sample.variationId, {
+            type: 1,
+            progressionReferenceVariationId: 1,
+            equivalentTo: 1,
+            isExercice: 1,
+        }).lean();
+        const targetVariationId = await resolveTargetVariationId({ variationId: sample.variationId, variationDoc: doc });
+        const usesTuck = targetVariationId === DEFAULT_REFERENCE_VARIATION_ID;
+        console.log({
+            label: sample.label,
+            familyAnchorId: await resolveFamilyAnchorId({ variationId: sample.variationId, variationDoc: doc }),
+            targetVariationId,
+            isStreetFigureType: isStreetFigureType(doc),
+            expectTuck: sample.expectTuck,
+            tuckOk: usesTuck === sample.expectTuck,
+        });
+    }
+}
 
 async function run() {
     const mongoUrl = process.env.MONGO_URL || process.env.mongoURL;
@@ -21,12 +56,14 @@ async function run() {
 
     const userId = process.argv[2] || DEFAULT_USER_ID;
     const mainExerciseId = process.argv[3] || DEFAULT_MAIN_EXERCISE_ID;
-    const referenceVariationId = process.argv[4] || DEFAULT_REFERENCE_VARIATION_ID;
+    const referenceVariationId = process.argv[4] || DEFAULT_REFERENCE_VARIATION_ID; // tuck (street figure only)
 
     await mongoose.connect(mongoUrl + database, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
+
+    await logResolutionSamples();
 
     const result = await setLib.getNormalizedProgressionTimeseries({
         userId,
@@ -35,8 +72,7 @@ async function run() {
         dateMin: null,
         dateMax: null,
         unit: null,
-        unilateralSide: undefined,
-        isUnilateral: undefined
+        lateralMode: "bilateral",
     });
 
     const points = Array.isArray(result?.points) ? result.points : [];

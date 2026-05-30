@@ -97,6 +97,54 @@ const shouldUseBrzyckiForRepsEquivalent = (reps) => {
     return r < MAX_BRZYCKI_TARGET_REPS;
 };
 
+/**
+ * Reps équivalentes via l'inverse Brzycki pour un 1RM et une charge effective.
+ */
+function invertBrzyckiRepsFromOneRm(oneRmKg, effectiveLoadKg) {
+    const oneRm = Number(oneRmKg);
+    const load = Number(effectiveLoadKg);
+    if (!Number.isFinite(oneRm) || oneRm <= 0 || !Number.isFinite(load) || load <= 0) return null;
+    return 37 - ((36 * load) / oneRm);
+}
+
+/**
+ * Brzycki utilisable dans une agrégation forward si reps source < seuil
+ * et inverse Brzycki à la charge d'évaluation < seuil.
+ */
+function shouldIncludeBrzyckiInOneRmAggregate({
+    repsEquivalent = null,
+    oneRmCandidateKg = null,
+    effectiveLoadKg = null,
+} = {}) {
+    if (!shouldUseBrzyckiForRepsEquivalent(repsEquivalent)) return false;
+    const oneRm = Number(oneRmCandidateKg);
+    const load = Number(effectiveLoadKg);
+    if (!Number.isFinite(oneRm) || oneRm <= 0) return false;
+    if (!Number.isFinite(load) || load <= 0) return true;
+    const rBrzycki = invertBrzyckiRepsFromOneRm(oneRm, load);
+    return Number.isFinite(rBrzycki) && rBrzycki < MAX_BRZYCKI_TARGET_REPS;
+}
+
+/**
+ * Reps (équivalent) depuis un 1RM et une charge effective totale.
+ * Brzycki ignoré si l'inverse dépasserait MAX_BRZYCKI_TARGET_REPS.
+ */
+function computeTargetRepsEquivalentFromOneRm(oneRmKg, effectiveLoadKg) {
+    const oneRm = Number(oneRmKg);
+    const load = Number(effectiveLoadKg);
+    if (!Number.isFinite(oneRm) || oneRm <= 0 || !Number.isFinite(load) || load <= 0) return null;
+
+    const candidates = [];
+    const rBrzycki = invertBrzyckiRepsFromOneRm(oneRm, load);
+    if (Number.isFinite(rBrzycki) && rBrzycki < MAX_BRZYCKI_TARGET_REPS) {
+        candidates.push(rBrzycki);
+    }
+    const rEpley = 30 * ((oneRm / load) - 1);
+    if (Number.isFinite(rEpley)) candidates.push(rEpley);
+    if (!candidates.length) return null;
+    return Math.min(36, Math.max(1, candidates.reduce((sum, v) => sum + v, 0) / candidates.length));
+}
+
 const isHighRepEquivalentSet = (set) =>
     getTrainingRepsEquivalent(set) >= MAX_BRZYCKI_TARGET_REPS;
 
@@ -411,6 +459,175 @@ function computePercentageFromStart(peakReferenceKg, firstReferenceKg) {
 }
 
 /**
+ * Agrège Brzycki + Epley pour un 1RM normalisé.
+ * Brzycki ignoré si reps >= MAX_BRZYCKI_TARGET_REPS ou si son inverse à effectiveLoadKg >= seuil.
+ */
+function resolveAggregateNormalizedOneRm(
+    normalizedBrzycki,
+    normalizedEpley,
+    repsEquivalent,
+    effectiveLoadKg = null,
+) {
+    if (!shouldUseBrzyckiForRepsEquivalent(repsEquivalent)) {
+        return normalizedEpley != null ? roundKg(normalizedEpley) : null;
+    }
+    if (normalizedBrzycki != null && normalizedEpley != null) {
+        const average = roundKg((normalizedBrzycki + normalizedEpley) / 2);
+        if (shouldIncludeBrzyckiInOneRmAggregate({
+            repsEquivalent,
+            oneRmCandidateKg: average,
+            effectiveLoadKg,
+        })) {
+            return average;
+        }
+        return roundKg(normalizedEpley);
+    }
+    return normalizedBrzycki ?? normalizedEpley ?? null;
+}
+
+/**
+ * 1RM normalisé pour recommandation figure (charge totale avec PDC si applicable).
+ * Brzycki ignoré à partir de MAX_BRZYCKI_TARGET_REPS — aligné sur l'inverse whichfigure/whichvalue.
+ */
+function resolveNormalizedOneRmForRecommendation({
+    normalizedOneRm = null,
+    brzyckiWithBodyweight = null,
+    epleyWithBodyweight = null,
+    normalizedBrzycki = null,
+    normalizedEpley = null,
+    weightedBodyweightKg = 0,
+    repsEquivalent = null,
+    difficultyFactor = 1,
+    includeBodyweight = false,
+    externalEffectiveLoadKg = null,
+    effectiveLoadKgForBrzyckiCheck = null,
+}) {
+    const factor = Number.isFinite(Number(difficultyFactor)) && Number(difficultyFactor) > 0
+        ? Number(difficultyFactor)
+        : 1;
+    const scale = (value) => {
+        const n = Number(value);
+        return Number.isFinite(n) && n > 0 ? roundKg(n * factor) : null;
+    };
+    const weightedBw = Number(weightedBodyweightKg);
+    const externalLoad = Number(externalEffectiveLoadKg);
+    const effectiveLoadKg = Number.isFinite(Number(effectiveLoadKgForBrzyckiCheck))
+        ? Number(effectiveLoadKgForBrzyckiCheck)
+        : ((Number.isFinite(externalLoad) ? externalLoad : 0)
+            + (Number.isFinite(weightedBw) && weightedBw > 0 ? weightedBw : 0));
+
+    if (!includeBodyweight || !(Number.isFinite(weightedBw) && weightedBw > 0)) {
+        return resolveAggregateNormalizedOneRm(
+            normalizedBrzycki,
+            normalizedEpley ?? normalizedOneRm,
+            repsEquivalent,
+            effectiveLoadKg > 0 ? effectiveLoadKg : null,
+        ) ?? normalizedOneRm;
+    }
+
+    const normBrzyckiBw = shouldUseBrzyckiForRepsEquivalent(repsEquivalent)
+        ? scale(brzyckiWithBodyweight)
+        : null;
+    const normEpleyBw = scale(epleyWithBodyweight);
+
+    if (normBrzyckiBw != null && normEpleyBw != null) {
+        const average = roundKg((normBrzyckiBw + normEpleyBw) / 2);
+        if (shouldIncludeBrzyckiInOneRmAggregate({
+            repsEquivalent,
+            oneRmCandidateKg: average,
+            effectiveLoadKg,
+        })) {
+            return average;
+        }
+        return normEpleyBw;
+    }
+    if (normEpleyBw != null) {
+        return normEpleyBw;
+    }
+    if (normBrzyckiBw != null) {
+        return normBrzyckiBw;
+    }
+    const chargeUtile = shouldUseBrzyckiForRepsEquivalent(repsEquivalent)
+        ? normalizedBrzycki
+        : normalizedEpley;
+    if (chargeUtile != null) {
+        return roundKg(Number(chargeUtile) + weightedBw);
+    }
+    return normalizedOneRm ?? null;
+}
+
+/**
+ * Valeur cible (reps/sec) depuis un 1RM — aligné forward/inverse sur MAX_BRZYCKI_TARGET_REPS.
+ */
+function computeRecommendedValueFromOneRmEstimate(
+    oneRmKg,
+    targetUnit,
+    effectiveWeightLoadRaw,
+    weightedBodyweightKg = 0,
+    secondsToEquivalentRepsFn = null,
+    repsEquivalentToSecondsFn = null,
+) {
+    const targetExternal = Number(effectiveWeightLoadRaw);
+    if (!Number.isFinite(targetExternal)) {
+        return {
+            success: false,
+            reason: 'INVALID_INPUT',
+            message: 'Charge cible invalide / Invalid target load.',
+        };
+    }
+
+    const bodyweight = Number.isFinite(Number(weightedBodyweightKg)) ? Number(weightedBodyweightKg) : 0;
+    const oneRmEffective = Number(oneRmKg);
+    const targetEffectiveLoad = targetExternal + bodyweight;
+
+    if (!Number.isFinite(oneRmEffective) || oneRmEffective <= 0
+        || !Number.isFinite(targetEffectiveLoad) || targetEffectiveLoad <= 0) {
+        return {
+            success: false,
+            reason: 'COMPUTATION_FAILED',
+            message: 'Incalculable',
+        };
+    }
+
+    const repsEquivalent = computeTargetRepsEquivalentFromOneRm(oneRmEffective, targetEffectiveLoad);
+    if (!Number.isFinite(repsEquivalent) || repsEquivalent <= 0) {
+        return {
+            success: false,
+            reason: 'COMPUTATION_FAILED',
+            message: 'Incalculable',
+        };
+    }
+
+    if (targetUnit === 'repetitions') {
+        return { success: true, value: Math.round(repsEquivalent * 10) / 10 };
+    }
+    if (targetUnit === 'seconds') {
+        if (typeof repsEquivalentToSecondsFn !== 'function') {
+            return {
+                success: false,
+                reason: 'INVALID_INPUT',
+                message: 'Unité cible invalide / Invalid target unit.',
+            };
+        }
+        const seconds = repsEquivalentToSecondsFn(repsEquivalent);
+        if (!Number.isFinite(seconds) || seconds <= 0) {
+            return {
+                success: false,
+                reason: 'COMPUTATION_FAILED',
+                message: 'Incalculable',
+            };
+        }
+        return { success: true, value: Math.round(seconds) };
+    }
+
+    return {
+        success: false,
+        reason: 'INVALID_INPUT',
+        message: 'Unité cible invalide / Invalid target unit.',
+    };
+}
+
+/**
  * Premier set chronologique avec référence 1RM > 0, reps/sec > 0, et charge utile si applicable.
  */
 function firstMeaningfulSetOneRmFromRange(sets) {
@@ -457,4 +674,11 @@ module.exports = {
     firstMeaningfulSetOneRmFromRange,
     computePercentageFromStart,
     roundKg,
+    hasPositiveTrainingVolume,
+    resolveAggregateNormalizedOneRm,
+    resolveNormalizedOneRmForRecommendation,
+    invertBrzyckiRepsFromOneRm,
+    shouldIncludeBrzyckiInOneRmAggregate,
+    computeTargetRepsEquivalentFromOneRm,
+    computeRecommendedValueFromOneRmEstimate,
 };

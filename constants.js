@@ -110,7 +110,10 @@ module.exports = {
             : 4,
         NORMAL_FLOW_MAX_FAMILIES: Number.isFinite(Number(process.env.NORMAL_FLOW_MAX_FAMILIES))
             ? Math.max(1, Math.floor(Number(process.env.NORMAL_FLOW_MAX_FAMILIES)))
-            : 24
+            : 24,
+        FAMILY_DEFAULT_DEPTH: Number.isFinite(Number(process.env.FAMILY_DEFAULT_DEPTH))
+            ? Math.max(1, Math.floor(Number(process.env.FAMILY_DEFAULT_DEPTH)))
+            : 2
     },
     user: {
         ONE_DAY: 24 * 60 * 60 * 1000,

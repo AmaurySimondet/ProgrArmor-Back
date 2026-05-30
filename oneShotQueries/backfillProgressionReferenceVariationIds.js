@@ -25,6 +25,8 @@ const PULLUP_ARCHER_ID = "692214531c858345acc2d3a6";
 const PULLUP_ONE_ARM_ASSISTED_ID = "692214531c858345acc2d3af";
 const PULLUP_ONE_ARM_ID = "6922144d1c858345acc2d138";
 
+const DIPS_ID = "669ced7e665a3ffe7771437b";
+
 function getMongoUri() {
     const mongoUrl = process.env.MONGO_URL || process.env.mongoURL;
     const database = process.env.DATABASE;
@@ -55,7 +57,10 @@ const PLAN = [
     { targetId: PULLUP_ID, referenceId: PULLUP_ID, label: "Pull Ups -> Pull Ups" },
     { targetId: PULLUP_ARCHER_ID, referenceId: PULLUP_ID, label: "Archer Pull-Up -> Pull Ups" },
     { targetId: PULLUP_ONE_ARM_ASSISTED_ID, referenceId: PULLUP_ID, label: "One Arm Pull-Up (Assisted) -> Pull Ups" },
-    { targetId: PULLUP_ONE_ARM_ID, referenceId: PULLUP_ID, label: "One Arm Pull Ups -> Pull Ups" }
+    { targetId: PULLUP_ONE_ARM_ID, referenceId: PULLUP_ID, label: "One Arm Pull Ups -> Pull Ups" },
+
+    // Dips family (base exercise; archer/one-arm use detail categories until dedicated exercise rows exist)
+    { targetId: DIPS_ID, referenceId: DIPS_ID, label: "Dips -> Dips" }
 ];
 
 async function run() {

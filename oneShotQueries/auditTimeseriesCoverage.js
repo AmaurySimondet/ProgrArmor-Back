@@ -28,11 +28,12 @@ function getVariationIdsFromSetDoc(setDoc) {
         .filter(Boolean);
 }
 
+const { resolveFamilyAnchorId } = require("../lib/progressionResolution");
+
 async function resolveMainExerciseIdForProgression(mainExerciseId) {
     if (!mainExerciseId || !mongoose.Types.ObjectId.isValid(mainExerciseId)) return null;
-    const doc = await Variation.findById(String(mainExerciseId), { equivalentTo: 1 }).lean();
-    const first = doc?.equivalentTo?.[0];
-    return first != null ? String(first) : String(mainExerciseId);
+    const doc = await Variation.findById(String(mainExerciseId), { equivalentTo: 1, isExercice: 1 }).lean();
+    return resolveFamilyAnchorId({ variationId: String(mainExerciseId), variationDoc: doc });
 }
 
 async function resolveContextualReferenceVariationId(referenceVariationId, normalizedMainExerciseId) {

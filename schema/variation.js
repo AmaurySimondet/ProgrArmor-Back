@@ -42,6 +42,7 @@ const variationSchema = new Schema(
         equivalentTo: [{ type: Schema.Types.ObjectId, ref: 'Variation' }],
         progressionReferenceVariationId: { type: Schema.Types.ObjectId, ref: 'Variation', default: null },
         verified: { type: Boolean, default: false },
+        /** @deprecated Plus utilisé pour le gate stats/timeseries ; conservé pour rétrocompat admin. */
         possibleProgression: { type: Boolean, default: true }
     },
     {

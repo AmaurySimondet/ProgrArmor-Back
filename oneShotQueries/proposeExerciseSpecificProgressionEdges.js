@@ -58,6 +58,11 @@ const CONCEPTS = [
     { key: "one_arm_assisted_pullup_ex", kind: "exercise", labels: ["traction un bras assistée", "assisted one arm pull-up", "assisted one-arm pull-up"] },
     { key: "one_arm_pullup_ex", kind: "exercise", labels: ["traction un bras", "one arm pull-up", "one-arm pull-up"] },
 
+    { key: "dip_ex", kind: "exercise", labels: ["dip", "dips"] },
+    { key: "archer_dip_ex", kind: "exercise", labels: ["dip archer", "archer dip", "dips archer"] },
+    { key: "one_arm_assisted_dip_ex", kind: "exercise", labels: ["dip un bras assisté", "assisted one arm dip", "assisted one-arm dip"] },
+    { key: "one_arm_dip_ex", kind: "exercise", labels: ["dip un bras", "one arm dip", "one-arm dip"] },
+
     { key: "human_flag_ex", kind: "exercise", labels: ["drapeau", "human flag"] },
 
     { key: "vertical_detail", kind: "detail", labels: ["vertical"] },
@@ -160,6 +165,36 @@ const PROPOSALS = [
         notes: "Pull-up progression: assisted one-arm -> one-arm"
     },
     {
+        key: "dip_to_archer_dip",
+        from: "dip_ex",
+        to: "archer_dip_ex",
+        context: "dip_ex",
+        isExerciseVariation: true,
+        difficultyRatio: 1.35,
+        confidence: "medium",
+        notes: "Dip progression: standard -> archer"
+    },
+    {
+        key: "archer_dip_to_assisted_one_arm_dip",
+        from: "archer_dip_ex",
+        to: "one_arm_assisted_dip_ex",
+        context: "dip_ex",
+        isExerciseVariation: true,
+        difficultyRatio: 1.25,
+        confidence: "medium",
+        notes: "Dip progression: archer -> assisted one-arm"
+    },
+    {
+        key: "assisted_one_arm_dip_to_one_arm_dip",
+        from: "one_arm_assisted_dip_ex",
+        to: "one_arm_dip_ex",
+        context: "dip_ex",
+        isExerciseVariation: true,
+        difficultyRatio: 1.3,
+        confidence: "medium",
+        notes: "Dip progression: assisted one-arm -> one-arm"
+    },
+    {
         key: "vertical_to_tuck_human_flag",
         from: "vertical_detail",
         to: "tuck_detail",
@@ -210,6 +245,7 @@ const PINNED_VARIATION_IDS = {
     one_arm_pushup_ex: "6922144c1c858345acc2d095", // One arm pushup
     pullup_ex: "669ced7e665a3ffe77714379", // Tractions
     one_arm_pullup_ex: "6922144d1c858345acc2d138", // Traction un bras
+    dip_ex: "669ced7e665a3ffe7771437b", // Dips
     human_flag_ex: "692214541c858345acc2d432", // Drapeau vertical (contexte figure)
     human_flag_tuck_ex: "692214541c858345acc2d435", // Drapeau tuck
     tuck_detail: "669c3609218324e0b7682b2b", // Tuck

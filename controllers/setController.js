@@ -72,6 +72,9 @@ module.exports = function (app) {
                 unit,
                 unilateralSide: req.query.unilateralSide,
                 isUnilateral,
+                lateralMode: req.query.lateralMode,
+                includedVariationIds: req.query.includedVariationIds,
+                excludedVariationSignatures: req.query.excludedVariationSignatures,
                 weightUnit: normalizeWeightUnit(req.query.weightUnit),
             });
             return res.json({ success: true, ...result });
@@ -101,6 +104,13 @@ module.exports = function (app) {
                 sessionSets,
                 isUnilateral,
                 unilateralSide,
+            });
+            console.debug('[api][whichweight] response-summary', {
+                success: result?.success !== false,
+                loadKg: result?.loadKg ?? null,
+                usedHistoricalSets: result?.usedSets?.usedHistoricalSets ?? null,
+                usedSessionSets: result?.usedSets?.usedSessionSets ?? null,
+                targetVariationId: result?.targetVariation?.variationId ?? null,
             });
             res.json(result);
         } catch (err) {
@@ -150,7 +160,11 @@ module.exports = function (app) {
                 exercice,
                 categories,
                 dateMin,
-                unilateralSide
+                unilateralSide,
+                lateralMode,
+                familyKey,
+                sessionSets,
+                isUnilateral,
             } = req.body || {};
             const result = await whichfigure.computeRecommendedWeightFigure({
                 userId,
@@ -158,13 +172,25 @@ module.exports = function (app) {
                 referenceVariations,
                 targetUnit,
                 targetValue,
-                includeAllGraphTargets: includeAllGraphTargets !== false,
+                includeAllGraphTargets: includeAllGraphTargets === true,
                 expandGenericTargets: expandGenericTargets !== false,
                 maxTargets,
                 exercice,
                 categories,
                 dateMin,
-                unilateralSide
+                unilateralSide,
+                lateralMode,
+                familyKey,
+                sessionSets,
+                isUnilateral: isUnilateral === true,
+            });
+            const directRec = (result?.recommendations || []).find((e) => e?.isDirect === true);
+            console.debug('[api][whichweight-figure] response-summary', {
+                success: result?.success !== false,
+                referenceVariationId: result?.referenceVariationId ?? null,
+                directRecommendedLoadKg: directRec?.recommendedLoadKg ?? null,
+                directUsedHistoricalSets: directRec?.usedSets?.usedHistoricalSets ?? null,
+                recommendationCount: result?.recommendations?.length ?? 0,
             });
             return res.json(result);
         } catch (err) {
@@ -187,7 +213,11 @@ module.exports = function (app) {
                 exercice,
                 categories,
                 dateMin,
-                unilateralSide
+                unilateralSide,
+                lateralMode,
+                familyKey,
+                sessionSets,
+                isUnilateral,
             } = req.body || {};
             const result = await whichfigure.computeRecommendedValueFigure({
                 userId,
@@ -195,13 +225,17 @@ module.exports = function (app) {
                 referenceVariations,
                 targetUnit,
                 effectiveWeightLoad,
-                includeAllGraphTargets: includeAllGraphTargets !== false,
+                includeAllGraphTargets: includeAllGraphTargets === true,
                 expandGenericTargets: expandGenericTargets !== false,
                 maxTargets,
                 exercice,
                 categories,
                 dateMin,
-                unilateralSide
+                unilateralSide,
+                lateralMode,
+                familyKey,
+                sessionSets,
+                isUnilateral: isUnilateral === true,
             });
             return res.json(result);
         } catch (err) {
@@ -256,12 +290,16 @@ module.exports = function (app) {
             }
 
             const maxDepthRaw = parseInt(req.query.maxDepth, 10);
+            const lateralMode = req.query.lateralMode || null;
+            const unilateralSideFromQuery = req.query.unilateralSide
+                || (lateralMode === 'left' || lateralMode === 'right' ? lateralMode : undefined);
             const payload = await set.getNormalFlowPerformedVariationFamilies({
                 userId,
                 variations: inputVariations,
                 maxDepth: Number.isFinite(maxDepthRaw) ? maxDepthRaw : undefined,
                 dateMin: req.query.dateMin || null,
-                unilateralSide: req.query.unilateralSide
+                unilateralSide: unilateralSideFromQuery,
+                lateralMode: lateralMode || undefined,
             });
 
             return res.json({
@@ -300,7 +338,7 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/figure-prs', async (req, res) => {
+    const handleProgressionPrsRequest = async (req, res, { detailed = false } = {}) => {
         try {
             const userId = req.query.userId;
             if (!userId) {
@@ -311,67 +349,40 @@ module.exports = function (app) {
                 });
             }
 
-            const excludedSeanceId = req.query.excludedSeanceId;
-            const exercice = req.query.exercice;
-            const categories = req.query.categories;
-            const dateMin = req.query.dateMin;
-            const unilateralSide = req.query.unilateralSide;
-            const referenceVariations = req.query.referenceVariations;
-            const mainExerciseId = req.query.mainExerciseId;
-            const includeAllGraphTargets = req.query.includeAllGraphTargets === 'true';
-            const maxTargetsRaw = parseInt(req.query.maxTargets, 10);
-            const maxTargets = Number.isFinite(maxTargetsRaw) ? maxTargetsRaw : 40;
-
-            const payload = await set.getFigurePRs({
+            const params = {
                 userId,
-                excludedSeanceId,
-                exercice,
-                categories,
-                dateMin,
-                unilateralSide,
-                referenceVariations,
-                mainExerciseId,
-                includeAllGraphTargets,
-                maxTargets
-            });
+                exercice: req.query.exercice,
+                categories: req.query.categories,
+                dateMin: req.query.dateMin,
+                unilateralSide: req.query.unilateralSide,
+                lateralMode: req.query.lateralMode,
+                includedVariationIds: req.query.includedVariationIds,
+                excludedVariationSignatures: req.query.excludedVariationSignatures,
+                referenceVariations: req.query.referenceVariations,
+                mainExerciseId: req.query.mainExerciseId,
+                includeAllGraphTargets: req.query.includeAllGraphTargets === 'true',
+                maxTargets: Number.isFinite(parseInt(req.query.maxTargets, 10))
+                    ? parseInt(req.query.maxTargets, 10)
+                    : 40,
+            };
+
+            const payload = detailed
+                ? await set.getProgressionDetailedPRs(params)
+                : await set.getProgressionPRs({
+                    ...params,
+                    excludedSeanceId: req.query.excludedSeanceId,
+                });
             return res.json({ success: true, ...payload });
         } catch (err) {
-            console.error('Error in /figure-prs:', err);
+            console.error(`Error in progression PRs (${detailed ? 'detailed' : 'summary'}):`, err);
             return res.status(500).json({ success: false, message: err.message });
         }
-    });
+    };
 
-    app.get('/figure-detailed-prs', async (req, res) => {
-        try {
-            const userId = req.query.userId;
-
-            const exercice = req.query.exercice;
-            const categories = req.query.categories;
-            const dateMin = req.query.dateMin;
-            const unilateralSide = req.query.unilateralSide;
-            const referenceVariations = req.query.referenceVariations;
-            const mainExerciseId = req.query.mainExerciseId;
-            const includeAllGraphTargets = req.query.includeAllGraphTargets === 'true';
-            const maxTargetsRaw = parseInt(req.query.maxTargets, 10);
-            const maxTargets = Number.isFinite(maxTargetsRaw) ? maxTargetsRaw : 40;
-
-            const payload = await set.getFigureDetailedPRs({
-                userId,
-                exercice,
-                categories,
-                dateMin,
-                unilateralSide,
-                referenceVariations,
-                mainExerciseId,
-                includeAllGraphTargets,
-                maxTargets
-            });
-            return res.json({ success: true, ...payload });
-        } catch (err) {
-            console.error('Error in /figure-detailed-prs:', err);
-            return res.status(500).json({ success: false, message: err.message });
-        }
-    });
+    app.get('/progression-prs', (req, res) => handleProgressionPrsRequest(req, res, { detailed: false }));
+    app.get('/progression-detailed-prs', (req, res) => handleProgressionPrsRequest(req, res, { detailed: true }));
+    app.get('/figure-prs', (req, res) => handleProgressionPrsRequest(req, res, { detailed: false }));
+    app.get('/figure-detailed-prs', (req, res) => handleProgressionPrsRequest(req, res, { detailed: true }));
 
     app.get('/ispr', async (req, res) => {
         try {
