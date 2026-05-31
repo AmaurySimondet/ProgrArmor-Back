@@ -26,6 +26,7 @@ const seanceSchema = new Schema(
         startedAt: { type: Date, required: false },
         endedAt: { type: Date, required: false },
         originalSeanceId: { type: Schema.Types.ObjectId, ref: 'Seance', required: false },
+        program: { type: Schema.Types.ObjectId, ref: 'UserProgram', required: false },
     },
     {
         timestamps: { createdAt: "createdAt", updatedAt: "updatedAt", date: "date" }
@@ -33,6 +34,7 @@ const seanceSchema = new Schema(
 );
 
 seanceSchema.index({ user: 1, date: -1 }); // Compound index
+seanceSchema.index({ user: 1, program: 1, date: -1 });
 seanceSchema.index({ date: -1 });
 
 // Create and export the model

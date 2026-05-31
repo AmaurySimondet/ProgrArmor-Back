@@ -15,6 +15,7 @@ const seancesetSchema = new Schema(
             }
         ],
         seance: { type: Schema.Types.ObjectId, ref: 'Seance', required: true },
+        program: { type: Schema.Types.ObjectId, ref: 'UserProgram', required: false },
         exerciceOrder: { type: Number, required: true },
         exerciceTotal: { type: Number, required: true },
         setOrder: { type: Number, required: true },
@@ -68,6 +69,7 @@ const seancesetSchema = new Schema(
 );
 
 seancesetSchema.index({ user: 1, date: 1 });
+seancesetSchema.index({ user: 1, program: 1 });
 seancesetSchema.index({ seance: 1 });
 seancesetSchema.index({ user: 1, 'variations.variation': 1, unit: 1 });
 seancesetSchema.index({ user: 1, PR: 1 });

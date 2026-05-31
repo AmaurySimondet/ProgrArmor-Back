@@ -186,6 +186,8 @@ router.use((req, res, next) => {
   passport.authenticate('jwt', { session: false })(req, res, next);
 });
 
+require(__dirname + "/controllers/userProgramController")(router);
+require(__dirname + "/controllers/programFolderController")(router);
 require(__dirname + "/controllers/userController")(router);
 require(__dirname + "/controllers/adminController")(router);
 require(__dirname + "/controllers/seanceController")(router);

@@ -39,7 +39,34 @@ function computeCurrentWeekStreak(seances) {
     return currentStreak;
 }
 
+function computeBestWeekStreak(seances) {
+    if (!Array.isArray(seances) || seances.length === 0) return 0;
+
+    const weekIndexes = seances.map((s) => {
+        const date = new Date(s?.date);
+        const isValidDate = Number.isFinite(date.getTime());
+        if (!isValidDate) return NaN;
+        return getWeekIndex(date);
+    });
+
+    const uniqueWeeks = [...new Set(weekIndexes.filter(Number.isFinite))].sort((a, b) => a - b);
+    if (uniqueWeeks.length === 0) return 0;
+
+    let bestStreak = 1;
+    let tempStreak = 1;
+    for (let i = 1; i < uniqueWeeks.length; i++) {
+        if (uniqueWeeks[i] === uniqueWeeks[i - 1] + 1) {
+            tempStreak++;
+            bestStreak = Math.max(bestStreak, tempStreak);
+        } else {
+            tempStreak = 1;
+        }
+    }
+    return bestStreak;
+}
+
 module.exports = {
     getWeekIndex,
     computeCurrentWeekStreak,
+    computeBestWeekStreak,
 };

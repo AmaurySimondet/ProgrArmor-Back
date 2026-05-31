@@ -5,9 +5,10 @@ module.exports = function (app) {
     app.get('/seance/last', async (req, res) => {
         try {
             const userId = req.query.userId;
-            const seanceName = req.query.seanceName; // Optional query parameter
-            const field = req.query.field; // Optional query parameter
-            const lastSeance = await seance.getLastSeance(userId, field, seanceName);
+            const seanceName = req.query.seanceName;
+            const programId = req.query.programId;
+            const field = req.query.field;
+            const lastSeance = await seance.getLastSeance(userId, field, seanceName, programId);
             res.json({ success: true, lastSeance });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });

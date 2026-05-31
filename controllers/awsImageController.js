@@ -50,16 +50,20 @@ module.exports = function (app) {
     // Record seance photo upload
     app.post('/aws/record-seance-photo', async (req, res) => {
         try {
-            const { userId, uploadResult, seanceDate, seanceName } = req.body;
+            const { userId, uploadResult, seanceDate, seanceName, programId } = req.body;
 
-            if (!userId || !hasRequiredUploadFields(uploadResult) || !seanceDate || !seanceName) {
+            if (!userId || !hasRequiredUploadFields(uploadResult) || !seanceDate || (!seanceName && !programId)) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Missing required parameters: userId, uploadResult with key/cloudfrontUrl, seanceDate, and seanceName are required'
+                    message: 'Missing required parameters: userId, uploadResult with key/cloudfrontUrl, seanceDate, and seanceName or programId are required'
                 });
             }
 
-            const result = await awsImage.recordSeancePhotoUpload(userId, uploadResult, seanceDate, seanceName);
+            const result = await awsImage.recordUpload(userId, uploadResult, {
+                seanceDate,
+                seanceName,
+                programId,
+            });
             res.json({ success: true, image: result });
         } catch (err) {
             console.error('Seance photo recording error:', err);
@@ -74,7 +78,7 @@ module.exports = function (app) {
     // Record upload (unified route for profile picture and seance photos)
     app.post('/aws/record-upload', async (req, res) => {
         try {
-            const { userId, uploadResult, isProfilePic = false, seanceDate, seanceName } = req.body;
+            const { userId, uploadResult, isProfilePic = false, seanceDate, seanceName, programId } = req.body;
 
             if (!userId || !hasRequiredUploadFields(uploadResult)) {
                 return res.status(400).json({
@@ -83,17 +87,18 @@ module.exports = function (app) {
                 });
             }
 
-            if (!isProfilePic && (!seanceDate || !seanceName)) {
+            if (!isProfilePic && (!seanceDate || (!seanceName && !programId))) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Missing required parameters for seance upload: seanceDate and seanceName are required'
+                    message: 'Missing required parameters for seance upload: seanceDate and seanceName or programId are required'
                 });
             }
 
             const image = await awsImage.recordUpload(userId, uploadResult, {
                 isProfilePic,
                 seanceDate,
-                seanceName
+                seanceName,
+                programId,
             });
 
             res.json({ success: true, image });
@@ -130,16 +135,16 @@ module.exports = function (app) {
     // Get seance photos
     app.get('/aws/get-seance-photos', async (req, res) => {
         try {
-            const { userId, seanceDate, seanceName } = req.query;
+            const { userId, seanceDate, seanceName, programId } = req.query;
 
-            if (!userId || !seanceDate || !seanceName) {
+            if (!userId || !seanceDate || (!seanceName && !programId)) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Missing required query parameters: userId, seanceDate, and seanceName are required'
+                    message: 'Missing required query parameters: userId, seanceDate, and seanceName or programId are required'
                 });
             }
 
-            const result = await awsImage.getSeanceImages(userId, seanceDate, seanceName);
+            const result = await awsImage.getSeanceImages(userId, seanceDate, seanceName, programId);
             res.json({ success: true, images: result });
         } catch (err) {
             console.error('Error fetching seance photos:', err);

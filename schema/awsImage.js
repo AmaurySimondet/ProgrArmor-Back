@@ -46,6 +46,11 @@ const awsImageSchema = new mongoose.Schema({
         ref: 'Seance',
         required: false
     },
+    programId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserProgram',
+        required: false
+    },
     usedOnProfile: {
         type: Boolean,
         default: false
@@ -59,6 +64,7 @@ const awsImageSchema = new mongoose.Schema({
 });
 
 awsImageSchema.index({ user: 1, seanceDate: 1, seanceName: 1 });
+awsImageSchema.index({ user: 1, seanceDate: 1, programId: 1 });
 awsImageSchema.index({ seanceId: 1 });
 awsImageSchema.index({ cloudfrontUrl: 1 });
 awsImageSchema.index({ user: 1, usedOnProfile: 1, usedOnProfileOrder: 1 });
