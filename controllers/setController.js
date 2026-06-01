@@ -173,7 +173,7 @@ module.exports = function (app) {
                 targetUnit,
                 targetValue,
                 includeAllGraphTargets: includeAllGraphTargets === true,
-                expandGenericTargets: expandGenericTargets !== false,
+                expandGenericTargets: expandGenericTargets === true,
                 maxTargets,
                 exercice,
                 categories,
@@ -226,7 +226,7 @@ module.exports = function (app) {
                 targetUnit,
                 effectiveWeightLoad,
                 includeAllGraphTargets: includeAllGraphTargets === true,
-                expandGenericTargets: expandGenericTargets !== false,
+                expandGenericTargets: expandGenericTargets === true,
                 maxTargets,
                 exercice,
                 categories,
@@ -395,6 +395,7 @@ module.exports = function (app) {
             let elastic = null;
             if (req.query.elastic) {
                 elastic = {
+                    type: req.query.elastic?.type,
                     use: req.query.elastic?.use,
                     tension: parseFloat(req.query.elastic?.tension)
                 };

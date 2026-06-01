@@ -7,6 +7,7 @@ const programExerciseSetSchema = new Schema(
         value: { type: Number, required: true },
         weightLoad: { type: Number, required: false },
         elastic: {
+            type: { type: String, required: false },
             use: { type: String, required: false },
             tension: { type: Number, required: false },
         },
