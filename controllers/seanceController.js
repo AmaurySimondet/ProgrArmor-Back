@@ -41,7 +41,14 @@ module.exports = function (app) {
             }
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 3;
-            const seances = await seance.getSeances(users, page, limit, seanceName);
+            const seances = await seance.getSeances(users, page, limit, seanceName, {
+                dateMin: req.query.dateMin,
+                dateMax: req.query.dateMax,
+                programIds: req.query.programIds,
+                folderIds: req.query.folderIds,
+                sortBy: req.query.sortBy,
+                sortOrder: req.query.sortOrder,
+            });
             res.json({ success: true, seances });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
