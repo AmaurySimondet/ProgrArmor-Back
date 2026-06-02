@@ -118,6 +118,74 @@ module.exports = (router) => {
         }
     });
 
+    router.get('/variation/workout-detail-suggestions', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const contextVariationId = req.query.contextVariationId || undefined;
+            const search = req.query.search;
+            const weightType = normalizeWeightTypeParam(req.query.weightType);
+            const page = parseInt(req.query.page, 10) || 1;
+            const limit = parseInt(req.query.limit, 10) || 10;
+            const maxDepthRaw = parseInt(req.query.maxDepth, 10);
+            const maxDepth = Number.isFinite(maxDepthRaw) ? maxDepthRaw : undefined;
+            const type = req.query.type;
+            const verified = req.query.verified === 'true' ? true : (req.query.verified === 'false' ? false : undefined);
+            const muscle = normalizeMuscleParam(req.query.muscle);
+            const selectedVariationIds = (() => {
+                const raw = req.query.selectedVariationIds ?? req.query.variations;
+                if (Array.isArray(raw)) return raw.map(String).filter(Boolean);
+                if (typeof raw === 'string' && raw.trim()) {
+                    return raw.split(',').map((id) => id.trim()).filter(Boolean);
+                }
+                if (raw && typeof raw === 'object' && raw.variation) {
+                    return [String(raw.variation)];
+                }
+                return [];
+            })();
+
+            if (!userId) {
+                return res.status(400).json({ success: false, message: 'userId is required' });
+            }
+            if (!contextVariationId) {
+                return res.status(400).json({ success: false, message: 'contextVariationId is required' });
+            }
+            if (muscle && !MUSCLES.includes(muscle)) {
+                return res.status(400).json({ success: false, message: 'Invalid muscle' });
+            }
+            if (weightType && !WEIGHT_TYPES.includes(weightType)) {
+                return res.status(400).json({ success: false, message: 'Invalid weightType' });
+            }
+
+            const payload = await variation.getWorkoutDetailSuggestions({
+                userId,
+                contextVariationId,
+                search,
+                weightType,
+                page,
+                limit,
+                maxDepth,
+                type,
+                verified,
+                muscle,
+                selectedVariationIds
+            });
+
+            return res.json({
+                success: true,
+                ...payload,
+                pagination: {
+                    page,
+                    limit,
+                    total: payload.total,
+                    hasMore: payload.total > page * limit
+                }
+            });
+        } catch (err) {
+            console.error('Error in /variation/workout-detail-suggestions:', err);
+            return res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
     router.get('/variation/grouped-by-type', async (req, res) => {
         try {
             const sortBy = req.query.sortBy || 'recommended';
