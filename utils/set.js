@@ -34,55 +34,130 @@ function getEffectiveLoadPreferringPersisted(set) {
     return getEffectiveLoad(set);
 }
 
+const {
+    getTrainingRepsEquivalent,
+    resolveBrzyckiEstimateKg,
+    resolveEpleyEstimateKg,
+    resolveAggregateNormalizedOneRm,
+    resolveNormalizedOneRmForRecommendation,
+} = require('./oneRepMax');
+
+const LOAD_EPSILON = 0.001;
+
 /**
- * Helper function to compare and assign PR.
- * A set is better if:
- *   1. It has higher effective load, OR
- *   2. Same effective load but higher value (reps/seconds)
- * Effective load = weightLoad + elastic.tension (resistance)
- *                = weightLoad - elastic.tension (assistance)
- *                = weightLoad (no elastic)
- * 
- * @param {Object|null} currentPR - The current PR to compare against.
- * @param {Object} newSet - The new set to compare with the current PR.
- * @returns {Object} - The updated PR if the new set is better, otherwise the current PR.
+ * 1RM comparatif pour tri PR / best set : normalizedOneRm si présent, sinon agrégat Brzycki+Epley (&lt;15 reps) ou Epley.
+ * @param {Object|null} set
+ * @returns {number|null}
+ */
+function resolvePrComparisonOneRmKg(set) {
+    if (!set) return null;
+
+    const normalized = Number(set.normalizedOneRm);
+    if (Number.isFinite(normalized) && normalized > 0) {
+        return normalized;
+    }
+
+    const repsEquivalent = Number.isFinite(Number(set.repsEquivalent))
+        ? Number(set.repsEquivalent)
+        : getTrainingRepsEquivalent(set);
+    if (!Number.isFinite(repsEquivalent) || repsEquivalent <= 0) {
+        return null;
+    }
+
+    const externalEffectiveLoad = getEffectiveLoadPreferringPersisted(set);
+    const brzycki = set.normalizedBrzycki ?? resolveBrzyckiEstimateKg(set);
+    const epley = set.normalizedEpley ?? resolveEpleyEstimateKg(set);
+
+    if (set.oneRepMaxIncludesBodyweight === true) {
+        const userWeightKg = Number(set.oneRepMaxUserWeightKg);
+        const bodyWeightRatio = Number(set.oneRepMaxExerciseBodyWeightRatio);
+        const ratio = Number.isFinite(bodyWeightRatio) && bodyWeightRatio > 0 ? bodyWeightRatio : 1;
+        const weightedBodyweightKg = Number.isFinite(userWeightKg) && userWeightKg > 0
+            ? userWeightKg * ratio
+            : 0;
+        const externalLoadKg = Number.isFinite(externalEffectiveLoad) ? externalEffectiveLoad : 0;
+        const effectiveLoadKgForBrzyckiCheck = weightedBodyweightKg > 0
+            ? externalLoadKg + weightedBodyweightKg
+            : (externalLoadKg > 0 ? externalLoadKg : null);
+
+        const withBodyweight = resolveNormalizedOneRmForRecommendation({
+            normalizedBrzycki: brzycki,
+            normalizedEpley: epley,
+            brzyckiWithBodyweight: set.brzyckiWithBodyweight,
+            epleyWithBodyweight: set.epleyWithBodyweight,
+            weightedBodyweightKg,
+            repsEquivalent,
+            includeBodyweight: true,
+            externalEffectiveLoadKg: externalLoadKg,
+            effectiveLoadKgForBrzyckiCheck,
+        });
+        if (withBodyweight != null && Number.isFinite(withBodyweight) && withBodyweight > 0) {
+            return withBodyweight;
+        }
+    }
+
+    const aggregate = resolveAggregateNormalizedOneRm(
+        brzycki,
+        epley,
+        repsEquivalent,
+        externalEffectiveLoad > 0 ? externalEffectiveLoad : null,
+    );
+
+    return aggregate != null && Number.isFinite(aggregate) && aggregate > 0
+        ? aggregate
+        : null;
+}
+
+const toPlainObject = (value) => {
+    if (!value) return value;
+    if (typeof value.toObject === 'function') {
+        return value.toObject();
+    }
+    return value;
+};
+
+const toPRPayload = (setLike) => ({
+    ...toPlainObject(setLike),
+    isUnilateral: setLike?.isUnilateral ?? false,
+    unilateralSide: setLike?.unilateralSide,
+    brzycki: setLike?.brzycki ?? null,
+    rpe: setLike?.rpe ?? null,
+});
+
+/**
+ * Compare deux sets via 1RM agrégé ; tie-break charge effective puis value.
+ * @param {Object|null} currentPR
+ * @param {Object} newSet
+ * @returns {Object}
  */
 function compareAndAssignPR(currentPR, newSet) {
-    const toPlainObject = (value) => {
-        if (!value) return value;
-        if (typeof value.toObject === 'function') {
-            return value.toObject();
-        }
-        return value;
-    };
-
-    const toPRPayload = (setLike) => ({
-        ...toPlainObject(setLike),
-        isUnilateral: setLike?.isUnilateral ?? false,
-        unilateralSide: setLike?.unilateralSide,
-        brzycki: setLike?.brzycki ?? null,
-        rpe: setLike?.rpe ?? null,
-    });
-
     if (!currentPR) {
         return toPRPayload(newSet);
     }
 
-    const currentValue = currentPR.value ?? 0;
-    const newValue = newSet.value ?? 0;
-    const currentEffectiveLoad = getEffectiveLoad(currentPR);
-    const newEffectiveLoad = getEffectiveLoad(newSet);
+    const currentOneRm = resolvePrComparisonOneRmKg(currentPR);
+    const newOneRm = resolvePrComparisonOneRmKg(newSet);
 
-    // Check if new set is better
+    if (newOneRm == null) {
+        return currentPR;
+    }
+    if (currentOneRm == null) {
+        return toPRPayload(newSet);
+    }
+
     let isBetter = false;
 
-    // Higher effective load always wins
-    if (newEffectiveLoad > currentEffectiveLoad) {
+    if (newOneRm > currentOneRm) {
         isBetter = true;
-    }
-    // Same effective load: higher value wins
-    else if (newEffectiveLoad === currentEffectiveLoad && newValue > currentValue) {
-        isBetter = true;
+    } else if (Math.abs(newOneRm - currentOneRm) <= LOAD_EPSILON) {
+        const currentLoad = getEffectiveLoadPreferringPersisted(currentPR);
+        const newLoad = getEffectiveLoadPreferringPersisted(newSet);
+        if (newLoad > currentLoad + LOAD_EPSILON) {
+            isBetter = true;
+        } else if (Math.abs(newLoad - currentLoad) <= LOAD_EPSILON
+            && (newSet.value ?? 0) > (currentPR.value ?? 0)) {
+            isBetter = true;
+        }
     }
 
     if (isBetter) {
@@ -92,4 +167,11 @@ function compareAndAssignPR(currentPR, newSet) {
     return currentPR;
 }
 
-module.exports = { compareAndAssignPR, getElasticDelta, getEffectiveLoad, getEffectiveLoadPreferringPersisted };
+module.exports = {
+    compareAndAssignPR,
+    getElasticDelta,
+    getEffectiveLoad,
+    getEffectiveLoadPreferringPersisted,
+    resolvePrComparisonOneRmKg,
+    LOAD_EPSILON,
+};

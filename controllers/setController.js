@@ -384,67 +384,82 @@ module.exports = function (app) {
     app.get('/figure-prs', (req, res) => handleProgressionPrsRequest(req, res, { detailed: false }));
     app.get('/figure-detailed-prs', (req, res) => handleProgressionPrsRequest(req, res, { detailed: true }));
 
+    const handleIsPrRequest = async (req, res, { source = 'body' } = {}) => {
+        const data = source === 'query' ? (req.query || {}) : (req.body || {});
+        const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+        if (!authenticatedUserId) {
+            return res.status(401).json({ success: false, message: 'Unauthorized' });
+        }
+        const requestedUserId = data.userId != null ? String(data.userId) : null;
+        if (!requestedUserId || requestedUserId !== authenticatedUserId) {
+            return res.status(403).json({ success: false, message: 'Forbidden' });
+        }
+        const userId = authenticatedUserId;
+        const seanceId = data.seanceId;
+        const unit = data.unit;
+        const value = parseFloat(data.value);
+        const weightLoad = parseFloat(data.weightLoad);
+        let elastic = null;
+        if (data.elastic) {
+            elastic = {
+                type: data.elastic?.type,
+                use: data.elastic?.use,
+                tension: parseFloat(data.elastic?.tension),
+            };
+        }
+        const variations = data.variations;
+        let effectiveWeightLoadOverride = undefined;
+        const effRaw = data.effectiveWeightLoad;
+        if (effRaw !== undefined && effRaw !== '') {
+            const n = parseFloat(effRaw);
+            effectiveWeightLoadOverride = Number.isFinite(n) ? n : undefined;
+        }
+        let isUnilateral = undefined;
+        if (data.isUnilateral === true || data.isUnilateral === 'true') isUnilateral = true;
+        else if (data.isUnilateral === false || data.isUnilateral === 'false') isUnilateral = false;
+        const unilateralSide = data.unilateralSide;
+        const sessionSets = source === 'body' ? data.sessionSets : undefined;
+        const excludeSetId = source === 'body' ? data.excludeSetId : undefined;
+
+        const { isPersonalRecord, prDetail } = await set.isPersonalRecordWithDetail(
+            userId,
+            seanceId,
+            unit,
+            value,
+            weightLoad,
+            elastic,
+            variations,
+            effectiveWeightLoadOverride,
+            isUnilateral,
+            unilateralSide,
+            sessionSets,
+            excludeSetId,
+        );
+
+        if (process.env.DEBUG_PR_ISPR !== '0' && process.env.DEBUG_PR_ISPR !== 'false') {
+            console.log('[PR/isPr] httpResponse', JSON.stringify({
+                isPersonalRecord,
+                oneRmDelta: prDetail?.oneRmDelta ?? null,
+                referencePeakOneRm: prDetail?.referencePeakOneRm ?? null,
+                kgDelta: prDetail?.kgDelta ?? null,
+            }));
+        }
+
+        res.json({ success: true, isPersonalRecord, prDetail });
+    };
+
+    app.post('/ispr', async (req, res) => {
+        try {
+            await handleIsPrRequest(req, res, { source: 'body' });
+        } catch (err) {
+            console.error('[POST /ispr] Error:', err);
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
     app.get('/ispr', async (req, res) => {
         try {
-            console.log('[GET /ispr] Incoming query:', req.query);
-            const userId = req.query.userId;
-            const seanceId = req.query.seanceId;
-            const unit = req.query.unit;
-            const value = parseFloat(req.query.value);
-            const weightLoad = parseFloat(req.query.weightLoad);
-            let elastic = null;
-            if (req.query.elastic) {
-                elastic = {
-                    type: req.query.elastic?.type,
-                    use: req.query.elastic?.use,
-                    tension: parseFloat(req.query.elastic?.tension)
-                };
-            }
-            const variations = req.query.variations;
-            let effectiveWeightLoadOverride = undefined;
-            const effRaw = req.query.effectiveWeightLoad;
-            if (effRaw !== undefined && effRaw !== "") {
-                const n = parseFloat(effRaw);
-                effectiveWeightLoadOverride = Number.isFinite(n) ? n : undefined;
-            }
-            let isUnilateral = undefined;
-            if (req.query.isUnilateral === 'true') isUnilateral = true;
-            else if (req.query.isUnilateral === 'false') isUnilateral = false;
-            const unilateralSide = req.query.unilateralSide;
-
-            console.log('[GET /ispr] Parsed params:', {
-                userId,
-                seanceId,
-                unit,
-                value,
-                weightLoad,
-                elastic,
-                variations,
-                effectiveWeightLoadOverride,
-                isUnilateral,
-                unilateralSide
-            });
-
-            const { isPersonalRecord, prDetail } = await set.isPersonalRecordWithDetail(
-                userId,
-                seanceId,
-                unit,
-                value,
-                weightLoad,
-                elastic,
-                variations,
-                effectiveWeightLoadOverride,
-                isUnilateral,
-                unilateralSide
-            );
-            console.log('[GET /ispr] Result:', {
-                userId,
-                seanceId,
-                unit,
-                isPersonalRecord,
-                prDetail
-            });
-            res.json({ success: true, isPersonalRecord, prDetail });
+            await handleIsPrRequest(req, res, { source: 'query' });
         } catch (err) {
             console.error('[GET /ispr] Error:', err);
             res.status(500).json({ success: false, message: err.message });

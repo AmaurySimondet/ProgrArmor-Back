@@ -1,6 +1,12 @@
 /**
- * Usage: node oneShotQueries/backfillBodyweightOneRepMaxOnSeanceSets.js
+ * @deprecated Utiliser oneShotQueries/backfillSeanceSetsForUserMeasures.js
+ *   node oneShotQueries/backfillSeanceSetsForUserMeasures.js --all
+ *
+ * Usage (legacy): node oneShotQueries/backfillBodyweightOneRepMaxOnSeanceSets.js
  */
+console.warn(
+    "[DEPRECATED] backfillBodyweightOneRepMaxOnSeanceSets.js — use backfillSeanceSetsForUserMeasures.js instead"
+);
 const mongoose = require("mongoose");
 require("dotenv").config();
 const SeanceSet = require("../schema/seanceset");
