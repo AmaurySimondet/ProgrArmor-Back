@@ -41,6 +41,7 @@ const userProgramSchema = new Schema(
         color: { type: String, required: true },
         folder: { type: Schema.Types.ObjectId, ref: 'ProgramFolder', required: false, default: null },
         program: { type: [programExerciseSchema], default: [] },
+        sourceExampleId: { type: String, required: false, trim: true, default: null },
         isArchived: { type: Boolean, default: false },
         lastSeanceId: { type: Schema.Types.ObjectId, ref: 'Seance', required: false, default: null },
     },
@@ -52,5 +53,9 @@ const userProgramSchema = new Schema(
 userProgramSchema.index({ user: 1, initials: 1 }, { unique: true });
 userProgramSchema.index({ user: 1, isArchived: 1 });
 userProgramSchema.index({ user: 1, folder: 1 });
+userProgramSchema.index(
+    { user: 1, sourceExampleId: 1 },
+    { unique: true, sparse: true }
+);
 
 module.exports = mongoose.model("UserProgram", userProgramSchema);

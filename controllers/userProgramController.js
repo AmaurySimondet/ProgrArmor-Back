@@ -1,6 +1,33 @@
 const userProgram = require('../lib/userProgram');
 
 module.exports = function (app) {
+    app.get('/programs/examples', async (req, res) => {
+        try {
+            const examples = await userProgram.getProgramExamples();
+            res.json({ success: true, examples });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    app.post('/programs/from-example', async (req, res) => {
+        try {
+            const authenticatedUserId = req.user?._id?.toString();
+            if (!authenticatedUserId) {
+                return res.status(401).json({ success: false, message: 'Unauthorized' });
+            }
+            const exampleId = req.body?.exampleId;
+            if (!exampleId) {
+                return res.status(400).json({ success: false, message: 'exampleId is required' });
+            }
+            const program = await userProgram.ensureProgramFromExample(authenticatedUserId, exampleId);
+            res.json({ success: true, program });
+        } catch (err) {
+            const status = err.message.includes('Unknown program example') ? 404 : 500;
+            res.status(status).json({ success: false, message: err.message });
+        }
+    });
+
     app.get('/programs/suggestions', async (req, res) => {
         try {
             const userId = req.query.userId;
