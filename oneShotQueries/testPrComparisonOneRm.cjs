@@ -5,7 +5,9 @@
 const assert = require('assert');
 const {
     compareAndAssignPR,
+    maxEffectiveLoadAmongSets,
     resolvePrComparisonOneRmKg,
+    LOAD_EPSILON,
 } = require('../utils/set');
 const {
     computeSetOneRepMaxEstimates,
@@ -62,9 +64,51 @@ const withNormalizedOneRm = (set) => {
     console.log('ATH category selection — OK');
 })();
 
-(function testIsPrSemantics() {
-    const LOAD_EPSILON = 0.001;
+(function testNegativeEffectiveLoadMaxAtSameReps() {
+    const assistanceSet = {
+        unit: 'repetitions',
+        value: 12,
+        weightLoad: 0,
+        effectiveWeightLoad: -10,
+        elastic: { use: 'assistance', tension: 10, type: 'band' },
+    };
+    const history = [assistanceSet, { ...assistanceSet, _id: 'h2' }];
+    assert.strictEqual(maxEffectiveLoadAmongSets(history), -10);
+    const currentEffectiveLoad = -10;
+    const maxLoadAtValue = maxEffectiveLoadAmongSets(
+        history.filter((s) => s.value === 12),
+    );
+    assert.strictEqual(maxLoadAtValue, -10);
+    assert.ok(
+        Math.abs(currentEffectiveLoad - maxLoadAtValue) <= LOAD_EPSILON,
+        '12@0kg -10 elastic should tie historical max → SB semantics',
+    );
+    console.log('negative effective load max at same reps — OK');
+})();
 
+(function testMaxEffectiveLoadIgnoresNonFinite() {
+    const history = [
+        { value: 10, weightLoad: 50, effectiveWeightLoad: 50 },
+        { value: 10, weightLoad: NaN, effectiveWeightLoad: NaN },
+        { value: 10, effectiveWeightLoad: 'bad' },
+    ];
+    assert.strictEqual(maxEffectiveLoadAmongSets(history), 50);
+
+    assert.strictEqual(
+        maxEffectiveLoadAmongSets([{ value: 10, weightLoad: NaN, effectiveWeightLoad: NaN }]),
+        null,
+    );
+    assert.strictEqual(maxEffectiveLoadAmongSets([]), null);
+
+    const maxLoadAtValue = maxEffectiveLoadAmongSets(history.filter((s) => s.value === 10));
+    assert.strictEqual(maxLoadAtValue, 50);
+    assert.ok(Number.isFinite(maxLoadAtValue));
+    assert.ok(55 > maxLoadAtValue + LOAD_EPSILON);
+    assert.ok(Math.abs(50 - maxLoadAtValue) <= LOAD_EPSILON);
+    console.log('maxEffectiveLoadAmongSets ignores non-finite — OK');
+})();
+
+(function testIsPrSemantics() {
     const evaluateStatus = ({
         allSets,
         unit = 'repetitions',
@@ -97,10 +141,7 @@ const withNormalizedOneRm = (set) => {
         if (isAth) return 'ATH';
         if (!hasSameValueHistory) return 'NB';
 
-        const maxLoadAtValue = setsSameValue.reduce(
-            (max, s) => Math.max(max, s.effectiveWeightLoad),
-            0,
-        );
+        const maxLoadAtValue = maxEffectiveLoadAmongSets(setsSameValue);
         if (currentEffectiveLoad > maxLoadAtValue + LOAD_EPSILON) return 'PR';
         if (Math.abs(currentEffectiveLoad - maxLoadAtValue) <= LOAD_EPSILON) return 'SB';
         return null;
@@ -144,7 +185,6 @@ const withNormalizedOneRm = (set) => {
 })();
 
 (function testOneRmTieUsesLoadEpsilon() {
-    const { LOAD_EPSILON } = require('../utils/set');
     const sharedOneRm = 62.5;
     const base = {
         unit: 'repetitions',

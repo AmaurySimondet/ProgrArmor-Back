@@ -167,11 +167,28 @@ function compareAndAssignPR(currentPR, newSet) {
     return currentPR;
 }
 
+/**
+ * Meilleure charge effective (kg) parmi des sets — gère les charges négatives (élastique d'assistance).
+ * @param {Array<Object>} sets
+ * @returns {number|null}
+ */
+function maxEffectiveLoadAmongSets(sets) {
+    if (!Array.isArray(sets) || sets.length === 0) return null;
+    let max = null;
+    for (const set of sets) {
+        const load = getEffectiveLoadPreferringPersisted(set);
+        if (!Number.isFinite(load)) continue;
+        if (max == null || load > max) max = load;
+    }
+    return max;
+}
+
 module.exports = {
     compareAndAssignPR,
     getElasticDelta,
     getEffectiveLoad,
     getEffectiveLoadPreferringPersisted,
+    maxEffectiveLoadAmongSets,
     resolvePrComparisonOneRmKg,
     LOAD_EPSILON,
 };
