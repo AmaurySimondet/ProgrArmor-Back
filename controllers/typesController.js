@@ -1,10 +1,20 @@
 const Type = require('../schema/type');
 
+const parseBooleanQuery = (value) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return undefined;
+};
+
 module.exports = (router) => {
     // Route statistics endpoint
     router.get('/types', async (req, res) => {
         try {
-            const types = await Type.find({}).sort({ popularityScore: -1 });
+            const onlyContainsExercises = parseBooleanQuery(req.query.onlyContainsExercises);
+            const query = typeof onlyContainsExercises === 'boolean'
+                ? { onlyContainsExercises }
+                : {};
+            const types = await Type.find(query).sort({ popularityScore: -1 });
 
             res.json({
                 success: true,
