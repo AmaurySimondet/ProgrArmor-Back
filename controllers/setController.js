@@ -244,6 +244,7 @@ module.exports = function (app) {
         }
     });
 
+    /** @deprecated Préférer GET /progression-prs — conservé pour le best set workout (merge equivalentTo). */
     app.get('/prs', async (req, res) => {
         try {
             const userId = req.query.userId;
@@ -323,6 +324,7 @@ module.exports = function (app) {
         }
     });
 
+    /** @deprecated Préférer GET /progression-detailed-prs */
     app.get('/detailedPrs', async (req, res) => {
         try {
             const userId = req.query.userId;

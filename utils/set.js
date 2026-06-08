@@ -44,18 +44,62 @@ const {
 
 const LOAD_EPSILON = 0.001;
 
+function hasPersistedBodyweightOneRmEstimate(set) {
+    const brzycki = set?.brzyckiWithBodyweight ?? set?.brzycki_with_bodyweight;
+    const epley = set?.epleyWithBodyweight ?? set?.epley_with_bodyweight;
+    const brzyckiOk = brzycki != null && brzycki !== '' && Number.isFinite(Number(brzycki)) && Number(brzycki) > 0;
+    const epleyOk = epley != null && epley !== '' && Number.isFinite(Number(epley)) && Number(epley) > 0;
+    return brzyckiOk || epleyOk;
+}
+
+/** PDC : comparer les PR sur le 1RM avec corps, même charge externe nulle ou négative (élastique). */
+function shouldComparePrWithBodyweightOneRm(set) {
+    if (!set) return false;
+    return set.oneRepMaxIncludesBodyweight === true || hasPersistedBodyweightOneRmEstimate(set);
+}
+
+function resolveBodyweightPrComparisonOneRmKg(set, repsEquivalent) {
+    const externalEffectiveLoad = getEffectiveLoadPreferringPersisted(set);
+    const brzycki = set.normalizedBrzycki ?? resolveBrzyckiEstimateKg(set);
+    const epley = set.normalizedEpley ?? resolveEpleyEstimateKg(set);
+    const userWeightKg = Number(set.oneRepMaxUserWeightKg);
+    const bodyWeightRatio = Number(set.oneRepMaxExerciseBodyWeightRatio);
+    const ratio = Number.isFinite(bodyWeightRatio) && bodyWeightRatio > 0 ? bodyWeightRatio : 1;
+    const weightedBodyweightKg = Number.isFinite(userWeightKg) && userWeightKg > 0
+        ? userWeightKg * ratio
+        : 0;
+    const externalLoadKg = Number.isFinite(externalEffectiveLoad) ? externalEffectiveLoad : 0;
+    const effectiveLoadKgForBrzyckiCheck = weightedBodyweightKg > 0
+        ? externalLoadKg + weightedBodyweightKg
+        : (externalLoadKg > 0 ? externalLoadKg : null);
+
+    const withBodyweight = resolveNormalizedOneRmForRecommendation({
+        normalizedOneRm: set.normalizedOneRm,
+        normalizedBrzycki: brzycki,
+        normalizedEpley: epley,
+        brzyckiWithBodyweight: set.brzyckiWithBodyweight ?? set.brzycki_with_bodyweight,
+        epleyWithBodyweight: set.epleyWithBodyweight ?? set.epley_with_bodyweight,
+        weightedBodyweightKg,
+        repsEquivalent,
+        includeBodyweight: true,
+        externalEffectiveLoadKg: externalLoadKg,
+        effectiveLoadKgForBrzyckiCheck,
+    });
+
+    return withBodyweight != null && Number.isFinite(withBodyweight) && withBodyweight > 0
+        ? withBodyweight
+        : null;
+}
+
 /**
- * 1RM comparatif pour tri PR / best set : normalizedOneRm si présent, sinon agrégat Brzycki+Epley (&lt;15 reps) ou Epley.
+ * 1RM comparatif pour tri PR / best set.
+ * PDC : 1RM avec corps en priorité (charge externe 0 ou négative incluse).
+ * Sinon : normalizedOneRm si présent, puis agrégat Brzycki+Epley (&lt;15 reps) ou Epley.
  * @param {Object|null} set
  * @returns {number|null}
  */
 function resolvePrComparisonOneRmKg(set) {
     if (!set) return null;
-
-    const normalized = Number(set.normalizedOneRm);
-    if (Number.isFinite(normalized) && normalized > 0) {
-        return normalized;
-    }
 
     const repsEquivalent = Number.isFinite(Number(set.repsEquivalent))
         ? Number(set.repsEquivalent)
@@ -64,38 +108,21 @@ function resolvePrComparisonOneRmKg(set) {
         return null;
     }
 
-    const externalEffectiveLoad = getEffectiveLoadPreferringPersisted(set);
-    const brzycki = set.normalizedBrzycki ?? resolveBrzyckiEstimateKg(set);
-    const epley = set.normalizedEpley ?? resolveEpleyEstimateKg(set);
-
-    if (set.oneRepMaxIncludesBodyweight === true) {
-        const userWeightKg = Number(set.oneRepMaxUserWeightKg);
-        const bodyWeightRatio = Number(set.oneRepMaxExerciseBodyWeightRatio);
-        const ratio = Number.isFinite(bodyWeightRatio) && bodyWeightRatio > 0 ? bodyWeightRatio : 1;
-        const weightedBodyweightKg = Number.isFinite(userWeightKg) && userWeightKg > 0
-            ? userWeightKg * ratio
-            : 0;
-        const externalLoadKg = Number.isFinite(externalEffectiveLoad) ? externalEffectiveLoad : 0;
-        const effectiveLoadKgForBrzyckiCheck = weightedBodyweightKg > 0
-            ? externalLoadKg + weightedBodyweightKg
-            : (externalLoadKg > 0 ? externalLoadKg : null);
-
-        const withBodyweight = resolveNormalizedOneRmForRecommendation({
-            normalizedBrzycki: brzycki,
-            normalizedEpley: epley,
-            brzyckiWithBodyweight: set.brzyckiWithBodyweight,
-            epleyWithBodyweight: set.epleyWithBodyweight,
-            weightedBodyweightKg,
-            repsEquivalent,
-            includeBodyweight: true,
-            externalEffectiveLoadKg: externalLoadKg,
-            effectiveLoadKgForBrzyckiCheck,
-        });
-        if (withBodyweight != null && Number.isFinite(withBodyweight) && withBodyweight > 0) {
-            return withBodyweight;
+    if (shouldComparePrWithBodyweightOneRm(set)) {
+        const bodyweightOneRm = resolveBodyweightPrComparisonOneRmKg(set, repsEquivalent);
+        if (bodyweightOneRm != null) {
+            return bodyweightOneRm;
         }
     }
 
+    const normalized = Number(set.normalizedOneRm);
+    if (Number.isFinite(normalized) && normalized > 0) {
+        return normalized;
+    }
+
+    const externalEffectiveLoad = getEffectiveLoadPreferringPersisted(set);
+    const brzycki = set.normalizedBrzycki ?? resolveBrzyckiEstimateKg(set);
+    const epley = set.normalizedEpley ?? resolveEpleyEstimateKg(set);
     const aggregate = resolveAggregateNormalizedOneRm(
         brzycki,
         epley,
