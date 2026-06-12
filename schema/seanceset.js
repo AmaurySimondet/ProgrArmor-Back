@@ -31,6 +31,13 @@ const seancesetSchema = new Schema(
             tension: Number,
             tensionLbs: Number,
         },
+        cardio: {
+            distanceKm: { type: Number, min: 0, default: null },
+            elevationGainM: { type: Number, default: null },
+            inclinePercent: { type: Number, min: 0, max: 40, default: null },
+            speedKmh: { type: Number, min: 0, default: null },
+            calories: { type: Number, min: 0, default: null },
+        },
         PR: { type: String, default: null },
         date: { type: Date, required: true },
         variations: [

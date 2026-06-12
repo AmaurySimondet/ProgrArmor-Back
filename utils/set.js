@@ -210,11 +210,56 @@ function maxEffectiveLoadAmongSets(sets) {
     return max;
 }
 
+/** Charges effectives équivalentes (kg), tolérance LOAD_EPSILON. */
+function isSameEffectiveLoad(loadA, loadB) {
+    if (!Number.isFinite(loadA) || !Number.isFinite(loadB)) return false;
+    return Math.abs(loadA - loadB) <= LOAD_EPSILON;
+}
+
+/** Sets dont la charge effective correspond à `loadKg`. */
+function filterSetsAtSameEffectiveLoad(sets, loadKg) {
+    if (!Array.isArray(sets) || !Number.isFinite(loadKg)) return [];
+    return sets.filter((set) => {
+        const load = getEffectiveLoadPreferringPersisted(set);
+        return isSameEffectiveLoad(load, loadKg);
+    });
+}
+
+/** Meilleur value (reps ou secondes) parmi des sets. */
+function maxValueAmongSets(sets) {
+    if (!Array.isArray(sets) || sets.length === 0) return null;
+    let max = null;
+    for (const set of sets) {
+        const parsed = Number(set?.value);
+        if (!Number.isFinite(parsed)) continue;
+        if (max == null || parsed > max) max = parsed;
+    }
+    return max;
+}
+
+/** Série de référence : meilleur value à la charge effective donnée. */
+function getReferenceBestSetAtSameLoad(sets, loadKg) {
+    const atSameLoad = filterSetsAtSameEffectiveLoad(sets, loadKg);
+    if (!atSameLoad.length) return null;
+    return atSameLoad.reduce((best, current) => {
+        if (!best) return current;
+        const bestValue = Number(best.value);
+        const currentValue = Number(current.value);
+        if (!Number.isFinite(bestValue)) return current;
+        if (!Number.isFinite(currentValue)) return best;
+        return currentValue > bestValue ? current : best;
+    }, null);
+}
+
 module.exports = {
     compareAndAssignPR,
     getElasticDelta,
     getEffectiveLoad,
     getEffectiveLoadPreferringPersisted,
+    isSameEffectiveLoad,
+    filterSetsAtSameEffectiveLoad,
+    maxValueAmongSets,
+    getReferenceBestSetAtSameLoad,
     maxEffectiveLoadAmongSets,
     resolvePrComparisonOneRmKg,
     LOAD_EPSILON,

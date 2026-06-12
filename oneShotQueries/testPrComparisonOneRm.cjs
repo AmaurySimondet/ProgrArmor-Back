@@ -5,7 +5,10 @@
 const assert = require('assert');
 const {
     compareAndAssignPR,
+    filterSetsAtSameEffectiveLoad,
+    getReferenceBestSetAtSameLoad,
     maxEffectiveLoadAmongSets,
+    maxValueAmongSets,
     resolvePrComparisonOneRmKg,
     LOAD_EPSILON,
 } = require('../utils/set');
@@ -108,6 +111,18 @@ const withNormalizedOneRm = (set) => {
     console.log('maxEffectiveLoadAmongSets ignores non-finite — OK');
 })();
 
+(function testSameLoadHelpers() {
+    const history = [
+        makeRepSet(3, 0, { _id: 'a' }),
+        makeRepSet(1, 20, { _id: 'b' }),
+    ];
+    const atZero = filterSetsAtSameEffectiveLoad(history, 0);
+    assert.strictEqual(atZero.length, 1);
+    assert.strictEqual(maxValueAmongSets(atZero), 3);
+    assert.strictEqual(getReferenceBestSetAtSameLoad(history, 0).value, 3);
+    console.log('same-load PR helpers — OK');
+})();
+
 (function testIsPrSemantics() {
     const evaluateStatus = ({
         allSets,
@@ -118,6 +133,7 @@ const withNormalizedOneRm = (set) => {
         const currentSet = withNormalizedOneRm(makeRepSet(value, weightLoad));
         const currentEffectiveLoad = weightLoad;
         const currentOneRm = resolvePrComparisonOneRmKg(currentSet);
+        const currentValue = Number(value);
 
         if (allSets.length === 0) return 'NB';
 
@@ -139,12 +155,25 @@ const withNormalizedOneRm = (set) => {
         const hasSameValueHistory = setsSameValue.length > 0;
 
         if (isAth) return 'ATH';
-        if (!hasSameValueHistory) return 'NB';
+        if (hasSameValueHistory) {
+            const maxLoadAtValue = maxEffectiveLoadAmongSets(setsSameValue);
+            if (currentEffectiveLoad > maxLoadAtValue + LOAD_EPSILON) return 'PR';
+            if (Math.abs(currentEffectiveLoad - maxLoadAtValue) <= LOAD_EPSILON) return 'SB';
+            return null;
+        }
 
-        const maxLoadAtValue = maxEffectiveLoadAmongSets(setsSameValue);
-        if (currentEffectiveLoad > maxLoadAtValue + LOAD_EPSILON) return 'PR';
-        if (Math.abs(currentEffectiveLoad - maxLoadAtValue) <= LOAD_EPSILON) return 'SB';
-        return null;
+        // Même sémantique que evaluatePersonalRecordWithContext : historique DB seulement.
+        const setsAtSameLoad = filterSetsAtSameEffectiveLoad(
+            sameUnitSets,
+            currentEffectiveLoad,
+        );
+        const maxValueAtSameLoad = maxValueAmongSets(setsAtSameLoad);
+        if (maxValueAtSameLoad != null && Number.isFinite(currentValue)) {
+            if (currentValue > maxValueAtSameLoad) return 'PR';
+            if (currentValue === maxValueAtSameLoad) return 'SB';
+            return null;
+        }
+        return 'NB';
     };
 
     assert.strictEqual(evaluateStatus({ allSets: [], value: 10, weightLoad: 20 }), 'NB');
@@ -167,6 +196,52 @@ const withNormalizedOneRm = (set) => {
     assert.strictEqual(
         evaluateStatus({ allSets: historyWith19, value: 20, weightLoad: 10 }),
         'NB',
+    );
+
+    const pdcHistory = [
+        withNormalizedOneRm(makeRepSet(3, 0, { _id: 'pdc3' })),
+        withNormalizedOneRm(makeRepSet(1, 20, { _id: 'heavy1' })),
+    ];
+    assert.strictEqual(
+        evaluateStatus({ allSets: pdcHistory, value: 12, weightLoad: 0 }),
+        'PR',
+        '12@0kg should be PR vs best 3@0kg even when 1@20kg blocks ATH',
+    );
+
+    assert.strictEqual(
+        evaluateStatus({ allSets: pdcHistory, value: 2, weightLoad: 0 }),
+        null,
+        '2@0kg below best 3@0kg at same load is not PR nor NB',
+    );
+
+    const loadedHistory = [
+        withNormalizedOneRm(makeRepSet(10, 50, { _id: 'ten' })),
+        withNormalizedOneRm(makeRepSet(1, 100, { _id: 'heavy' })),
+    ];
+    assert.strictEqual(
+        evaluateStatus({ allSets: loadedHistory, value: 12, weightLoad: 50 }),
+        'PR',
+        'more reps at same load (50kg) is PR when ATH blocked by heavier low-rep set',
+    );
+
+    assert.strictEqual(
+        evaluateStatus({
+            allSets: [withNormalizedOneRm(makeRepSet(20, 20, { _id: 'twenty' }))],
+            value: 12,
+            weightLoad: 20,
+        }),
+        null,
+        '12@20kg below best 20@20kg at same load: no badge, not NB',
+    );
+
+    assert.strictEqual(
+        evaluateStatus({
+            allSets: [withNormalizedOneRm(makeRepSet(20, 20))],
+            value: 8,
+            weightLoad: 25,
+        }),
+        'NB',
+        'first time at 25kg with no same-load history stays NB',
     );
 
     const history19at15 = [withNormalizedOneRm(makeRepSet(19, 15, { _id: 'dup' }))];

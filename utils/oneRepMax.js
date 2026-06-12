@@ -75,6 +75,9 @@ const secondsToEquivalentReps = (seconds) => piecewiseLinearSecondsToReps(second
 
 /** @param {{ unit?: string, value?: number|null, repsEquivalent?: number|null }} set */
 const getTrainingRepsEquivalent = (set) => {
+    if (set?.unit === 'cardio') {
+        return null;
+    }
     if (Number.isFinite(Number(set?.repsEquivalent))) {
         return Number(set.repsEquivalent);
     }

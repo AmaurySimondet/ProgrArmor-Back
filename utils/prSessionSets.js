@@ -1,6 +1,26 @@
 const { whichWeight: { MAX_SESSION_SETS } } = require('../constants');
 const { getEffectiveLoadPreferringPersisted, resolvePrComparisonOneRmKg } = require('./set');
 
+function normalizeCardioSessionSet(raw) {
+    const value = Number(raw.value);
+    if (!Number.isFinite(value) || value <= 0) return null;
+
+    const normalized = {
+        unit: 'cardio',
+        value,
+        weightLoad: raw.weightLoad != null ? Number(raw.weightLoad) : 0,
+        isUnilateral: raw.isUnilateral === true,
+        unilateralSide: raw.unilateralSide,
+    };
+    if (raw.cardio && typeof raw.cardio === 'object') {
+        normalized.cardio = { ...raw.cardio };
+    }
+    if (raw.setOrder != null && Number.isFinite(Number(raw.setOrder))) {
+        normalized.setOrder = Number(raw.setOrder);
+    }
+    return normalized;
+}
+
 /**
  * Séries « en cours » (client) utilisables pour comparer PR / ATH dans la même séance.
  * @param {unknown} sessionSets
@@ -30,6 +50,19 @@ function normalizeSessionSetsForPrEvaluation(sessionSets, filters = {}) {
 
         const setUnit = raw.unit;
         if (unit && setUnit !== unit) continue;
+
+        if (setUnit === 'cardio') {
+            if (isUnilateral === true) {
+                if (raw.isUnilateral !== true) continue;
+                if (unilateralSide === 'left' || unilateralSide === 'right') {
+                    if (raw.unilateralSide !== unilateralSide) continue;
+                }
+            }
+            const normalizedCardio = normalizeCardioSessionSet(raw);
+            if (normalizedCardio) out.push(normalizedCardio);
+            continue;
+        }
+
         if (setUnit !== 'repetitions' && setUnit !== 'seconds') continue;
 
         if (isUnilateral === true) {

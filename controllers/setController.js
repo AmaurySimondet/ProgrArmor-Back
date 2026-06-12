@@ -422,6 +422,7 @@ module.exports = function (app) {
         const unilateralSide = data.unilateralSide;
         const sessionSets = source === 'body' ? data.sessionSets : undefined;
         const excludeSetId = source === 'body' ? data.excludeSetId : undefined;
+        const cardio = data.cardio && typeof data.cardio === 'object' ? data.cardio : undefined;
 
         const { isPersonalRecord, prDetail } = await set.isPersonalRecordWithDetail(
             userId,
@@ -436,6 +437,7 @@ module.exports = function (app) {
             unilateralSide,
             sessionSets,
             excludeSetId,
+            cardio,
         );
 
         if (process.env.DEBUG_PR_ISPR !== '0' && process.env.DEBUG_PR_ISPR !== 'false') {

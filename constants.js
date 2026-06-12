@@ -64,6 +64,17 @@ const PR_CATEGORIES = {
     ]
 };
 
+const CARDIO_PR_CATEGORIES = ['Last', 'Temps', 'Distance', 'Vitesse'];
+
+const CARDIO_PR_METRICS = {
+    categories: CARDIO_PR_CATEGORIES,
+    tolerances: {
+        durationSeconds: 0,
+        distanceKm: 0.05,
+        speedKmh: 0.1,
+    },
+};
+
 module.exports = {
     search: {
         RRF_K: 60,
@@ -105,6 +116,8 @@ module.exports = {
     },
     set: {
         PR_CATEGORIES,
+        CARDIO_PR_CATEGORIES,
+        CARDIO_PR_METRICS,
         NORMAL_FLOW_FAMILY_MAX_DEPTH: Number.isFinite(Number(process.env.NORMAL_FLOW_FAMILY_MAX_DEPTH))
             ? Math.max(1, Math.floor(Number(process.env.NORMAL_FLOW_FAMILY_MAX_DEPTH)))
             : 4,
@@ -149,7 +162,16 @@ module.exports = {
     schema: {
         UPPER_BODY_MUSCLES,
         LOWER_BODY_MUSCLES,
-        MUSCLES
+        MUSCLES,
+        STREET_FIGURE_TYPE_ID: '669cee980c89e9434327caa8',
+        CARDIO_TYPE_ID: '669cee980c89e9434327caac',
+        DEFAULT_MODES: ['repetitions', 'seconds', 'cardio'],
+        /** Variations cardio comptées en reps — exclues du backfill defaultMode cardio */
+        CARDIO_REP_EXCLUSION_VARIATION_IDS: [
+            '669ced7e665a3ffe777143ac', // Burpees
+            '6922144d1c858345acc2d111', // Jumping Jack
+            '692214541c858345acc2d43b', // Navy Seal Burpees
+        ],
     },
     variation: {
         EQUIVALENT_PROJECTION: { mergedNamesEmbedding: 0 },
