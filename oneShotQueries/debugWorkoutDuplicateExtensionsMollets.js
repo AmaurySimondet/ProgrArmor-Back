@@ -13,6 +13,7 @@ require('dotenv').config();
 const Variation = require('../schema/variation');
 
 const EXTENSIONS_MOLLETS_ID = '6922144e1c858345acc2d169';
+const EXTENSION_MOLLETS_MACHINE_ID = '6922144c1c858345acc2d0b9';
 const BARRE_GUIDEE_ID = '669c3609218324e0b7682ab9';
 const MACHINE_ID = '669c3609218324e0b7682aba';
 
@@ -135,6 +136,58 @@ const areVariationCanonicalChainsEqual = (variations1 = [], variations2 = []) =>
     return chain1.every((id, index) => id === chain2[index]);
 };
 
+const normalizeEquivalentToIdsFromVariation = (variation) => {
+    if (!variation || !Array.isArray(variation.equivalentTo)) return [];
+    return variation.equivalentTo
+        .map((entry) => {
+            const rawId = entry != null && typeof entry === 'object' && entry._id != null ? entry._id : entry;
+            return normalizeId(rawId);
+        })
+        .filter(Boolean);
+};
+
+const buildVariationByIdMapFromList = (variations = []) => {
+    const map = new Map();
+    for (const variation of flattenVariationList(variations)) {
+        const ids = normalizeVariationIdsFromVariation(variation);
+        for (const id of ids) {
+            if (!map.has(id)) map.set(id, variation);
+        }
+    }
+    return map;
+};
+
+const expandOneVariationId = (id, variationById, visited, result) => {
+    const sid = normalizeId(id);
+    if (!sid || visited.has(sid)) return;
+    visited.add(sid);
+    const doc = variationById.get(sid);
+    const equivalentTo = normalizeEquivalentToIdsFromVariation(doc);
+    if (equivalentTo.length >= 2) {
+        for (const childId of equivalentTo) expandOneVariationId(childId, variationById, visited, result);
+        return;
+    }
+    result.push(sid);
+};
+
+const resolveExpandedLeafVariationIds = (sourceVariations = [], variationById = null) => {
+    const flat = flattenVariationList(sourceVariations);
+    const byId = variationById || buildVariationByIdMapFromList(flat);
+    const sourceIds = flat.flatMap((variation) => normalizeVariationIdsFromVariation(variation));
+    const result = [];
+    const visited = new Set();
+    for (const id of sourceIds) expandOneVariationId(id, byId, visited, result);
+    return [...new Set(result.map(normalizeId).filter(Boolean))].sort();
+};
+
+const getVariationExpandedSignature = (variations = []) => {
+    const ids = resolveExpandedLeafVariationIds(variations);
+    return ids.join('|');
+};
+
+const areVariationExpandedSignaturesEqual = (variations1 = [], variations2 = []) =>
+    getVariationExpandedSignature(variations1) === getVariationExpandedSignature(variations2);
+
 function label(doc) {
     return doc?.name?.fr || doc?.name?.en || String(doc?._id || '?');
 }
@@ -152,15 +205,19 @@ async function resolveEquivalentNames(equivalentTo = []) {
 function printComparison(title, incoming, existing) {
     const combinationEqual = areVariationCombinationsEqual(incoming, existing);
     const canonicalChainEqual = areVariationCanonicalChainsEqual(incoming, existing);
+    const expandedSignatureEqual = areVariationExpandedSignaturesEqual(incoming, existing);
     console.log(`\n=== ${title} ===`);
     console.log('incoming ids:', normalizeVariationIdsFromVariations(incoming));
     console.log('existing ids:', normalizeVariationIdsFromVariations(existing));
+    console.log('incoming expanded signature:', getVariationExpandedSignature(incoming));
+    console.log('existing expanded signature:', getVariationExpandedSignature(existing));
     console.log('incoming canonical chain:', getVariationCanonicalChain(incoming));
     console.log('existing canonical chain:', getVariationCanonicalChain(existing));
     console.log('areVariationCombinationsEqual:', combinationEqual);
     console.log('areVariationCanonicalChainsEqual:', canonicalChainEqual);
-    console.log('=> duplicate blocked:', combinationEqual || canonicalChainEqual);
-    return { combinationEqual, canonicalChainEqual };
+    console.log('areVariationExpandedSignaturesEqual:', expandedSignatureEqual);
+    console.log('=> duplicate blocked:', combinationEqual || canonicalChainEqual || expandedSignatureEqual);
+    return { combinationEqual, canonicalChainEqual, expandedSignatureEqual };
 }
 
 async function run() {
@@ -171,7 +228,7 @@ async function run() {
     }
     await mongoose.connect(mongoUrl + database);
 
-    const ids = [EXTENSIONS_MOLLETS_ID, BARRE_GUIDEE_ID, MACHINE_ID];
+    const ids = [EXTENSIONS_MOLLETS_ID, EXTENSION_MOLLETS_MACHINE_ID, BARRE_GUIDEE_ID, MACHINE_ID];
     const docs = await Variation.find(
         { _id: { $in: ids } },
         { name: 1, isExercice: 1, equivalentTo: 1 }
@@ -185,22 +242,33 @@ async function run() {
     }
 
     const extensionsMollets = byId.get(EXTENSIONS_MOLLETS_ID);
+    const extensionMolletsMachine = byId.get(EXTENSION_MOLLETS_MACHINE_ID);
     const barreGuidee = byId.get(BARRE_GUIDEE_ID);
     const machine = byId.get(MACHINE_ID);
 
     console.log('=== Variations chargées ===');
     console.log('Extensions mollets:', label(extensionsMollets), EXTENSIONS_MOLLETS_ID);
     console.log('  equivalentTo:', await resolveEquivalentNames(extensionsMollets.equivalentTo));
+    console.log('Extension mollets machine:', label(extensionMolletsMachine), EXTENSION_MOLLETS_MACHINE_ID);
+    console.log('  equivalentTo:', await resolveEquivalentNames(extensionMolletsMachine.equivalentTo));
     console.log('Barre guidée:', label(barreGuidee), BARRE_GUIDEE_ID);
     console.log('Machine:', label(machine), MACHINE_ID);
 
     const existing = [extensionsMollets, barreGuidee];
     const incomingMachine = [extensionsMollets, machine];
+    const comboMachine = [extensionMolletsMachine];
+    const splitMachine = [extensionsMollets, machine];
 
     const result = printComparison(
         'Incoming Extensions mollets+Machine vs existing Extensions mollets+Barre guidée',
         incomingMachine,
         existing
+    );
+
+    const superiorEquivalence = printComparison(
+        'Combo Extension mollets machine vs split Extensions mollets+Machine (équivalence supérieure)',
+        comboMachine,
+        splitMachine
     );
 
     printComparison(
@@ -210,11 +278,18 @@ async function run() {
     );
 
     console.log('\n=== Synthèse ===');
-    if (result.canonicalChainEqual && !result.combinationEqual) {
-        console.log('ECHEC: faux positif — le détail matériel est encore ignoré.');
+    if (result.canonicalChainEqual && !result.combinationEqual && !result.expandedSignatureEqual) {
+        console.log('ECHEC: faux positif via chaîne canonique — le détail matériel est encore ignoré.');
         process.exitCode = 1;
-    } else if (!result.canonicalChainEqual && !result.combinationEqual) {
+    } else if (!result.canonicalChainEqual && !result.combinationEqual && !result.expandedSignatureEqual) {
         console.log('OK: Extensions mollets+Machine accepté à côté de Extensions mollets+Barre guidée.');
+    }
+
+    if (!superiorEquivalence.expandedSignatureEqual) {
+        console.log('ECHEC: combo vs split non détectés équivalents via signature expandue.');
+        process.exitCode = 1;
+    } else {
+        console.log('OK: équivalence supérieure combo vs split détectée.');
     }
 
     await mongoose.disconnect();
