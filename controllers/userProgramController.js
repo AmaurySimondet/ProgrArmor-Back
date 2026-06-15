@@ -1,4 +1,5 @@
 const userProgram = require('../lib/userProgram');
+const { getProgramPerformedExercises } = require('../lib/programPerformedExercises');
 
 module.exports = function (app) {
     app.get('/programs/examples', async (req, res) => {
@@ -55,6 +56,36 @@ module.exports = function (app) {
             res.json({ success: true, programs });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    app.get('/program/performed-exercises', async (req, res) => {
+        try {
+            const userId = req.query.userId;
+            const programId = req.query.programId;
+            if (!userId || !programId) {
+                return res.status(400).json({ success: false, message: 'userId and programId are required' });
+            }
+            const exercises = await getProgramPerformedExercises(userId, programId);
+            if (process.env.NODE_ENV !== 'production') {
+                console.log('[WorkoutQuickAdd][API] performed-exercises', {
+                    userId,
+                    programId,
+                    count: exercises.length,
+                    section2Sample: exercises.slice(0, 8).map((entry) => ({
+                        label: entry?.mergedVariationsNames?.fr
+                            || entry?.variationName?.fr
+                            || '(sans nom)',
+                        variationIds: entry?.variationIds || [],
+                        lastPerformedAt: entry?.lastPerformedAt || null,
+                    })),
+                });
+            }
+            res.json({ success: true, exercises });
+        } catch (err) {
+            console.error('[WorkoutQuickAdd][API] performed-exercises error', err.message);
+            const status = err.message.includes('forbidden') || err.message.includes('not found') ? 404 : 500;
+            res.status(status).json({ success: false, message: err.message });
         }
     });
 
