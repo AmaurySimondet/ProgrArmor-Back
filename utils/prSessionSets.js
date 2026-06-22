@@ -73,7 +73,7 @@ function normalizeSessionSetsForPrEvaluation(sessionSets, filters = {}) {
         }
 
         const value = Number(raw.value);
-        if (!Number.isFinite(value) || value <= 0) continue;
+        if (!Number.isFinite(value) || value < 0) continue;
 
         const weightLoad = raw.weightLoad != null ? Number(raw.weightLoad) : NaN;
         if (!Number.isFinite(weightLoad)) continue;
