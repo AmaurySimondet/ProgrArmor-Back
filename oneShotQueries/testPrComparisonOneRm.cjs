@@ -130,6 +130,7 @@ const withNormalizedOneRm = (set) => {
         value,
         weightLoad,
     }) => {
+        if (unit === 'repetitions' && Number(value) === 0) return null;
         const currentSet = withNormalizedOneRm(makeRepSet(value, weightLoad));
         const currentEffectiveLoad = weightLoad;
         const currentOneRm = resolvePrComparisonOneRmKg(currentSet);
@@ -177,6 +178,11 @@ const withNormalizedOneRm = (set) => {
     };
 
     assert.strictEqual(evaluateStatus({ allSets: [], value: 10, weightLoad: 20 }), 'NB');
+    assert.strictEqual(
+        evaluateStatus({ allSets: [], value: 0, weightLoad: 20 }),
+        null,
+        '0 reps should never grant NB/new best when there is no history',
+    );
 
     const history = [withNormalizedOneRm(makeRepSet(19, 14, { _id: 'h1' }))];
     assert.strictEqual(
