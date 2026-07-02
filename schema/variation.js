@@ -15,6 +15,7 @@ const variationSchema = new Schema(
             en: { type: String, required: true }
         },
         selfmade: { type: Boolean, required: true },
+        madeByUser: { type: Schema.Types.ObjectId, ref: 'User', default: null },
         megatype: { type: Schema.Types.ObjectId, ref: "Megatype" },
         isExercice: { type: Boolean, required: true },
         isUnilateral: { type: Boolean, default: false },
@@ -57,6 +58,9 @@ const variationSchema = new Schema(
 
 variationSchema.index({ type: 1, isExercice: 1, popularity: -1 });
 variationSchema.index({ type: 1, isExercice: 1, 'popularity.global': -1 });
+variationSchema.index({ selfmade: 1, madeByUser: 1 });
+variationSchema.index({ isExercice: 1, 'normalizedName.fr': 1 });
+variationSchema.index({ isExercice: 1, 'normalizedName.en': 1 });
 variationSchema.index({ 'muscles.primary': 1 });
 variationSchema.index({ 'muscles.secondary': 1 });
 

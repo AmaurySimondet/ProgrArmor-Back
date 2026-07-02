@@ -3,7 +3,7 @@
  *
  * Usage:
  *   node oneShotQueries/backfillVariationDefaultMode.js          # dry-run
- *   APPLY=1 node oneShotQueries/backfillVariationDefaultMode.js  # apply
+ *   node oneShotQueries/backfillVariationDefaultMode.js --apply  # apply
  */
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -17,7 +17,7 @@ const { schema: {
 } } = require('../constants');
 
 const BATCH_SIZE = 500;
-const APPLY = process.env.APPLY === '1';
+const APPLY = process.argv.includes('--apply');
 
 const exclusionSet = new Set(CARDIO_REP_EXCLUSION_VARIATION_IDS.map(String));
 
@@ -40,7 +40,7 @@ async function backfillVariationDefaultMode() {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-    console.log('Connected to database:', process.env.DATABASE.split('/')[1]);
+    console.log('Connected to database:', process.env.DATABASE);
     console.log('Mode:', APPLY ? 'APPLY' : 'dry-run');
     console.log('DEFAULT_MODES:', DEFAULT_MODES.join(', '));
 

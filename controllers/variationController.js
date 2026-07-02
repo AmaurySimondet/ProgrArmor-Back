@@ -261,6 +261,26 @@ module.exports = (router) => {
         }
     });
 
+    router.post('/variation/selfmade', async (req, res) => {
+        try {
+            const authenticatedUserId = req.user?._id?.toString();
+            if (!authenticatedUserId) {
+                return res.status(401).json({ success: false, message: 'Unauthorized' });
+            }
+
+            const variationSelfmade = require('../lib/variationSelfmade');
+            const created = await variationSelfmade.createSelfmadeVariation(req.body || {}, authenticatedUserId);
+            return res.status(201).json({ success: true, variation: created });
+        } catch (err) {
+            const status = err.statusCode || 400;
+            return res.status(status).json({
+                success: false,
+                message: err.message,
+                existing: err.existing || undefined,
+            });
+        }
+    });
+
     router.get('/variation/rrf', async (req, res) => {
         try {
             const search = req.query.search;
