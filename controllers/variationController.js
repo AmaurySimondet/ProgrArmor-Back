@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const variation = require('../lib/variation');
 const { schema: { MUSCLES } } = require('../constants');
 const WEIGHT_TYPES = ['bodyweight_plus_external', 'external_free', 'external_machine'];
@@ -333,6 +334,29 @@ module.exports = (router) => {
             if (err.statusCode === 404) {
                 return res.status(404).json({ success: false, message: err.message });
             }
+            console.error(err);
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    router.post('/variation/picture', async (req, res) => {
+        try {
+            const rawIds = req.body?.ids;
+            if (!Array.isArray(rawIds) || rawIds.length === 0) {
+                return res.status(400).json({ success: false, message: 'ids must be a non-empty array' });
+            }
+            const ids = rawIds.map((id) => String(id)).filter(Boolean);
+            const invalidId = ids.find((id) => !mongoose.Types.ObjectId.isValid(id));
+            if (invalidId) {
+                return res.status(400).json({ success: false, message: `Invalid variation id: ${invalidId}` });
+            }
+            const result = await variation.resolvePictureForVariationIds(ids);
+            res.json({
+                success: true,
+                picture: result.picture,
+                source: result.source,
+            });
+        } catch (err) {
             console.error(err);
             res.status(500).json({ success: false, message: err.message });
         }
