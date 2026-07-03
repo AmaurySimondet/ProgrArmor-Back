@@ -67,26 +67,23 @@ const withNormalizedOneRm = (set) => {
     console.log('ATH category selection — OK');
 })();
 
-(function testNegativeEffectiveLoadMaxAtSameReps() {
-    const assistanceSet = {
+(function testNegativeEffectiveLoadPeakAtSameLoad() {
+    const makeAssistanceSet = (value, id) => ({
         unit: 'repetitions',
-        value: 12,
+        value,
         weightLoad: 0,
         effectiveWeightLoad: -10,
         elastic: { use: 'assistance', tension: 10, type: 'band' },
-    };
-    const history = [assistanceSet, { ...assistanceSet, _id: 'h2' }];
-    assert.strictEqual(maxEffectiveLoadAmongSets(history), -10);
-    const currentEffectiveLoad = -10;
-    const maxLoadAtValue = maxEffectiveLoadAmongSets(
-        history.filter((s) => s.value === 12),
-    );
-    assert.strictEqual(maxLoadAtValue, -10);
+        _id: id,
+    });
+    const history = [makeAssistanceSet(10, 'h1'), makeAssistanceSet(12, 'h2')];
+    const atSameLoad = filterSetsAtSameEffectiveLoad(history, -10);
+    assert.strictEqual(maxValueAmongSets(atSameLoad), 12);
     assert.ok(
-        Math.abs(currentEffectiveLoad - maxLoadAtValue) <= LOAD_EPSILON,
-        '12@0kg -10 elastic should tie historical max → SB semantics',
+        10 < maxValueAmongSets(atSameLoad),
+        '10 reps below peak 12 at same -10kg effective load → no badge',
     );
-    console.log('negative effective load max at same reps — OK');
+    console.log('negative effective load peak at same load — OK');
 })();
 
 (function testMaxEffectiveLoadIgnoresNonFinite() {
@@ -152,29 +149,20 @@ const withNormalizedOneRm = (set) => {
             && maxHistoricalOneRm != null
             && currentOneRm > maxHistoricalOneRm;
 
-        const setsSameValue = sameUnitSets.filter((s) => s.value === value);
-        const hasSameValueHistory = setsSameValue.length > 0;
-
         if (isAth) return 'ATH';
-        if (hasSameValueHistory) {
-            const maxLoadAtValue = maxEffectiveLoadAmongSets(setsSameValue);
-            if (currentEffectiveLoad > maxLoadAtValue + LOAD_EPSILON) return 'PR';
-            if (Math.abs(currentEffectiveLoad - maxLoadAtValue) <= LOAD_EPSILON) return 'SB';
-            return null;
-        }
 
-        // Même sémantique que evaluatePersonalRecordWithContext : historique DB seulement.
         const setsAtSameLoad = filterSetsAtSameEffectiveLoad(
             sameUnitSets,
             currentEffectiveLoad,
         );
         const maxValueAtSameLoad = maxValueAmongSets(setsAtSameLoad);
+        if (setsAtSameLoad.length === 0) return 'NB';
         if (maxValueAtSameLoad != null && Number.isFinite(currentValue)) {
             if (currentValue > maxValueAtSameLoad) return 'PR';
             if (currentValue === maxValueAtSameLoad) return 'SB';
             return null;
         }
-        return 'NB';
+        return null;
     };
 
     assert.strictEqual(evaluateStatus({ allSets: [], value: 10, weightLoad: 20 }), 'NB');
@@ -260,6 +248,52 @@ const withNormalizedOneRm = (set) => {
     assert.strictEqual(
         evaluateStatus({ allSets: history19at14only, value: 19, weightLoad: 15 }),
         'ATH',
+    );
+
+    const peakAt50History = [
+        withNormalizedOneRm(makeRepSet(10, 50, { _id: 'ten' })),
+        withNormalizedOneRm(makeRepSet(12, 50, { _id: 'twelve' })),
+    ];
+    assert.strictEqual(
+        evaluateStatus({ allSets: peakAt50History, value: 10, weightLoad: 50 }),
+        null,
+        '10@50kg below peak 12@50kg: no badge even if 10 was done before',
+    );
+
+    const tuckHoldHistory = [
+        { unit: 'seconds', value: 15, weightLoad: 0, effectiveWeightLoad: 0, _id: 's15' },
+        { unit: 'seconds', value: 25, weightLoad: 0, effectiveWeightLoad: 0, _id: 's25' },
+        { unit: 'seconds', value: 20, weightLoad: 0, effectiveWeightLoad: 0, _id: 's20' },
+    ];
+    assert.strictEqual(
+        evaluateStatus({
+            allSets: tuckHoldHistory,
+            unit: 'seconds',
+            value: 20,
+            weightLoad: 0,
+        }),
+        null,
+        '20s@0kg below peak 25s: no badge even if 20s was done before',
+    );
+    assert.strictEqual(
+        evaluateStatus({
+            allSets: tuckHoldHistory,
+            unit: 'seconds',
+            value: 26,
+            weightLoad: 0,
+        }),
+        'PR',
+        '26s@0kg beats peak 25s',
+    );
+    assert.strictEqual(
+        evaluateStatus({
+            allSets: tuckHoldHistory,
+            unit: 'seconds',
+            value: 25,
+            weightLoad: 0,
+        }),
+        'SB',
+        '25s@0kg ties peak',
     );
 
     console.log('isPr semantics ATH/PR/SB/NB — OK');
