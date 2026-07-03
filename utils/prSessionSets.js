@@ -1,6 +1,20 @@
 const { whichWeight: { MAX_SESSION_SETS } } = require('../constants');
 const { getEffectiveLoadPreferringPersisted, resolvePrComparisonOneRmKg } = require('./set');
 
+const UNILATERAL_SIDES = new Set(['left', 'right']);
+
+/**
+ * Filtre latéral commun (PR check, whichweight session sets).
+ */
+function matchesSessionSetLateralFilter(raw, { isUnilateral = undefined, unilateralSide = undefined } = {}) {
+    if (isUnilateral !== true) return true;
+    if (raw?.isUnilateral !== true) return false;
+    if (unilateralSide === 'left' || unilateralSide === 'right') {
+        return raw.unilateralSide === unilateralSide;
+    }
+    return true;
+}
+
 function normalizeCardioSessionSet(raw) {
     const value = Number(raw.value);
     if (!Number.isFinite(value) || value <= 0) return null;
@@ -52,12 +66,7 @@ function normalizeSessionSetsForPrEvaluation(sessionSets, filters = {}) {
         if (unit && setUnit !== unit) continue;
 
         if (setUnit === 'cardio') {
-            if (isUnilateral === true) {
-                if (raw.isUnilateral !== true) continue;
-                if (unilateralSide === 'left' || unilateralSide === 'right') {
-                    if (raw.unilateralSide !== unilateralSide) continue;
-                }
-            }
+            if (!matchesSessionSetLateralFilter(raw, { isUnilateral, unilateralSide })) continue;
             const normalizedCardio = normalizeCardioSessionSet(raw);
             if (normalizedCardio) out.push(normalizedCardio);
             continue;
@@ -65,12 +74,7 @@ function normalizeSessionSetsForPrEvaluation(sessionSets, filters = {}) {
 
         if (setUnit !== 'repetitions' && setUnit !== 'seconds') continue;
 
-        if (isUnilateral === true) {
-            if (raw.isUnilateral !== true) continue;
-            if (unilateralSide === 'left' || unilateralSide === 'right') {
-                if (raw.unilateralSide !== unilateralSide) continue;
-            }
-        }
+        if (!matchesSessionSetLateralFilter(raw, { isUnilateral, unilateralSide })) continue;
 
         const value = Number(raw.value);
         if (!Number.isFinite(value) || value < 0) continue;
@@ -162,6 +166,8 @@ function filterSessionPeersWithStrongerOneRm(sessionPeerSets, currentOneRmKg) {
 }
 
 module.exports = {
+    matchesSessionSetLateralFilter,
     normalizeSessionSetsForPrEvaluation,
     filterSessionPeersWithStrongerOneRm,
+    UNILATERAL_SIDES,
 };
