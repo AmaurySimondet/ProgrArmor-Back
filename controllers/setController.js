@@ -423,6 +423,25 @@ module.exports = function (app) {
         const sessionSets = source === 'body' ? data.sessionSets : undefined;
         const excludeSetId = source === 'body' ? data.excludeSetId : undefined;
         const cardio = data.cardio && typeof data.cardio === 'object' ? data.cardio : undefined;
+        const seanceDateRaw = data.seanceDate ?? data.prEvaluationOptions?.historicalBeforeDate ?? data.prEvaluationOptions?.referenceDate;
+        let prEvaluationOptions = undefined;
+        if (seanceDateRaw != null && seanceDateRaw !== '') {
+            const seanceDate = new Date(seanceDateRaw);
+            if (!Number.isNaN(seanceDate.getTime())) {
+                prEvaluationOptions = {
+                    historicalBeforeDate: seanceDate,
+                    referenceDate: seanceDate,
+                };
+            }
+        } else if (data.prEvaluationOptions && typeof data.prEvaluationOptions === 'object') {
+            const { historicalBeforeDate, referenceDate } = data.prEvaluationOptions;
+            if (historicalBeforeDate != null || referenceDate != null) {
+                prEvaluationOptions = {
+                    ...(historicalBeforeDate != null ? { historicalBeforeDate } : {}),
+                    ...(referenceDate != null ? { referenceDate } : {}),
+                };
+            }
+        }
 
         const { isPersonalRecord, prDetail } = await set.isPersonalRecordWithDetail(
             userId,
@@ -438,6 +457,7 @@ module.exports = function (app) {
             sessionSets,
             excludeSetId,
             cardio,
+            prEvaluationOptions,
         );
 
         if (process.env.DEBUG_PR_ISPR !== '0' && process.env.DEBUG_PR_ISPR !== 'false') {
