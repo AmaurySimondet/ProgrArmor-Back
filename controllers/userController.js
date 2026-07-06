@@ -1,5 +1,6 @@
 const login = require('../lib/login.js');
 const User = require('../lib/user.js');
+const { userMuscleRecency } = require('../lib/userMuscleRecency.js');
 
 module.exports = function (app) {
     //LOGIN SIGNUP
@@ -31,6 +32,7 @@ module.exports = function (app) {
     app.get('/getUsers', User.getUsers);
     app.get('/searchUsers', User.searchUsers);
     app.get('/userStats', User.userStats);
+    app.get('/userMuscleRecency', userMuscleRecency);
     app.get('/regularityScore', User.getRegularityScore);
     app.get('/topUsers', User.getTopUsers);
 
