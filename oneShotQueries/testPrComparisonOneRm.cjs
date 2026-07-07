@@ -6,6 +6,7 @@ const assert = require('assert');
 const {
     compareAndAssignPR,
     filterSetsAtSameEffectiveLoad,
+    filterSetsAtSameValue,
     getReferenceBestSetAtSameLoad,
     maxEffectiveLoadAmongSets,
     maxValueAmongSets,
@@ -155,13 +156,27 @@ const withNormalizedOneRm = (set) => {
             sameUnitSets,
             currentEffectiveLoad,
         );
+        const setsAtSameValue = filterSetsAtSameValue(sameUnitSets, currentValue);
         const maxValueAtSameLoad = maxValueAmongSets(setsAtSameLoad);
-        if (setsAtSameLoad.length === 0) return 'NB';
-        if (maxValueAtSameLoad != null && Number.isFinite(currentValue)) {
-            if (currentValue > maxValueAtSameLoad) return 'PR';
-            if (currentValue === maxValueAtSameLoad) return 'SB';
-            return null;
-        }
+        const maxLoadAtSameValue = maxEffectiveLoadAmongSets(setsAtSameValue);
+        const hasHistoryAtLoad = setsAtSameLoad.length > 0;
+        const hasHistoryAtValue = setsAtSameValue.length > 0;
+
+        if (!hasHistoryAtLoad && !hasHistoryAtValue) return 'NB';
+
+        const beatsValue = maxValueAtSameLoad != null
+            && Number.isFinite(currentValue)
+            && currentValue > maxValueAtSameLoad;
+        const beatsLoad = maxLoadAtSameValue != null
+            && currentEffectiveLoad > maxLoadAtSameValue + LOAD_EPSILON;
+        const tiesValue = maxValueAtSameLoad != null
+            && Number.isFinite(currentValue)
+            && currentValue === maxValueAtSameLoad;
+        const tiesLoad = maxLoadAtSameValue != null
+            && Math.abs(currentEffectiveLoad - maxLoadAtSameValue) <= LOAD_EPSILON;
+
+        if (beatsValue || beatsLoad) return 'PR';
+        if (tiesValue && tiesLoad) return 'SB';
         return null;
     };
 
@@ -294,6 +309,40 @@ const withNormalizedOneRm = (set) => {
         }),
         'SB',
         '25s@0kg ties peak',
+    );
+
+    const dcHistory = [withNormalizedOneRm(makeRepSet(1, 95.5, { _id: 'max' }))];
+    assert.strictEqual(
+        evaluateStatus({ allSets: dcHistory, value: 1, weightLoad: 90 }),
+        null,
+        '1@90kg below best load at 1 rep (95.5kg): no badge',
+    );
+    assert.strictEqual(
+        evaluateStatus({ allSets: dcHistory, value: 1, weightLoad: 95.5 }),
+        'SB',
+        '1@95.5kg ties record at 1 rep',
+    );
+
+    const eightRepHistory = [
+        withNormalizedOneRm(makeRepSet(8, 40, { _id: 'eight40' })),
+        withNormalizedOneRm(makeRepSet(10, 50, { _id: 'ten50' })),
+    ];
+    assert.strictEqual(
+        evaluateStatus({ allSets: eightRepHistory, value: 8, weightLoad: 50 }),
+        'PR',
+        '8@50kg beats best load at 8 reps (40kg) when ATH blocked by 10@50',
+    );
+    assert.strictEqual(
+        evaluateStatus({ allSets: [eightRepHistory[0]], value: 8, weightLoad: 50 }),
+        'ATH',
+        '8@50kg vs only 8@40 can be ATH when 1RM beats',
+    );
+
+    const threeRepAt10 = [withNormalizedOneRm(makeRepSet(3, 10, { _id: 'three' }))];
+    assert.strictEqual(
+        evaluateStatus({ allSets: threeRepAt10, value: 2, weightLoad: 10 }),
+        null,
+        '2@10kg below peak 3@10kg',
     );
 
     console.log('isPr semantics ATH/PR/SB/NB — OK');

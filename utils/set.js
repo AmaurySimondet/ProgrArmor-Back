@@ -225,6 +225,13 @@ function filterSetsAtSameEffectiveLoad(sets, loadKg) {
     });
 }
 
+/** Sets avec la même valeur (reps ou secondes). */
+function filterSetsAtSameValue(sets, value) {
+    if (!Array.isArray(sets) || !Number.isFinite(Number(value))) return [];
+    const targetValue = Number(value);
+    return sets.filter((set) => Number(set?.value) === targetValue);
+}
+
 /** Meilleur value (reps ou secondes) parmi des sets. */
 function maxValueAmongSets(sets) {
     if (!Array.isArray(sets) || sets.length === 0) return null;
@@ -258,6 +265,7 @@ module.exports = {
     getEffectiveLoadPreferringPersisted,
     isSameEffectiveLoad,
     filterSetsAtSameEffectiveLoad,
+    filterSetsAtSameValue,
     maxValueAmongSets,
     getReferenceBestSetAtSameLoad,
     maxEffectiveLoadAmongSets,

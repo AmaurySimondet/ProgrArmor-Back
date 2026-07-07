@@ -78,7 +78,7 @@ module.exports = function (app) {
     // Record upload (unified route for profile picture and seance photos)
     app.post('/aws/record-upload', async (req, res) => {
         try {
-            const { userId, uploadResult, isProfilePic = false, seanceDate, seanceName, programId } = req.body;
+            const { userId, uploadResult, isProfilePic = false, seanceDate, seanceName, programId, photoType } = req.body;
 
             if (!userId || !hasRequiredUploadFields(uploadResult)) {
                 return res.status(400).json({
@@ -87,7 +87,9 @@ module.exports = function (app) {
                 });
             }
 
-            if (!isProfilePic && (!seanceDate || (!seanceName && !programId))) {
+            const isAvatarFace = photoType === 'avatarFace';
+
+            if (!isProfilePic && !isAvatarFace && (!seanceDate || (!seanceName && !programId))) {
                 return res.status(400).json({
                     success: false,
                     message: 'Missing required parameters for seance upload: seanceDate and seanceName or programId are required'
@@ -99,6 +101,7 @@ module.exports = function (app) {
                 seanceDate,
                 seanceName,
                 programId,
+                photoType,
             });
 
             res.json({ success: true, image });
@@ -236,8 +239,12 @@ module.exports = function (app) {
 
             // Create a unique file key
             const fileExtension = fileName.split('.').pop();
-            const normalizedUploadType = uploadType === 'profile' || isProfilePic ? 'profile' : 'seance';
-            const folder = normalizedUploadType === 'profile' ? 'profile' : 'seances';
+            let folder = 'seances';
+            if (uploadType === 'avatarFace') {
+                folder = 'avatar-face';
+            } else if (uploadType === 'profile' || isProfilePic) {
+                folder = 'profile';
+            }
             const key = `users/${userId}/${folder}/${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExtension}`;
 
             const command = new PutObjectCommand({
