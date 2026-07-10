@@ -1,6 +1,9 @@
 /**
  * Debug récence musculaire pour un utilisateur.
  * Usage: node oneShotQueries/debugUserMuscleRecency.js [userId]
+ *
+ * Pour comparer séance vs profil sur une date précise, voir :
+ *   node oneShotQueries/compareSessionVsProfileMuscleRecency.js <userId> --date=YYYY-MM-DD
  */
 const mongoose = require('mongoose');
 require('dotenv').config();

@@ -386,6 +386,63 @@ module.exports = function (app) {
     app.get('/figure-prs', (req, res) => handleProgressionPrsRequest(req, res, { detailed: false }));
     app.get('/figure-detailed-prs', (req, res) => handleProgressionPrsRequest(req, res, { detailed: true }));
 
+    const parsePrEvaluationOptions = (data) => {
+        const seanceDateRaw = data.seanceDate
+            ?? data.prEvaluationOptions?.historicalBeforeDate
+            ?? data.prEvaluationOptions?.referenceDate;
+        if (seanceDateRaw != null && seanceDateRaw !== '') {
+            const seanceDate = new Date(seanceDateRaw);
+            if (!Number.isNaN(seanceDate.getTime())) {
+                return {
+                    historicalBeforeDate: seanceDate,
+                    referenceDate: seanceDate,
+                };
+            }
+        }
+        if (data.prEvaluationOptions && typeof data.prEvaluationOptions === 'object') {
+            const { historicalBeforeDate, referenceDate } = data.prEvaluationOptions;
+            if (historicalBeforeDate != null || referenceDate != null) {
+                return {
+                    ...(historicalBeforeDate != null ? { historicalBeforeDate } : {}),
+                    ...(referenceDate != null ? { referenceDate } : {}),
+                };
+            }
+        }
+        return undefined;
+    };
+
+    const parseIsPrSetInput = (rawSet) => {
+        let elastic = null;
+        if (rawSet.elastic) {
+            elastic = {
+                type: rawSet.elastic?.type,
+                use: rawSet.elastic?.use,
+                tension: parseFloat(rawSet.elastic?.tension),
+            };
+        }
+        let effectiveWeightLoadOverride = undefined;
+        const effRaw = rawSet.effectiveWeightLoad;
+        if (effRaw !== undefined && effRaw !== '') {
+            const n = parseFloat(effRaw);
+            effectiveWeightLoadOverride = Number.isFinite(n) ? n : undefined;
+        }
+        let isUnilateral = undefined;
+        if (rawSet.isUnilateral === true || rawSet.isUnilateral === 'true') isUnilateral = true;
+        else if (rawSet.isUnilateral === false || rawSet.isUnilateral === 'false') isUnilateral = false;
+        const cardio = rawSet.cardio && typeof rawSet.cardio === 'object' ? rawSet.cardio : undefined;
+        return {
+            setId: rawSet.setId ?? rawSet._id ?? rawSet.id,
+            unit: rawSet.unit,
+            value: parseFloat(rawSet.value),
+            weightLoad: parseFloat(rawSet.weightLoad),
+            elastic,
+            effectiveWeightLoadOverride,
+            isUnilateral,
+            unilateralSide: rawSet.unilateralSide,
+            cardio,
+        };
+    };
+
     const handleIsPrRequest = async (req, res, { source = 'body' } = {}) => {
         const data = source === 'query' ? (req.query || {}) : (req.body || {});
         const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
@@ -423,25 +480,7 @@ module.exports = function (app) {
         const sessionSets = source === 'body' ? data.sessionSets : undefined;
         const excludeSetId = source === 'body' ? data.excludeSetId : undefined;
         const cardio = data.cardio && typeof data.cardio === 'object' ? data.cardio : undefined;
-        const seanceDateRaw = data.seanceDate ?? data.prEvaluationOptions?.historicalBeforeDate ?? data.prEvaluationOptions?.referenceDate;
-        let prEvaluationOptions = undefined;
-        if (seanceDateRaw != null && seanceDateRaw !== '') {
-            const seanceDate = new Date(seanceDateRaw);
-            if (!Number.isNaN(seanceDate.getTime())) {
-                prEvaluationOptions = {
-                    historicalBeforeDate: seanceDate,
-                    referenceDate: seanceDate,
-                };
-            }
-        } else if (data.prEvaluationOptions && typeof data.prEvaluationOptions === 'object') {
-            const { historicalBeforeDate, referenceDate } = data.prEvaluationOptions;
-            if (historicalBeforeDate != null || referenceDate != null) {
-                prEvaluationOptions = {
-                    ...(historicalBeforeDate != null ? { historicalBeforeDate } : {}),
-                    ...(referenceDate != null ? { referenceDate } : {}),
-                };
-            }
-        }
+        const prEvaluationOptions = parsePrEvaluationOptions(data);
 
         const { isPersonalRecord, prDetail } = await set.isPersonalRecordWithDetail(
             userId,
@@ -460,15 +499,6 @@ module.exports = function (app) {
             prEvaluationOptions,
         );
 
-        if (process.env.DEBUG_PR_ISPR !== '0' && process.env.DEBUG_PR_ISPR !== 'false') {
-            console.log('[PR/isPr] httpResponse', JSON.stringify({
-                isPersonalRecord,
-                oneRmDelta: prDetail?.oneRmDelta ?? null,
-                referencePeakOneRm: prDetail?.referencePeakOneRm ?? null,
-                kgDelta: prDetail?.kgDelta ?? null,
-            }));
-        }
-
         res.json({ success: true, isPersonalRecord, prDetail });
     };
 
@@ -486,6 +516,44 @@ module.exports = function (app) {
             await handleIsPrRequest(req, res, { source: 'query' });
         } catch (err) {
             console.error('[GET /ispr] Error:', err);
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    app.post('/ispr/batch', async (req, res) => {
+        try {
+            const data = req.body || {};
+            const authenticatedUserId = req.user && req.user._id ? req.user._id.toString() : null;
+            if (!authenticatedUserId) {
+                return res.status(401).json({ success: false, message: 'Unauthorized' });
+            }
+            const requestedUserId = data.userId != null ? String(data.userId) : null;
+            if (!requestedUserId || requestedUserId !== authenticatedUserId) {
+                return res.status(403).json({ success: false, message: 'Forbidden' });
+            }
+
+            const sets = Array.isArray(data.sets) ? data.sets : [];
+            if (sets.length === 0) {
+                return res.json({ success: true, results: [] });
+            }
+
+            const prEvaluationOptions = parsePrEvaluationOptions(data);
+            const parsedSets = sets
+                .map(parseIsPrSetInput)
+                .filter((setInput) => setInput.setId != null);
+
+            const results = await set.evaluatePersonalRecordsBatch({
+                userId: authenticatedUserId,
+                seanceId: data.seanceId,
+                variations: data.variations,
+                prEvaluationOptions,
+                sets: parsedSets,
+                sessionSets: data.sessionSets,
+            });
+
+            res.json({ success: true, results });
+        } catch (err) {
+            console.error('[POST /ispr/batch] Error:', err);
             res.status(500).json({ success: false, message: err.message });
         }
     });
