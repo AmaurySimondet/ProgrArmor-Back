@@ -43,7 +43,9 @@ module.exports = function (router) {
             const user = req.query?.user;
             const page = req.query?.page;
             const limit = req.query?.limit;
-            const result = await success.getAllSuccessesForUser(user, { page, limit });
+            const sortBy = req.query?.sortBy;
+            const sortOrder = req.query?.sortOrder;
+            const result = await success.getAllSuccessesForUser(user, { page, limit, sortBy, sortOrder });
             res.json({ success: true, ...result });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
