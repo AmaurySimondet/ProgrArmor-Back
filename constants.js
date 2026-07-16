@@ -165,6 +165,8 @@ module.exports = {
         MUSCLES,
         STREET_FIGURE_TYPE_ID: '669cee980c89e9434327caa8',
         CARDIO_TYPE_ID: '669cee980c89e9434327caac',
+        /** Type catalogue des détails musculaires (ex. Ischio-jambier, Biceps) */
+        MUSCLE_TYPE_ID: '669cda3b33e75a33610be146',
         DEFAULT_MODES: ['repetitions', 'seconds', 'cardio'],
         /** Variations cardio comptées en reps — exclues du backfill defaultMode cardio */
         CARDIO_REP_EXCLUSION_VARIATION_IDS: [

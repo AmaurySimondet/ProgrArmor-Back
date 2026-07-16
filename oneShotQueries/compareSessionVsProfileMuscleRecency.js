@@ -104,7 +104,7 @@ async function loadVariationContext(sets) {
 
     const objectIds = [...variationIds].map((id) => new mongoose.Types.ObjectId(id));
     const variations = await Variation.find({ _id: { $in: objectIds } })
-        .select('name muscles isExercice equivalentTo')
+        .select('name muscles isExercice equivalentTo type')
         .lean();
 
     const variationById = new Map(
