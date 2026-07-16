@@ -10,6 +10,7 @@ const variationSchema = new Schema(
             fr: { type: String, required: true },
             en: { type: String, required: true }
         },
+        aliases: [{ type: String }],
         normalizedName: {
             fr: { type: String, required: true },
             en: { type: String, required: true }

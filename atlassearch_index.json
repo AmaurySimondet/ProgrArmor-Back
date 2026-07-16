@@ -1,0 +1,72 @@
+{
+    "mappings": {
+      "dynamic": false,
+      "fields": {
+        "isExercice": {
+          "type": "boolean"
+        },
+        "muscles": {
+          "fields": {
+            "primary": {
+              "type": "token"
+            },
+            "secondary": {
+              "type": "token"
+            }
+          },
+          "type": "document"
+        },
+        "name": {
+          "fields": {
+            "en": [
+              {
+                "analyzer": "lucene.english",
+                "searchAnalyzer": "lucene.english",
+                "type": "string"
+              },
+              {
+                "analyzer": "lucene.english",
+                "foldDiacritics": true,
+                "maxGrams": 15,
+                "minGrams": 2,
+                "type": "autocomplete"
+              }
+            ],
+            "fr": [
+              {
+                "analyzer": "lucene.french",
+                "searchAnalyzer": "lucene.french",
+                "type": "string"
+              },
+              {
+                "analyzer": "lucene.french",
+                "foldDiacritics": true,
+                "maxGrams": 15,
+                "minGrams": 2,
+                "type": "autocomplete"
+              }
+            ]
+          },
+          "type": "document"
+        },
+        "type": {
+          "type": "objectId"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "weightType": {
+          "type": "token"
+        }
+      }
+    },
+    "synonyms": [
+      {
+        "analyzer": "lucene.standard",
+        "name": "synonyms",
+        "source": {
+          "collection": "synonyms"
+        }
+      }
+    ]
+  }
