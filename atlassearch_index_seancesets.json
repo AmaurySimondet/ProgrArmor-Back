@@ -1,0 +1,24 @@
+{
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "mergedAliases": [
+        {
+          "analyzer": "lucene.standard",
+          "searchAnalyzer": "lucene.standard",
+          "type": "string"
+        },
+        {
+          "analyzer": "lucene.standard",
+          "foldDiacritics": true,
+          "maxGrams": 15,
+          "minGrams": 2,
+          "type": "autocomplete"
+        }
+      ],
+      "user": {
+        "type": "objectId"
+      }
+    }
+  }
+}

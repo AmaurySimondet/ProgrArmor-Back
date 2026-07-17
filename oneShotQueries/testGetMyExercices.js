@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { MongoClient } = require('mongodb');
 require("dotenv").config();
 const set = require("../lib/set");
+const { buildMyExercisesSearchCompound } = require("../lib/variationSearchPipelines");
 
 // Connect to MongoDB using mongoose for models
 mongoose.connect(process.env.mongoURL + process.env.DATABASE, {
@@ -12,68 +13,21 @@ mongoose.connect(process.env.mongoURL + process.env.DATABASE, {
 // MongoDB client for direct operations
 const uri = process.env.mongoURL;
 const client = new MongoClient(uri);
-const Variation = require("../schema/variation");
+
+const USER_ID = "6365489f44d4b4000470882b";
+const SEARCH_QUERY = "bench press";
 
 const searchPipeline = [
     {
         $search: {
             index: "default",
-            compound: {
-                should: [
-                    {
-                        autocomplete: {
-                            query: "bench press",
-                            path: "mergedVariationsNames.fr",
-                            fuzzy: {
-                                maxEdits: 2,
-                                prefixLength: 0,
-                                maxExpansions: 50,
-                            },
-                            score: { boost: { value: 1 } },
-                        },
-                    },
-                    {
-                        text: {
-                            query: "bench press",
-                            path: "mergedVariationsNames.fr",
-                            score: { boost: { value: 3 } },
-                        },
-                    },
-                    {
-                        autocomplete: {
-                            query: "bench press",
-                            path: "mergedVariationsNames.en",
-                            fuzzy: {
-                                maxEdits: 2,
-                                prefixLength: 0,
-                                maxExpansions: 50,
-                            },
-                            score: { boost: { value: 1 } },
-                        },
-                    },
-                    {
-                        text: {
-                            query: "bench press",
-                            path: "mergedVariationsNames.en",
-                            score: { boost: { value: 3 } },
-                        },
-                    },
-                ],
-                filter: [
-                    {
-                        equals: {
-                            value: new mongoose.Types.ObjectId(
-                                "6365489f44d4b4000470882b"
-                            ),
-                            path: "user",
-                        },
-                    },
-                ],
-                minimumShouldMatch: 1,
-            },
+            compound: buildMyExercisesSearchCompound({
+                search: SEARCH_QUERY,
+                userId: new mongoose.Types.ObjectId(USER_ID),
+            }),
         },
     },
-]
+];
 
 async function testGetMyExercices() {
     try {
@@ -81,7 +35,7 @@ async function testGetMyExercices() {
         const db = client.db("progarmor");
         console.log("Connected to database:", "progarmor");
 
-        const { variations, total } = await set.getMyExercices("6365489f44d4b4000470882b", "squat", 1, 10);
+        const { variations, total } = await set.getMyExercices(USER_ID, "squat", 1, 10);
         console.log("Response from variationsWithDocs:", variations);
         console.log("First document of variationsWithDocs:", variations[0]);
         console.log("Total:", total);
@@ -101,7 +55,7 @@ async function testGetMyExercicesAll() {
         const db = client.db("progarmor");
         console.log("Connected to database:", "progarmor");
 
-        const { variations, total } = await set.getMyExercicesAll("6365489f44d4b4000470882b", 2, 10);
+        const { variations, total } = await set.getMyExercicesAll(USER_ID, 2, 10);
         console.log("Response from variationsWithDocs:", variations);
         console.log("First document of variationsWithDocs:", variations[0]);
         console.log("Total:", total);

@@ -54,6 +54,7 @@ const seancesetSchema = new Schema(
             fr: { type: String, required: false },
             en: { type: String, required: false }
         },
+        mergedAliases: [{ type: String }],
         rpe: { type: Number, required: false },
         brzycki: { type: Number, default: null },
         epley: { type: Number, default: null },

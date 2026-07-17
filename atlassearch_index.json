@@ -1,72 +1,86 @@
 {
-    "mappings": {
-      "dynamic": false,
-      "fields": {
-        "isExercice": {
-          "type": "boolean"
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "aliases": [
+        {
+          "analyzer": "lucene.standard",
+          "searchAnalyzer": "lucene.standard",
+          "type": "string"
         },
-        "muscles": {
-          "fields": {
-            "primary": {
-              "type": "token"
+        {
+          "analyzer": "lucene.standard",
+          "foldDiacritics": true,
+          "maxGrams": 15,
+          "minGrams": 2,
+          "type": "autocomplete"
+        }
+      ],
+      "isExercice": {
+        "type": "boolean"
+      },
+      "muscles": {
+        "fields": {
+          "primary": {
+            "type": "token"
+          },
+          "secondary": {
+            "type": "token"
+          }
+        },
+        "type": "document"
+      },
+      "name": {
+        "fields": {
+          "en": [
+            {
+              "analyzer": "lucene.english",
+              "searchAnalyzer": "lucene.english",
+              "type": "string"
             },
-            "secondary": {
-              "type": "token"
+            {
+              "analyzer": "lucene.english",
+              "foldDiacritics": true,
+              "maxGrams": 15,
+              "minGrams": 2,
+              "type": "autocomplete"
             }
-          },
-          "type": "document"
+          ],
+          "fr": [
+            {
+              "analyzer": "lucene.french",
+              "searchAnalyzer": "lucene.french",
+              "type": "string"
+            },
+            {
+              "analyzer": "lucene.french",
+              "foldDiacritics": true,
+              "maxGrams": 15,
+              "minGrams": 2,
+              "type": "autocomplete"
+            }
+          ]
         },
-        "name": {
-          "fields": {
-            "en": [
-              {
-                "analyzer": "lucene.english",
-                "searchAnalyzer": "lucene.english",
-                "type": "string"
-              },
-              {
-                "analyzer": "lucene.english",
-                "foldDiacritics": true,
-                "maxGrams": 15,
-                "minGrams": 2,
-                "type": "autocomplete"
-              }
-            ],
-            "fr": [
-              {
-                "analyzer": "lucene.french",
-                "searchAnalyzer": "lucene.french",
-                "type": "string"
-              },
-              {
-                "analyzer": "lucene.french",
-                "foldDiacritics": true,
-                "maxGrams": 15,
-                "minGrams": 2,
-                "type": "autocomplete"
-              }
-            ]
-          },
-          "type": "document"
-        },
-        "type": {
-          "type": "objectId"
-        },
-        "verified": {
-          "type": "boolean"
-        },
-        "weightType": {
-          "type": "token"
-        }
+        "type": "document"
+      },
+      "type": {
+        "type": "objectId"
+      },
+      "verified": {
+        "type": "boolean"
+      },
+      "weightType": {
+        "type": "token"
       }
-    },
-    "synonyms": [
-      {
-        "analyzer": "lucene.standard",
-        "name": "synonyms",
-        "source": {
-          "collection": "synonyms"
-        }
+    }
+  },
+  "synonyms": [
+    {
+      "analyzer": "lucene.standard",
+      "name": "synonyms",
+      "source": {
+        "collection": "synonyms"
       }
-    ]
-  }
+    }
+  ]
+}
