@@ -27,6 +27,7 @@ module.exports = (router) => {
                 isExercice: parseBooleanQuery(req.query.isExercice),
                 verified: parseBooleanQuery(req.query.verified),
                 hasPicture: parseBooleanQuery(req.query.hasPicture),
+                selfmade: parseBooleanQuery(req.query.selfmade),
                 sortBy: req.query.sortBy,
                 page: parseInt(req.query.page, 10) || 1,
                 limit: parseInt(req.query.limit, 10) || 30,
